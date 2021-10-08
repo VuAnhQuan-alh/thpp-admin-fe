@@ -18,7 +18,6 @@ function* editProfile({ payload: { user } }) {
 function* getProfile() {
   try {
     const response = yield call(apiGetProfile)
-    console.log("Response", response.data.obj);
     yield put(profileSuccess(response.data.obj));
   } catch (error) {
     yield put(profileError(error))

@@ -47,6 +47,7 @@ const App = props => {
       dispatch(profileRequest());
     }
   }, [user])
+
   return (
     <React.Fragment>
       <Router>

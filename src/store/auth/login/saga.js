@@ -14,8 +14,7 @@ function* loginUser({ payload }) {
     const response = yield call(apiSignin, payload);
     if (response.status == 200) {
       yield put(loginSuccess(response.data))
-      console.log("response", response.data.token);
-      // httpServices.attachTokenToHeader(response.data.token)
+      httpServices.attachTokenToHeader(response.data.token)
       localStorage.setItem("authUser", response.data.token)
 
     } else {
