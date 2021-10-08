@@ -51,7 +51,7 @@ const Login = (props) => {
                   <div className="p-2">
                     <Formik
                       initialValues={{
-                        username: "Duongpt00",
+                        username: "manhnh",
                         password: "password"
                       }}
                       onSubmit={(values) => {
