@@ -21,13 +21,14 @@ import { profileRequest } from './store/actions'
 import httpServices from './services/httpServices'
 
 
-const App = props => {
+const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Login)
+  const layout = useSelector((state) => state.Layout)
   function getLayout() {
     let layoutCls = VerticalLayout
 
-    switch (props.layout.layoutType) {
+    switch (layout.layoutType) {
       case "horizontal":
         layoutCls = HorizontalLayout
         break
@@ -84,10 +85,11 @@ App.propTypes = {
   layout: PropTypes.any
 }
 
-const mapStateToProps = state => {
-  return {
-    layout: state.Layout,
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     layout: state.Layout,
+//   }
+// }
 
-export default connect(mapStateToProps, null)(App)
+// export default connect(mapStateToProps, null)(App)
+export default App

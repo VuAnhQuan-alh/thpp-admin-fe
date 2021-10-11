@@ -6,8 +6,9 @@ import Register from "../pages/Authentication/Register"
 // Profile
 import UserProfile from "../pages/Authentication/user-profile"
 // Dashboard
-import Dashboard from "../pages/Dashboard/index"
+// import Dashboard from "../pages/Dashboard/index"
 import Dashboard2 from "../pages/Dashboard2.js/index.js"
+import DoiSoatGDVNPay from "../pages/DoiSoatGDVNPay"
 //Tables
 import BasicTables from "../pages/Tables/BasicTables"
 import DatatableTables from "../pages/Tables/DatatableTables"
@@ -18,7 +19,7 @@ import Pages500 from "../pages/Utility/pages-500"
 
 
 const userRoutes = [
-  { path: "/dashboard", component: Dashboard },
+  { path: "/Doi-soat-giao-dich-VNPay", component: DoiSoatGDVNPay },
   { path: '/dashboard2', component: Dashboard2 },
 
   // Tables
@@ -31,7 +32,7 @@ const userRoutes = [
   { path: "/profile", component: UserProfile },
 
   // this route should be at the end of all other routes
-  { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> },
+  { path: "/", exact: true, component: () => <Redirect to="/Doi-soat-giao-dich-VNPay" /> },
 ]
 
 const authRoutes = [

@@ -6,7 +6,7 @@ import React, { memo, useEffect, useState } from "react";
 import SelectComponents from "../SelectComponents";
 import { OptionTypeBase, Props as SelectProps } from "react-select";
 
-import { API_URL, get } from "../../helpers/api_helper";
+// import { API_URL, get } from "../../helpers/api_helper";
 
 interface Props extends SelectProps<OptionTypeBase> {
   title?: string;
@@ -46,13 +46,13 @@ export default memo((props: Props) => {
   const [loading, setLoading] = useState(false);
 
   const dmDiaChinh = async () => {
-    setLoading(true);
-    await get(`${API_URL}dm/api/quoc-gia`)
-      .then((res) => {
-        setData(res?.data);
-      })
-      .catch((err) => setData([]))
-      .finally(() => setLoading(false));
+    // setLoading(true);
+    // await get(`${API_URL}dm/api/quoc-gia`)
+    //   .then((res) => {
+    //     setData(res?.data);
+    //   })
+    //   .catch((err) => setData([]))
+    //   .finally(() => setLoading(false));
   };
 
   useEffect(() => {

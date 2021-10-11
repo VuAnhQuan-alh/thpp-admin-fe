@@ -33,49 +33,6 @@ export default React.memo((props) => {
     ...remainProps
   } = props;
 
-  // const customStyles = {
-  //   // Nếu có ...provider thì sẽ mặc định style cũ
-  //   control: (provided, state) => ({
-  //     ...provided,
-  //     borderRadius: 5,
-  //     // khi bấm
-  //     // "&:hover": {
-  //     //   borderColor: state.isFocused ? "red" : provided.borderColor,
-  //     // }, //
-  //     // border: "1px solid lightgray", // default border color
-  //     border: "none",
-  //     boxShadow: "none",
-  //   }),
-
-  //   valueContainer: (provided, state) => {
-  //     return {
-  //       ...provided,
-  //       height: "25px",
-  //       padding: "0 6px",
-  //       // borderBottom: "1px solid #bfbfbf",
-  //     };
-  //   },
-  //   menu: (provided, state) => ({
-  //     ...provided,
-  //     zIndex: 200,
-  //   }),
-  //   option: (provided, state) => ({
-  //     ...provided,
-  //   }),
-  //   input: (provided, state) => ({
-  //     ...provided,
-  //     margin: "0px",
-  //     width: "auto",
-  //   }),
-  //   indicatorSeparator: (provided, state) => ({
-  //     // Thanh phân cách giữa input và nút xuống
-  //     display: "none",
-  //   }),
-  //   indicatorsContainer: (provided, state) => ({
-  //     ...provided,
-  //   }),
-  // };
-
   const customStyles = {
     // Nếu có ...provider thì sẽ mặc định style cũ
     control: (provided, state) => ({
@@ -181,47 +138,5 @@ export default React.memo((props) => {
         {error && touched && <div className="error">{error}</div>}
       </div>
     </div>
-    // <div style={{}}>
-    //   {/* {title && (
-    //     <label className="mt-1">
-    //       {title} {isRequired && <span className="required">*</span>}
-    //     </label>
-    //   )} */}
-    //   {title && (
-    //     <Label className="form-label mt-1 title-label">
-    //       {title} {isRequired && <span className="error">*</span>}
-    //     </Label>
-    //   )}
-
-    //   <div
-    //     style={{
-    //       marginTop: !title ? "33px" : "auto",
-    //       borderColor: "coral",
-    //       backgroundColor: error ? "#ff715b" : "#ced4da",
-    //       borderRadius: 5,
-    //       padding: "1px",
-    //       position: "relative",
-    //       bottom: "1px",
-    //     }}
-    //   >
-    //     <Select
-    //       getOptionLabel={getOptionLabel}
-    //       getOptionValue={getOptionValue}
-    //       ref={refs && refs}
-    //       placeholder={placeholder || ""}
-    //       options={options || []}
-    //       isClearable={isClearable === false ? isClearable : true}
-    //       noOptionsMessage={() => "Không có dữ liệu"}
-    //       loadingMessage={() => "Đang tải dữ liệu"}
-    //       menuPosition={positionMenu}
-    //       styles={customStyles}
-    //       onChange={onChange}
-    //       isDisabled={disabled}
-    //       onInputChange={onInputChange}
-    //       value={value}
-    //     />
-    //   </div>
-    //   {error && <div className="error">{error}</div>}
-    // </div>
   );
 });

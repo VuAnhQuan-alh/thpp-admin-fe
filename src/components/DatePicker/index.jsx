@@ -1,11 +1,11 @@
+import enGB from "date-fns/locale/en-GB";
+import vi from "date-fns/locale/vi";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import DatePicker, { ReactDatePickerProps } from "react-datepicker";
-import dateLogo from "../../assets/images/date.svg";
-import Portal from "reactstrap/lib/Portal";
+import DatePicker from "react-datepicker";
 import MaskedTextInput from "react-text-mask";
-import vi from "date-fns/locale/vi";
-import enGB from "date-fns/locale/en-GB";
+import dateLogo from "../../assets/images/date.svg";
+import 'react-datepicker/dist/react-datepicker.css';
 
 // interface Props extends ReactDatePickerProps {
 //   title?: string;

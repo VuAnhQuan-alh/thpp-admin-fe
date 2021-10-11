@@ -696,7 +696,8 @@ body[data-sidebar="colored"].vertical-collpsed .vertical-menu #sidebar-menu ul l
 @media (min-width: 1200px) {
   body[data-layout="horizontal"] .container-fluid,
   body[data-layout="horizontal"] .navbar-header {
-    max-width: 85%; } }
+    max-width: 95%;
+   } }
 
 @media (min-width: 992px) {
   .topnav .navbar-nav .nav-item:first-of-type .nav-link {

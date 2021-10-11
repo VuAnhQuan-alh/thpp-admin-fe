@@ -86,85 +86,17 @@ const Navbar = props => {
                   }}
                   to="dashboard"
                 >
-                  {props.t("Dashboard")}{" "}<div className="arrow-down"></div>
+                  {props.t("Đối soát giao dịch")}{" "}<div className="arrow-down"></div>
                 </Link>
                 <div
                   className={classname("dropdown-menu", { show: dashboard })}
                 >
-                  <Link to="/dashboard" className="dropdown-item">
-                    {props.t("Dashboard")} 1
-                    </Link>
+                  <Link to="/Doi-soat-giao-dich-VNPay" className="dropdown-item">
+                    {props.t("Đối soát giao dịch VNPay")}
+                  </Link>
                   <Link to="/dashboard2" className="dropdown-item">
                     {props.t("Dashboard")} 2
-                    </Link>
-                </div>
-              </li>
-
-              <li className="nav-item dropdown">
-                <Link
-                  to="/#"
-                  onClick={e => {
-                    e.preventDefault()
-                    setapp(!app)
-                  }}
-                  className="nav-link dropdown-togglez arrow-none"
-                >
-                  {props.t("Apps")} <div className="arrow-down"></div>
-                </Link>
-                <div className={classname("dropdown-menu", { show: app })}>
-                  <Link to="calendar" className="dropdown-item">
-                    {props.t("Calendar")}
                   </Link>
-                  <div className="dropdown">
-                    <Link
-                      to="/#"
-                      className="dropdown-item dropdown-toggle arrow-none"
-                      onClick={e => {
-                        e.preventDefault()
-                        setemail(!email)
-                      }}
-                    >
-                      {props.t("Email")} <div className="arrow-down"></div>
-                    </Link>
-                    <div
-                      className={classname("dropdown-menu", { show: email })}
-                    >
-                      <Link to="email-inbox" className="dropdown-item">
-                        {props.t("Inbox")}
-                      </Link>
-                      <Link to="email-read" className="dropdown-item">
-                        {props.t("Read Email")}
-                      </Link>
-                    </div>
-                  </div>
-
-
-                  <div className="dropdown">
-                    <Link
-                      to="/#"
-                      className="dropdown-item dropdown-toggle arrow-none"
-                      onClick={e => {
-                        e.preventDefault()
-                        settask(!task)
-                      }}
-                    >
-                      {props.t("Tasks")} <div className="arrow-down"></div>
-                    </Link>
-                    <div
-                      className={classname("dropdown-menu", { show: task })}
-                    >
-                      <Link to="/tasks-list" className="dropdown-item">
-                        {props.t("Task List")}
-                      </Link>
-                      <Link to="/tasks-kanban" className="dropdown-item">
-                        {props.t("Kanban Board")}
-                      </Link>
-                      <Link to="/tasks-create" className="dropdown-item">
-                        {props.t("Create Task")}
-                      </Link>
-                    </div>
-                  </div>
-
                 </div>
               </li>
             </ul>
