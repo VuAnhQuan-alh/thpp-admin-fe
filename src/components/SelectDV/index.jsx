@@ -41,10 +41,10 @@ export default memo((props: Props) => {
   const dmDV = async () => {
     setLoading(true);
     apiDichVu().then((res)=>{
-      if(res.status==200){
+      if(res?.status==200){
         setData(res.data.data)
       }else{
-      console.log("ERR")
+      console.log("ERR",res)
         setData([])
       }
     }).finally(()=>{setLoading(false)})

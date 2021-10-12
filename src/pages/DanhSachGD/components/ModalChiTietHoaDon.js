@@ -1,10 +1,21 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import { isEmpty } from "lodash";
+import React, { useEffect } from "react";
 import { Card, CardBody, Col, Modal, Row } from "reactstrap";
+import { apiChiTietGD } from "../../../services/apiFunction/DanhSachGD";
 
 export default (props) => {
     const { modalDetail, setModalDetail, item } = props
-
+    const callChiTietHoaDon = () => {
+        apiChiTietGD(312312321).then((res) => {
+            console.log("res", res);
+        })
+    }
+    useEffect(() => {
+        if (modalDetail && !isEmpty(item) && item?.txnRef) {
+            callChiTietHoaDon();
+        }
+    }, [modalDetail])
     return (
         <Modal isOpen={modalDetail} size="xl" centered toggle={() => { setModalDetail(!modalDetail) }}>
             <Card>

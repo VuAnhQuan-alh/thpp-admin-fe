@@ -20,9 +20,7 @@ class Services {
     attachTokenToHeader(token) {
         this.interceptors = this.axios.interceptors.request.use(
             function (config) {
-                // Do something before request is sent
-                // config.headers.Authorization = `Bearer ${token}`;
-                config.headers.Authorization = `TRUEHOPE ConnectId=7e41c1015ef74c129e8e8ab20d75bf01,Timestamp=1633939387,Signature=4ce8b93ee3bbf73cf5cd9ea18a2ef5ef7761c8e85e898d6fd197afd1042878c7`;
+                config.headers.Authorization = `${token}`;
                 return config;
             },
             function (error) {
@@ -48,13 +46,12 @@ class Services {
             return response;
         } else {
             if (error.response && error.response.status === 401) {
-                console.log("vào đây")
                 if ((url || "").includes("/api/auth")) {
                     return;
                 }
                 // clear token
                 localStorage.removeItem("authUser");
-                window.location.reload();
+                // window.location.reload();
                 return;
             }
             return error.response;

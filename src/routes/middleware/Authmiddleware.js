@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Route, Redirect } from "react-router-dom"
 import { useSelector } from "react-redux"
+import httpServices from "../../services/httpServices"
 
 const Authmiddleware = ({
   component: Component,
@@ -10,23 +11,21 @@ const Authmiddleware = ({
   ...rest
 }) => {
   const user = useSelector((state) => state.Login)
-  console.log("user", user)
   return (
     <Route
       // {...rest}
 
       render={props => {
 
-        if (isAuthProtected && !localStorage.getItem("authUser") && !user?.data?.token) {
+        if (isAuthProtected && localStorage.getItem("authUser") == null && !user?.data?.token) {
           return (
             <Redirect
               to={{ pathname: "/login", state: { from: props.location } }}
             />
           )
         }
-
+        httpServices.attachTokenToHeader(localStorage.getItem("authUser"))
         return (
-
           <Layout>
             <Component {...props} />
           </Layout>

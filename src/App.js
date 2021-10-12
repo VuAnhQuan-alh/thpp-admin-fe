@@ -22,7 +22,6 @@ import httpServices from './services/httpServices'
 
 
 const App = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.Login)
   const layout = useSelector((state) => state.Layout)
   function getLayout() {
@@ -42,12 +41,13 @@ const App = () => {
   const Layout = getLayout()
 
 
-  useEffect(() => {
-    if (user?.data?.token || localStorage.getItem("authUser") != null) {
-      httpServices.attachTokenToHeader(localStorage.getItem("authUser"))
-      // dispatch(profileRequest());
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user?.data?.token || localStorage.getItem("authUser") != null) {
+  //     httpServices.attachTokenToHeader(localStorage.getItem("authUser"))
+  //     console.log(localStorage.getItem("authUser"), "Token")
+  //     // dispatch(profileRequest());
+  //   }
+  // }, [user])
 
   return (
     <React.Fragment>

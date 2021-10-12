@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { Table, Tbody, Th, Thead, Tr } from "react-super-responsive-table";
-import { CardBody, CardTitle, Row, Card } from "reactstrap";
+import { withRouter } from "react-router";
+import { CardBody, CardTitle, Card, Table } from "reactstrap";
 import PaginationRes from "../../../components/PaginationRes"
-export default (props) => {
-    const { data } = props
+import ModalChiTietHoaDon from "./ModalChiTietHoaDon";
+
+
+export const TableData = (props) => {
+    const { data, history } = props
     const [modalDetail, setModalDetail] = useState(false);
+    const [itemSelected, setItemSelected] = useState({});
     return (
         <Card>
             <CardBody>
@@ -18,38 +22,60 @@ export default (props) => {
                             id="tech-companies-1"
                             className="table table-striped table-bordered"
                         >
-                            <Thead>
-                                <Tr>
-                                    <Th data-priority="1">STT</Th>
-                                    <Th data-priority="1">Bệnh viện/Phòng khám</Th>
-                                    <Th data-priority="3">Kênh thực hiện</Th>
-                                    <Th data-priority="1">Mã hóa đơn</Th>
-                                    <Th data-priority="3">Khách hàng</Th>
-                                    <Th data-priority="3">Số điện thoại</Th>
-                                    <Th data-priority="6">Dịch vụ</Th>
-                                    <Th data-priority="6">Mã giao dịch</Th>
-                                    <Th data-priority="6">Tổng tiền</Th>
-                                    <Th data-priority="3">Ngày giao dịch</Th>
-                                    <Th data-priority="6">Trang thái </Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Bệnh viện/Phòng khám</th>
+                                    <th>Kênh thực hiện</th>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Khách hàng</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Dịch vụ</th>
+                                    <th>Mã giao dịch</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Ngày giao dịch</th>
+                                    <th>Trang thái </th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 {data?.data && data.data.map((item, index) => (
-                                    <Tr>
-                                        <Th data-priority="1">{index}</Th>
-                                        <Th data-priority="1">{item?.hospitalName}</Th>
-                                        <Th data-priority="3">{item?.gatewayCode}</Th>
-                                        <Th data-priority="1">{item?.orderInfo}</Th>
-                                        <Th data-priority="3">{item?.customerName}</Th>
-                                        <Th data-priority="3">{item?.phone}</Th>
-                                        <Th data-priority="6">{item?.serviceName}</Th>
-                                        <Th data-priority="6">{item?.serviceName}</Th>
-                                        <Th data-priority="6">{item?.amount}</Th>
-                                        <Th data-priority="3">{item?.transactionDate}</Th>
-                                        <Th data-priority="6">{item?.statusSys}</Th>
-                                    </Tr>
+                                    <tr>
+                                        <th>{index}</th>
+                                        <th>{item?.hospitalName}</th>
+                                        <th>{item?.gatewayCode}</th>
+                                        <th>
+                                            <a
+                                                style={{ textDecorationLine: "underline" }}
+                                                href="#"
+                                                onClick={(e) => {
+                                                    e.preventDefault()
+                                                    setItemSelected(item);
+                                                    setModalDetail(true);
+                                                }} >
+                                                {item?.orderInfo}
+                                            </a>
+                                        </th>
+                                        <th>{item?.customerName}</th>
+                                        <th>{item?.phone}</th>
+                                        <th>{item?.serviceName}</th>
+                                        <th>
+                                            <a
+                                                style={{ textDecorationLine: "underline" }}
+                                                href="#"
+                                                onClick={(e) => {
+                                                    e.preventDefault()
+                                                    history.push("/Doi-soat-giao-dich-VNPay")
+                                                }}
+                                            >
+                                                {item?.transactionNo}
+                                            </a>
+                                        </th>
+                                        <th>{item?.amount}</th>
+                                        <th>{item?.transactionDate}</th>
+                                        <th>{item?.statusSys}</th>
+                                    </tr>
                                 ))}
-                            </Tbody>
+                            </tbody>
                         </Table>
                     </div>
                 </div>
@@ -57,9 +83,13 @@ export default (props) => {
             <PaginationRes
                 totalItems={data?.meta?.totalItems | 10}
                 totalPages={data?.meta?.totalPage | 2}
+
             // onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
             // currentPage={pageSize?.page}
             />
+            <ModalChiTietHoaDon modalDetail={modalDetail} setModalDetail={setModalDetail} item={itemSelected} />
         </Card>
     )
 }
+
+export default withRouter(TableData)

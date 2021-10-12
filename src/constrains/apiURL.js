@@ -8,14 +8,12 @@ export const STATUS = {
 
 //
 export const signin = `${URL}/api/auth`;
-
 export const profile = `${URL}/sprs/api/user`;
-//
-export const timKiemDanhSachGD = `${URL}/api/history/search`;
-//
-export const chiTietHoaDon = `${URL}/api/history/get-invoice/`;
-//
 export const dsBenhVien = `${URL}/api/hospital/get-all`;
-//
 export const dvBenhVien = `${URL}/api/hospital-sv/get-all`;
+
+// Danh sách giao dịch
+export const timKiemDanhSachGD = `${URL}/api/history/search`;
+export const chiTietHoaDon = `${URL}/api/history/get-invoice/`;
+
 
