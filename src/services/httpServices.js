@@ -18,6 +18,7 @@ class Services {
     }
 
     attachTokenToHeader(token) {
+        console.log("token", token)
         this.interceptors = this.axios.interceptors.request.use(
             function (config) {
                 config.headers.Authorization = `${token}`;
