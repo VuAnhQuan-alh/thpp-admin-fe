@@ -14,7 +14,7 @@ const Authmiddleware = ({
   return (
     <Route
       // {...rest}
-
+      // 
       render={props => {
 
         if (isAuthProtected && localStorage.getItem("authUser") == null && !user?.data?.token) {
