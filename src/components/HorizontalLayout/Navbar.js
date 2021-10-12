@@ -94,8 +94,8 @@ const Navbar = props => {
                   <Link to="/Doi-soat-giao-dich-VNPay" className="dropdown-item">
                     {props.t("Đối soát giao dịch VNPay")}
                   </Link>
-                  <Link to="/dashboard2" className="dropdown-item">
-                    {props.t("Dashboard")} 2
+                  <Link to="/Danh-sach-giao-dich" className="dropdown-item">
+                    {props.t("Danh sách giao dịch")}
                   </Link>
                 </div>
               </li>

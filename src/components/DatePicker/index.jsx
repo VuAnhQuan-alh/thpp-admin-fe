@@ -52,10 +52,10 @@ export default React.memo((props) => {
     if (field) {
       form.setFieldValue(
         field?.name,
-        dateSelected ? moment(dateSelected).format("DD-MM-YYYY") : ""
+        dateSelected ? moment(dateSelected).format("YYYY-MM-DD") : ""
       );
     }
-    setValue(moment(dateSelected).format("DD-MM-YYYY"));
+    setValue(moment(dateSelected).format("YYYY-MM-DD"));
     setOpen(false);
   };
 
@@ -64,10 +64,10 @@ export default React.memo((props) => {
       const dateInput = moment(value, DATE_FORMAT);
       if (dateInput.isValid()) {
         if (remainProps.minDate && dateInput.isBefore(remainProps.minDate)) {
-          return moment(remainProps.minDate).format("DDMMYYYY");
+          return moment(remainProps.minDate).format("YYYYMMDD");
         }
         if (remainProps.maxDate && dateInput.isAfter(remainProps.maxDate)) {
-          return moment(remainProps.maxDate).format("DDMMYYYY");
+          return moment(remainProps.maxDate).format("YYYYMMDD");
         }
         return value;
       } else {
@@ -110,7 +110,7 @@ export default React.memo((props) => {
               form.touched[field.name] &&
               "is-invalid"
             }`}
-            mask={[/\d/, /\d/, "-", /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/,"-", /\d/, /\d/, "-",/\d/, /\d/ ]}
             onChange={(e) => {
               form.setFieldValue(field.name, processDateInput(e.target.value));
               setValue(processDateInput(e.target.value));
@@ -142,13 +142,13 @@ export default React.memo((props) => {
       <DatePicker
         {...field}
         {...remainProps}
-        dateFormat="dd-MM-yyyy"
+        dateFormat="yyyy-MM-dd"
         onClickOutside={() => setOpen(false)}
         open={open}
         selected={
-          !moment(value, "DD-MM-YYYY").isValid()
+          !moment(value, "YYYY-MM-DD").isValid()
             ? null
-            : moment(value, "DD-MM-YYYY").toDate()
+            : moment(value, "YYYY-MM-DD").toDate()
         }
         className="datePicker-input"
         disabled={disabled}

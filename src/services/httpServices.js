@@ -6,17 +6,23 @@ class Services {
     constructor() {
         this.axios = axios;
         this.interceptors = null;
-        // this.axios.defaults.withCredentials = false;
+        this.axios.defaults.withCredentials = false;
         this.axios.defaults.timeout = 300000;
-        this.axios.defaults.headers.common["Content-Type"] = `application/json`;
+        // this.axios.defaults.headers.common["Content-Type"] = `application/json`;
+        this.axios.defaults.headers = {
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Methods": "*",
+            // "Access-Control-Allow-Credentials": true,
+            "Content-Type": "application/json"
+        };
     }
 
     attachTokenToHeader(token) {
-        console.log("token", token);
         this.interceptors = this.axios.interceptors.request.use(
             function (config) {
                 // Do something before request is sent
-                config.headers.Authorization = `Bearer ${token}`;
+                // config.headers.Authorization = `Bearer ${token}`;
+                config.headers.Authorization = `TRUEHOPE ConnectId=7e41c1015ef74c129e8e8ab20d75bf01,Timestamp=1633939387,Signature=4ce8b93ee3bbf73cf5cd9ea18a2ef5ef7761c8e85e898d6fd197afd1042878c7`;
                 return config;
             },
             function (error) {
@@ -42,11 +48,12 @@ class Services {
             return response;
         } else {
             if (error.response && error.response.status === 401) {
-                if ((url || "").includes("sprs/api/authenticate")) {
+                console.log("vào đây")
+                if ((url || "").includes("/api/auth")) {
                     return;
                 }
                 // clear token
-                localStorage.removeItem("userSPRS");
+                localStorage.removeItem("authUser");
                 window.location.reload();
                 return;
             }

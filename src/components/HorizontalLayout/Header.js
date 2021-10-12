@@ -58,21 +58,13 @@ const Header = props => {
         <div className="d-flex">
           <div className="navbar-brand-box">
             <Link to="/" className="logo logo-dark">
-              <span className="logo-sm">
-                <img src={logo} alt="" height="20" />
-              </span>
-              <span className="logo-lg">
-                <img src={logoDark} alt="" height="18" />
-              </span>
+              <span style={{ color: "#FFFF" }} className="logo-sm">VNPay</span>
+              <span style={{ color: "#FFFF" }} className="logo-lg">VNPay</span>
             </Link>
 
             <Link to="/" className="logo logo-light">
-              <span className="logo-sm">
-                <img src={logo} alt="" height="20" />
-              </span>
-              <span className="logo-lg">
-                <img src={logoLight} alt="" height="18" />
-              </span>
+              <span style={{ color: "#FFFF" }} className="logo-sm">VNPay</span>
+              <span style={{ color: "#FFFF" }} className="logo-lg">VNPay</span>
             </Link>
           </div>
 

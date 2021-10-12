@@ -11089,6 +11089,14 @@ react-refresh@^0.8.3:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.8.3.tgz"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
+react-responsive-pagination@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-responsive-pagination/-/react-responsive-pagination-1.2.0.tgz#abbb8e99f5a7452b46e53b886592867ed8b0c8f3"
+  integrity sha512-c8opu4swN0h5d04eaKvyMecB9G/ol0QhQTCHN/IJ8NNRDU3x/AN+YzF827FeO+PPiA7PrviazkTTRplm2KPzGw==
+  dependencies:
+    prop-types "^15.7.2"
+    resize-observer-polyfill "^1.5.1"
+
 react-router-dom@^5.1.2, react-router-dom@^5.2.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-5.2.0.tgz"

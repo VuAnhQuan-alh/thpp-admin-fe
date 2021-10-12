@@ -10,6 +10,7 @@ const Authmiddleware = ({
   ...rest
 }) => {
   const user = useSelector((state) => state.Login)
+  console.log("user", user)
   return (
     <Route
       // {...rest}

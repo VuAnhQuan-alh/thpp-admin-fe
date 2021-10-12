@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react"
 import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
-import SelectBenhVien from "../../components/SelectBenhVien";
+
 import { callAPIPaging, checkCallAPI, checkKeyNull } from "../../helpers/functions";
-import { apiSearch } from "../../services/apiFunction/DoisoatGDVNPay";
+import { apiSearch } from "../../services/apiFunction/DanhSachGD";
 import Table from "./components/Table";
 import { isEmpty } from "lodash";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
+import SelectBenhVien from "../../components/SelectBenhVien";
+import SelectDV from "../../components/SelectDV";
 
-const DoiSoatGDVNPay = () => {
+const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 30 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([])
@@ -40,11 +42,10 @@ const DoiSoatGDVNPay = () => {
         <Row>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
-              <h4 className="page-title mb-0 font-size-18">Đối Soát Giao Dịch VNPay</h4>
+              <h4 className="page-title mb-0 font-size-18">Danh Sách Giao Dịch</h4>
             </div>
           </div>
         </Row>
-
         <Row>
           <Card>
             <CardBody style={{ backgroundColor: "#FFF" }}>
@@ -92,21 +93,21 @@ const DoiSoatGDVNPay = () => {
                         <Field
                           name="benhVien"
                           component={InputField}
-                          label="Bệnh viện/phòng khám"
+                          label="Kênh thực hiện"
+                        />
+                      </Col>
+                      <Col md={2}>
+                        <Field
+                          name="benhVien"
+                          component={SelectDV}
+                          title="Dịch vụ"
                         />
                       </Col>
                       <Col md={2}>
                         <Field
                           name="benhVien"
                           component={InputField}
-                          label="Bệnh viện/phòng khám"
-                        />
-                      </Col>
-                      <Col md={2}>
-                        <Field
-                          name="benhVien"
-                          component={InputField}
-                          label="Bệnh viện/phòng khám"
+                          label="Tìm kiếm theo mã, hóa đơn khách hàng"
                         />
                       </Col>
                       <Col md={1} className="d-flex justify-content-center align-items-center">
@@ -144,4 +145,4 @@ const DoiSoatGDVNPay = () => {
   )
 }
 
-export default DoiSoatGDVNPay
+export default DanhSachGD

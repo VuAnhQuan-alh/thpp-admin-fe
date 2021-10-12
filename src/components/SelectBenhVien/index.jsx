@@ -5,6 +5,8 @@
 import React, { memo, useEffect, useState } from "react";
 import SelectComponents from "../SelectComponents";
 import { OptionTypeBase, Props as SelectProps } from "react-select";
+import { apiBenhVien } from "../../services/apiFunction/DanhMuc";
+import { checkCallAPI } from "../../helpers/functions";
 
 // import { API_URL, get } from "../../helpers/api_helper";
 
@@ -45,22 +47,24 @@ export default memo((props: Props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const dmDiaChinh = async () => {
-    // setLoading(true);
-    // await get(`${API_URL}dm/api/quoc-gia`)
-    //   .then((res) => {
-    //     setData(res?.data);
-    //   })
-    //   .catch((err) => setData([]))
-    //   .finally(() => setLoading(false));
+  const dmBenhVien = async () => {
+    setLoading(true);
+    apiBenhVien().then((res)=>{
+      if(res.status==200){
+        setData(res.data.data)
+      }else{
+      console.log("ERR")
+        setData([])
+      }
+    }).finally(()=>{setLoading(false)})
   };
 
   useEffect(() => {
-    dmDiaChinh();
+    dmBenhVien();
   }, []);
 
   const selectedOption =
-    (isFormik || field) && data?.find((option) => option?.id === field?.value);
+    field&& data?.find((option) => option?.id === field?.value);
   const selectedDefault = data?.find(
     (option) => option?.values === defaultValue
   );
@@ -90,7 +94,7 @@ export default memo((props: Props) => {
             value={selectedOption || ""}
             onChange={patchedOnChange}
             options={data}
-            getOptionLabel={(item) => `${item.tenDayDu}`}
+            getOptionLabel={(item) => `${item.name}`}
             getOptionValue={(item) => item.id}
             error={form.errors[field.name]}
             {...remainProps}

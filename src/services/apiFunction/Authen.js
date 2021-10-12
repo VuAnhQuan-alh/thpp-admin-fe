@@ -7,12 +7,6 @@ export const apiSignin = async (body) => {
     );
 };
 
-export const apiSigup = async (body) => {
-    return await httpServices.post(
-        `${signup}`, body
-    );
-};
-
 export const apiGetProfile = async () => {
     return await httpServices.get(`${profile}`);
 };
