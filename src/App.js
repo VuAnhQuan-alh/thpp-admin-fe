@@ -44,7 +44,7 @@ const App = () => {
   // useEffect(() => {
   //   if (user?.data?.token || localStorage.getItem("authUser") != null) {
   //     httpServices.attachTokenToHeader(localStorage.getItem("authUser"))
-  //     console.log(localStorage.getItem("authUser"), "Token")
+  //     console.log(localStorage.getItem("authUser"), "TokenAppp")
   //     // dispatch(profileRequest());
   //   }
   // }, [user])

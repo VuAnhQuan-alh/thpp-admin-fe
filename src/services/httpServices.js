@@ -52,7 +52,7 @@ class Services {
                 }
                 // clear token
                 localStorage.removeItem("authUser");
-                // window.location.reload();
+                window.location.reload();
                 return;
             }
             return error.response;

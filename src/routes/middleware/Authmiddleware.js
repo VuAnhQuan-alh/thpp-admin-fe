@@ -11,20 +11,27 @@ const Authmiddleware = ({
   ...rest
 }) => {
   const user = useSelector((state) => state.Login)
+  if (localStorage.getItem("authUser") !== null) {
+    httpServices.attachTokenToHeader(localStorage.getItem("authUser"))
+    console.log("userAth", localStorage.getItem("authUser"))
+  }
   return (
     <Route
-      // {...rest}
-      // 
       render={props => {
-
-        if (isAuthProtected && localStorage.getItem("authUser") == null && !user?.data?.token) {
+        if (isAuthProtected && localStorage.getItem("authUser") == null) {
           return (
             <Redirect
               to={{ pathname: "/login", state: { from: props.location } }}
             />
           )
         }
-        httpServices.attachTokenToHeader(localStorage.getItem("authUser"))
+        if (!isAuthProtected && localStorage.getItem("authUser") !== null) {
+          return (
+            <Redirect
+              to={{ pathname: "/", state: { from: props.location } }}
+            />
+          )
+        }
         return (
           <Layout>
             <Component {...props} />
