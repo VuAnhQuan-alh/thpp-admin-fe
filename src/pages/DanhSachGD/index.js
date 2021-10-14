@@ -25,10 +25,13 @@ const DanhSachGD = () => {
           setData({ data: [], meta: { totalPage: 1 } });
         },
         onSuccess: (response) => {
+
+          console.log("response")
           setData({ data: response.data.data, meta: response.meta });
         },
         response: res,
       })
+      // console.log("response", res);
     })
   }
 
