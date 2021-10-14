@@ -59,7 +59,7 @@ body[data-layout="horizontal"][data-layout-size="boxed"]{
 body[data-layout="detached"]{
     @include media-breakpoint-up(lg) {
         .container-fluid{
-            max-width: 95%;
+            max-width: 98%;
         }
 
         #page-topbar{

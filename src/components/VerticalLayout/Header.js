@@ -71,12 +71,12 @@ const Header = (props) => {
   function tToggle() {
     var body = document.body;
     if (window.screen.width <= 768) {
-    body.classList.toggle("sidebar-enable");
+      body.classList.toggle("sidebar-enable");
     } else {
-    body.classList.toggle("vertical-collpsed");
-    body.classList.toggle("sidebar-enable");
+      body.classList.toggle("vertical-collpsed");
+      body.classList.toggle("sidebar-enable");
     }
-}
+  }
 
   return (
     <React.Fragment>
@@ -146,238 +146,26 @@ const Header = (props) => {
             <div>
               <div className="navbar-brand-box">
                 <Link to="/" className="logo logo-dark">
-                  <span className="logo-sm">
-                    <img src={logoSm} alt="" height="20" />
-                  </span>
-                  <span className="logo-lg">
-                    <img src={logoDark} alt="" height="19" />
-                  </span>
+                  <span style={{ color: "#FFFF" }} className="logo-sm">VNPay</span>
+                  <span style={{ color: "#FFFF" }} className="logo-lg">VNPay</span>
                 </Link>
 
                 <Link to="/" className="logo logo-light">
-                  <span className="logo-sm">
-                    <img src={logoSm} alt="" height="20" />
-                  </span>
-                  <span className="logo-lg">
-                    <img src={logoLight} alt="" height="19" />
-                  </span>
+                  <span style={{ color: "#FFFF" }} className="logo-sm">VNPay</span>
+                  <span style={{ color: "#FFFF" }} className="logo-lg">VNPay</span>
                 </Link>
               </div>
               <button
-              type="button"
-              className="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
-              data-toggle="collapse"
-              onClick={() => {
-                tToggle()
-              }}
-              data-target="#topnav-menu-content"
-            >
-              <i className="fa fa-fw fa-bars"></i>
-            </button>
-              <Form className="app-search d-none d-lg-inline-block">
-                <div className="position-relative">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search..."
-                  />
-                  <span className="bx bx-search-alt"></span>
-                </div>
-              </Form>{" "}
-              <Dropdown
-                className="dropdown-mega d-none d-lg-inline-block ms-2"
-                isOpen={megaMenu}
-                toggle={() => {
-                  setmegaMenu(!megaMenu);
+                type="button"
+                className="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light"
+                data-toggle="collapse"
+                onClick={() => {
+                  tToggle()
                 }}
+                data-target="#topnav-menu-content"
               >
-                <DropdownToggle
-                  className="btn header-item waves-effect"
-                  caret
-                  tag="button"
-                >
-                  {" "}
-                  {props.t("Mega Menu")} <i className="mdi mdi-chevron-down" />
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-megamenu">
-                  <Row>
-                    <Col sm={6}>
-                      <Row>
-                        <Col md={4}>
-                          <h5 className="font-size-14 mt-0">
-                            {props.t("UI Components")}
-                          </h5>
-                          <ul className="list-unstyled megamenu-list">
-                            <li>
-                              <Link to="#">{props.t("Lightbox")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Range Slider")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Sweet Alert")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Rating")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Forms")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Tables")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Charts")}</Link>
-                            </li>
-                          </ul>
-                        </Col>
-
-                        <Col md={4}>
-                          <h5 className="font-size-14 mt-0">
-                            {props.t("Applications")}
-                          </h5>
-                          <ul className="list-unstyled megamenu-list">
-                            <li>
-                              <Link to="#">{props.t("Ecommerce")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Calendar")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Email")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Projects")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Tasks")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Contacts")}</Link>
-                            </li>
-                          </ul>
-                        </Col>
-
-                        <Col md={4}>
-                          <h5 className="font-size-14 mt-0">Extra Pages</h5>
-                          <ul className="list-unstyled megamenu-list">
-                            <li>
-                              <Link to="#">{props.t("Light Sidebar")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Compact Sidebar")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">
-                              {props.t("Horizontal layout")}
-                              </Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Maintenance")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Coming Soon")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("Timeline")}</Link>
-                            </li>
-                            <li>
-                              <Link to="#">{props.t("FAQs")}</Link>
-                            </li>
-                          </ul>
-                        </Col>
-                      </Row>
-                    </Col>
-                    <Col sm={6}>
-                      <Row>
-                        <Col sm={6}>
-                          <h5 className="font-size-14 mt-0">Components</h5>
-                          <div className="px-lg-2">
-                            <div className="row g-0">
-                              <div className="col">
-                                <Link className="dropdown-icon-item" to="#">
-                                  <img src={github} alt="Github" />
-                                  <span>GitHub</span>
-                                </Link>
-                              </div>
-                              <div className="col">
-                                <Link className="dropdown-icon-item" to="#">
-                                  <img src={bitbucket} alt="bitbucket" />
-                                  <span>Bitbucket</span>
-                                </Link>
-                              </div>
-                              <div className="col">
-                                <Link className="dropdown-icon-item" to="#">
-                                  <img src={dribbble} alt="dribbble" />
-                                  <span>Dribbble</span>
-                                </Link>
-                              </div>
-                            </div>
-
-                            <div className="row g-0">
-                              <div className="col">
-                                <Link className="dropdown-icon-item" to="#">
-                                  <img src={dropbox} alt="dropbox" />
-                                  <span>Dropbox</span>
-                                </Link>
-                              </div>
-                              <div className="col">
-                                <Link className="dropdown-icon-item" to="#">
-                                  <img src={mail_chimp} alt="mail_chimp" />
-                                  <span>Mail Chimp</span>
-                                </Link>
-                              </div>
-                              <div className="col">
-                                <Link className="dropdown-icon-item" to="#">
-                                  <img src={slack} alt="slack" />
-                                  <span>Slack</span>
-                                </Link>
-                              </div>
-                            </div>
-                          </div>
-                        </Col>
-                        <Col sm={6}>
-                          <div>
-                            <div
-                              className="card text-white mb-0 overflow-hidden text-white-50"
-                              style={{
-                                backgroundImage: `url(${Background})`,
-                                backgroundSize: "cover",
-                              }}
-                            >
-                              <div className="card-img-overlay"></div>
-                              <div className="card-body">
-                                <div className="row">
-                                  <div className="col-xl-6">
-                                    <h4 className="text-white mb-3">Sale</h4>
-
-                                    <h5 className="text-white-50">
-                                      Up to{" "}
-                                      <span className="font-size-24 text-white">
-                                        50 %
-                                      </span>{" "}
-                                      Off
-                                    </h5>
-                                    <p>At vero eos accusamus et iusto odio.</p>
-                                    <div className="mb-4">
-                                      <Link
-                                        to="#"
-                                        className="btn btn-success btn-sm"
-                                      >
-                                        View more
-                                      </Link>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                  </Row>
-                </DropdownMenu>
-              </Dropdown>
+                <i className="fa fa-fw fa-bars"></i>
+              </button>
             </div>
           </Container>
         </div>

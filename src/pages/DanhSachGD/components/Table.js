@@ -81,8 +81,8 @@ export const TableData = (props) => {
                 </div>
             </CardBody>
             <PaginationRes
-                totalItems={data?.meta?.totalItems | 10}
-                totalPages={data?.meta?.totalPage | 2}
+                totalItems={data?.meta?.totalItems | 0}
+                totalPages={data?.meta?.totalPage | 1}
 
             // onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
             // currentPage={pageSize?.page}

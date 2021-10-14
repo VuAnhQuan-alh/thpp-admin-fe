@@ -13,7 +13,6 @@ const Authmiddleware = ({
   const user = useSelector((state) => state.Login)
   if (localStorage.getItem("authUser") !== null) {
     httpServices.attachTokenToHeader(localStorage.getItem("authUser"))
-    console.log("userAth", localStorage.getItem("authUser"))
   }
   return (
     <Route

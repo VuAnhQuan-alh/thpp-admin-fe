@@ -109,7 +109,7 @@ export default React.memo((props) => {
       style={{ width: width40 ? "40%" : "" }}
     >
       {title ? (
-        <label>
+        <label style={{overflow:"hidden"}}>
           {title} {isRequired && <span style={{ color: "red" }}>*</span>}
         </label>
       ) : (

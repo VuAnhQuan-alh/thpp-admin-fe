@@ -6,10 +6,8 @@ import Register from "../pages/Authentication/Register"
 // Profile
 import UserProfile from "../pages/Authentication/user-profile"
 import DanhSachGD from "../pages/DanhSachGD"
-// Dashboard
-// import Dashboard from "../pages/Dashboard/index"
-import Dashboard2 from "../pages/Dashboard2.js/index.js"
 import DoiSoatGDVNPay from "../pages/DoiSoatGDVNPay"
+import BaoCaoDoanhThu from "../pages/BaoCaoDoanhThu"
 import Pages404 from "../pages/Utility/pages-404"
 import Pages500 from "../pages/Utility/pages-500"
 
@@ -17,7 +15,7 @@ import Pages500 from "../pages/Utility/pages-500"
 const userRoutes = [
   { path: "/Doi-soat-giao-dich-VNPay", component: DoiSoatGDVNPay },
   { path: "/Danh-sach-giao-dich", component: DanhSachGD },
-  { path: '/dashboard2', component: Dashboard2 },
+  { path: "/Bao-cao-doanh-thu", component: BaoCaoDoanhThu },
 
   // //profile
   { path: "/profile", component: UserProfile },

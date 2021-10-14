@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import React, { useEffect, useRef , useCallback} from "react"
+import React, { useEffect, useRef, useCallback } from "react"
 
 // //Import Scrollbar
 import SimpleBar from "simplebar-react"
@@ -86,140 +86,12 @@ const SidebarContent = props => {
             <li className="menu-title">{props.t("Menu")} </li>
             <li>
               <Link to="/#" className="waves-effect">
-                <i className="mdi mdi-airplay"></i><span className="badge rounded-pill bg-info float-end">2</span>
-                <span>{props.t("Dashboard")}</span>
+                <span>{props.t("Đối soát giao dịch")}</span>
               </Link>
               <ul className="sub-menu">
-                <li><Link to="/dashboard">{props.t("Dashboard")} 1</Link></li>
-                <li><Link to="/dashboard2">{props.t("Dashboard")} 2</Link></li>
-              </ul>
-            </li>
-            <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-account-circle-outline"></i>
-                <span>{props.t("Pages")}</span>
-              </Link>
-              <ul className="sub-menu">
-                <li>
-                  <Link to="/pages-login">{props.t("Login")}</Link>
-                </li>
-                <li>
-                  <Link to="/pages-register">{props.t("Register")}</Link>
-                </li>
-                <li>
-                  <Link to="/page-recoverpw">
-                    {props.t("Recover Password")}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/auth-lock-screen">{props.t("Lock Screen")}</Link>
-                </li>
-                <li>
-                  <Link to="/pages-starter">{props.t("Starter Page")}</Link>
-                </li>
-                <li>
-                  <Link to="/profile">{props.t("Profile")}</Link>
-                </li>
-                <li>
-                  <Link to="/pages-404">{props.t("Error 404")}</Link>
-                </li>
-                <li>
-                  <Link to="/pages-500">{props.t("Error 500")}</Link>
-                </li>
-              </ul>
-            </li>
-
-            <li className="menu-title">{props.t("Components")}</li>
-
-            <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-checkbox-multiple-blank-outline"></i>
-                <span>{props.t("UI Elements")}</span>
-              </Link>
-              <ul className="sub-menu">
-                <li>
-                  <Link to="/ui-alerts">{props.t("Alerts")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-buttons">{props.t("Buttons")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-cards">{props.t("Cards")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-carousel">{props.t("Carousel")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-dropdowns">{props.t("Dropdowns")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-grid">{props.t("Grid")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-images">{props.t("Images")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-lightbox">{props.t("Lightbox")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-modals">{props.t("Modals")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-rangeslider">{props.t("Range Slider")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-session-timeout">
-                    {props.t("Session Timeout")}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/ui-progressbars">{props.t("Progress Bars")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-sweet-alert">{props.t("Sweet-Alert")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-tabs-accordions">
-                    {props.t("Tabs & Accordions")}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/ui-typography">{props.t("Typography")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-video">{props.t("Video")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-general">{props.t("General")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-colors">{props.t("Colors")}</Link>
-                </li>
-                <li>
-                  <Link to="/ui-rating">{props.t("Rating")}</Link>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-clipboard-list-outline"></i>
-                <span>{props.t("Tables")}</span>
-              </Link>
-              <ul className="sub-menu">
-                <li>
-                  <Link to="/tables-basic">{props.t("Basic Tables")}</Link>
-                </li>
-                <li>
-                  <Link to="/tables-datatable">{props.t("Data Tables")}</Link>
-                </li>
-                <li>
-                  <Link to="/tables-responsive">
-                    {props.t("Responsive Table")}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/tables-editable">{props.t("Editable Table")}</Link>
-                </li>
+                <li><Link to="/Doi-soat-giao-dich-VNPay">{props.t("Đối soát giao dịch VNPay")}</Link></li>
+                <li><Link to="/Danh-sach-giao-dich">{props.t("Danh sách giao dịch")}</Link></li>
+                <li><Link to="/Bao-cao-doanh-thu">{props.t("Báo cáo doanh thu")}</Link></li>
               </ul>
             </li>
           </ul>

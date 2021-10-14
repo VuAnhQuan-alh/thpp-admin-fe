@@ -31,7 +31,7 @@ const InputField = (props) => {
   return (
     <div className={`app-input-wrap `} style={{ width: width40 ? "40%" : "" }}>
       {label ? (
-        <label>
+        <label style={{overflow:"hidden"}}>
           {label} {isRequired && <span className="error">*</span>}
         </label>
       ) : (

@@ -89,14 +89,7 @@ const DanhSachGD = () => {
                       </div>
                       <div class="col-sm-6 col-md-2 col-xs-6">
                         <Field
-                          name="benhVien"
-                          component={InputField}
-                          label="Kênh thực hiện"
-                        />
-                      </div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
-                        <Field
-                          name="benhVien"
+                          name="dichVu"
                           component={SelectDV}
                           title="Dịch vụ"
                         />
@@ -127,9 +120,6 @@ const DanhSachGD = () => {
                           <i class="fas fa-print"></i>Xuất excel
                         </Button>
                       </div>
-                      {/* <div class="col-sm-6 col-md-1 col-xs-6 justify-content-center d-flex align-items-center">
-                        
-                      </div> */}
                     </div>
                   </Form>
                 )}

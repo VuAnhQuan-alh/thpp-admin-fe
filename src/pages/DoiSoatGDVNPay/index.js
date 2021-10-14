@@ -8,6 +8,7 @@ import { apiSearch } from "../../services/apiFunction/DoisoatGDVNPay";
 import Table from "./components/Table";
 import { isEmpty } from "lodash";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
+import SelectDV from "../../components/SelectDV";
 
 const DoiSoatGDVNPay = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 30 });
@@ -66,60 +67,58 @@ const DoiSoatGDVNPay = () => {
               >
                 {() => (
                   <Form>
-                    <Row>
-                      <Col md={2}>
+                    <div class="row">
+                      <div class="col-sm-6 col-md-2 col-xs-6">
                         <Field
                           name="benhVien"
                           component={SelectBenhVien}
                           title="Bệnh viện/phòng khám"
-                        />
-                      </Col>
-                      <Col md={1}>
+                        /></div>
+                      <div class="col-sm-6 col-md-2 col-xs-6">
                         <Field
                           name="startDate"
                           component={DatePicker}
                           title="Từ ngày"
                         />
-                      </Col>
-                      <Col md={1}>
+                      </div>
+                      <div class="col-sm-6 col-md-2 col-xs-6">
                         <Field
                           name="endDate"
                           component={DatePicker}
                           title="Đến ngày"
                         />
-                      </Col>
-                      <Col md={2}>
+                      </div>
+                      <div class="col-sm-6 col-md-2 col-xs-6">
+                        <Field
+                          name="kenhThucHien"
+                          component={SelectDV}
+                          title="Kênh thực"
+                        />
+                      </div>
+                      <div class="col-sm-6 col-md-2 col-xs-6">
+                        <Field
+                          name="dichVu"
+                          component={SelectDV}
+                          title="Dịch vụ"
+                        />
+                      </div>
+                      <div class="col-sm-6 col-md-2 col-xs-6">
                         <Field
                           name="benhVien"
                           component={InputField}
-                          label="Bệnh viện/phòng khám"
+                          label="Tìm kiếm theo mã, hóa đơn"
                         />
-                      </Col>
-                      <Col md={2}>
-                        <Field
-                          name="benhVien"
-                          component={InputField}
-                          label="Bệnh viện/phòng khám"
-                        />
-                      </Col>
-                      <Col md={2}>
-                        <Field
-                          name="benhVien"
-                          component={InputField}
-                          label="Bệnh viện/phòng khám"
-                        />
-                      </Col>
-                      <Col md={1} className="d-flex justify-content-center align-items-center">
+                      </div>
+                      <div class="col-sm-6 col-md-3 col-xs-6 justify-content-start  d-flex align-items-center" >
                         <Button
                           color="secondery"
                           className="btn btn-primary waves-effect waves-light mt-2"
                           type="submit"
                           id="btn-tra-cuuDC"
+                          style={{ marginRight: 10 }}
                         >
                           <i className="fas fa-search "></i> Tìm kiếm
                         </Button>
-                      </Col>
-                      <Col md={1} className="d-flex justify-content-center align-items-center">
                         <Button
                           color="secondery"
                           className="btn btn-primary waves-effect waves-light mt-2"
@@ -128,8 +127,8 @@ const DoiSoatGDVNPay = () => {
                         >
                           <i class="fas fa-print"></i>Xuất excel
                         </Button>
-                      </Col>
-                    </Row>
+                      </div>
+                    </div>
                   </Form>
                 )}
               </Formik>
