@@ -10,6 +10,7 @@ import { isEmpty } from "lodash";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
+import InvoiceInfo from "../../components/PopUp/InvoiceInfo";
 
 const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 0, size: 10 });
@@ -142,6 +143,9 @@ const DanhSachGD = () => {
         </Row>
         <Row>
           <Table data={data} />
+        </Row>
+        <Row style={{ position: "relative" }}>
+          <InvoiceInfo />
         </Row>
       </div>
     </React.Fragment>
