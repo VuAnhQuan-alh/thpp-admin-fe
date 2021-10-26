@@ -66,58 +66,58 @@ const DanhSachGD = () => {
               >
                 {() => (
                   <Form>
-                    <div className="d-flex justify-content-between align-items-end">
-                      <div style={{ width: "100%" }}>
+                    <Row className="d-flex justify-content-between align-items-end space-x-2">
+                      <div className="col-md-6">
                         <Field
                           name="hospitalType"
                           component={SelectBenhVien}
                           title="Bệnh viện/phòng khám"
                         /></div>
-                      <div style={{ margin: "0px 20px", width: "100%" }}>
+                      <div className="col-md-3">
                         <Field
                           name="startDate"
                           component={DatePicker}
                           title="Từ ngày"
                         />
                       </div>
-                      <div style={{ width: "100%" }}>
+                      <div className="col-md-3">
                         <Field
                           name="endDate"
                           component={DatePicker}
                           title="Đến ngày"
                         />
                       </div>
-                    </div>
-                    <div className="d-flex justify-content-between align-items-end mt-3">
-                      <div style={{ width: "100%" }}>
-                        <Field
-                          name="chanelType"
-                          component={SelectChanel}
-                          title="Kênh thực hiện"
-                        />
-                      </div>
-                      <div style={{ width: "100%", margin: "0px 20px" }}>
-                        <Field
-                          name="gatewayCode"
-                          component={SelectCTT}
-                          title="Cổng thanh toán"
-                        />
-                      </div>
-                      <div style={{ width: "100%", marginRight: "20px" }}>
-                        <Field
-                          name="serviceCode"
-                          component={SelectDV}
-                          title="Dịch vụ"
-                        />
-                      </div>
-                      <div style={{ width: "100%", marginBottom: "-5px" }}>
+                    </Row>
+                    <Row className="d-flex justify-content-between align-items-end mt-3">
+                      <div className="col-md-3" style={{ marginBottom: "-5px" }}>
                         <Field
                           name="searchText"
                           component={InputField}
                           label="Tìm kiếm theo mã, hóa đơn"
                         />
                       </div>
-                    </div>
+                      <div className="col-md-3">
+                        <Field
+                          name="gatewayCode"
+                          component={SelectCTT}
+                          title="Cổng thanh toán"
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <Field
+                          name="serviceCode"
+                          component={SelectDV}
+                          title="Dịch vụ"
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <Field
+                          name="chanelType"
+                          component={SelectChanel}
+                          title="Kênh thực hiện"
+                        />
+                      </div>
+                    </Row>
                     <div className="d-flex justify-content-end align-items-center mt-3">
                       <Button
                         color="primary"

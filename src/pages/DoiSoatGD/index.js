@@ -10,6 +10,7 @@ import { isEmpty } from "lodash";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectDV from "../../components/SelectDV";
 import SelectChanel from "../../components/SelectChanel";
+import SelectStatusSys from "../../components/SelectStatusSys";
 
 const DoiSoatGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -51,6 +52,7 @@ const DoiSoatGD = () => {
                 initialValues={{
                   hospitalType: null,
                   gatewayCode: null,
+                  customName: "",
                   startDate: "",
                   enDate: "",
                   searchText: "",
@@ -60,64 +62,57 @@ const DoiSoatGD = () => {
                 onSubmit={(values) => {
                   console.log("value", values);
                   setParams(values);
-                  setPageSize({ ...pageSize, page: 0, size: 2 })
+                  setPageSize({ ...pageSize, page: 1, size: 10 })
                 }}
               >
                 {() => (
                   <Form>
-                    <div className="d-flex justify-content-between align-items-end">
-                      <div style={{ width: "100%", marginBottom: "-5px" }}>
+                    <Row className="d-flex justify-content-between align-items-end">
+                      <div className="col-md-3" style={{ marginBottom: "-5px" }}>
                         <Field
                           name="searchText"
                           component={InputField}
-                          label="Tìm kiếm theo mã, hóa đơn"
+                          label="Tìm kiếm theo mã giao dịch"
                         />
                       </div>
-                      <div style={{ margin: "0px 20px", width: "100%" }}>
+                      <div className="col-md-3" style={{ marginBottom: "-5px" }}>
+                        <Field
+                          name="customName"
+                          component={InputField}
+                          label="Tìm kiếm khách hàng"
+                        />
+                      </div>
+                      <div className="col-md-3">
                         <Field
                           name="chanelType"
                           component={SelectChanel}
                           title="Kênh thực hiện"
                         />
                       </div>
-                      <div style={{ width: "100%" }}>
+                      <div className="col-md-3">
                         <Field
                           name="serviceCode"
                           component={SelectDV}
                           title="Dịch vụ"
                         />
                       </div>
-                      <div style={{ width: "100%", marginLeft: "20px" }}>
+                    </Row>
+                    <Row className="d-flex justify-content-between align-items-end mt-3">
+                      <div className="col-md-6">
                         <Field
                           name="statusSys"
-                          component={SelectDV}
+                          component={SelectStatusSys}
                           title="Trạng thái giao dịch"
                         />
                       </div>
-                    </div>
-                    <div className="d-flex justify-content-between align-items-end mt-3">
-                      <div style={{ width: "100%" }}>
+                      <div className="col-md-6">
                         <Field
                           name="hospitalType"
                           component={SelectBenhVien}
                           title="Bệnh viện/phòng khám"
                         />
                       </div>
-                      <div style={{ margin: "0px 20px", width: "100%" }}>
-                        <Field
-                          name="startDate"
-                          component={DatePicker}
-                          title="Từ ngày"
-                        />
-                      </div>
-                      <div style={{ width: "100%" }}>
-                        <Field
-                          name="endDate"
-                          component={DatePicker}
-                          title="Đến ngày"
-                        />
-                      </div>
-                    </div>
+                    </Row>
                     <div className="d-flex justify-content-end align-items-center mt-3" >
                       <Button
                         color="primary"
@@ -144,7 +139,7 @@ const DoiSoatGD = () => {
           </Card>
         </Row>
         <Row>
-          <Table data={data} />
+          <Table data={data || []} pageSize={pageSize} setPageSize={setPageSize} />
         </Row>
       </div>
     </React.Fragment>

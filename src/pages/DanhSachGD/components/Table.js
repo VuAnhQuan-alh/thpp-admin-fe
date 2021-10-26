@@ -42,7 +42,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
               <thead>
                 <tr>
                   <th style={{ minWidth: "54px" }}>STT</th>
-                  <th style={{ minWidth: "110px" }}>Mã đối soát</th>
+                  <th style={{ minWidth: "120px" }}>Mã giao dịch</th>
                   <th style={{ width: "max-content", minWidth: "187px" }}>Bệnh viện/Phòng khám</th>
                   <th style={{ minWidth: "130px" }}>Kênh thực hiện</th>
                   <th style={{ width: "max-content", minWidth: "140px" }}>Cổng thanh toán</th>

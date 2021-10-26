@@ -1,10 +1,28 @@
 import React, { useState } from "react";
 import { Table, Tbody, Th, Thead, Tr } from "react-super-responsive-table";
 import { CardBody, CardTitle, Row, Card } from "reactstrap";
+import { ArrayMessageInvoice } from "../../../common/data/message-invoice";
 import PaginationRes from "../../../components/PaginationRes"
-export default (props) => {
-  const { data } = props
-  const [modalDetail, setModalDetail] = useState(false);
+export default ({ data, setPageSize, pageSize }) => {
+  // const [modalDetail, setModalDetail] = useState(false);
+  const [totalPage, setTotalPage] = React.useState(0)
+  const checkStatus = (sys) => {
+    const result = ArrayMessageInvoice.find(i => {
+      for (const [key, value] of Object.entries(i)) {
+        if (sys === value) return true
+        return false
+      }
+    })
+    return result['MESS']
+  }
+  React.useEffect(() => {
+    setTotalPage(0)
+    if (data?.total > 0) {
+      setTotalPage(Math.ceil(data.total / pageSize.size))
+    }
+  }, [data])
+
+
   return (
     <Card>
       <CardBody>
@@ -59,10 +77,10 @@ export default (props) => {
         </div>
       </CardBody>
       <PaginationRes
-        totalItems={data?.meta?.totalItems | 7}
-        totalPages={data?.meta?.totalPage | 1}
-      // onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
-      // currentPage={pageSize?.page}
+        totalItems={data?.total || 0}
+        totalPages={totalPage}
+        onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
+        currentPage={pageSize?.page}
       />
     </Card>
   )

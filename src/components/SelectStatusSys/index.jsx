@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import SelectComponents from "../SelectComponents";
 import { apiBenhVien, apiDichVu } from "../../services/apiFunction/DanhMuc";
+import { ArrayMessageInvoice } from "../../common/data/message-invoice";
 
 export default memo((props) => {
   const {
@@ -17,14 +18,20 @@ export default memo((props) => {
 
   const dmDV = async () => {
     setLoading(true);
-    apiDichVu().then((res) => {
-      if (res?.status == 200) {
-        setData(res.data.data)
-      } else {
-        console.log("ERR", res)
-        setData([])
+    const result = ArrayMessageInvoice.reduce((pre, curr) => {
+      const nObj = {}
+      for (let [key, value] of Object.entries(curr)) {
+        if (key !== "MESS") {
+          Object.assign(nObj, { ["code"]: value })
+          Object.assign(nObj, { ["name"]: key })
+        } else {
+          Object.assign(nObj, { ["MESS"]: value })
+        }
       }
-    }).finally(() => { setLoading(false) })
+      return [...pre, nObj]
+    }, [])
+    setData(result)
+    setLoading(false)
   };
 
   useEffect(() => {
