@@ -85,7 +85,7 @@ class Layout extends Component {
                 openLeftMenuCallBack={this.openMenu}
               >
               </Header>
-              
+
             </header>
             <div className="main-content">
               {this.props.children}

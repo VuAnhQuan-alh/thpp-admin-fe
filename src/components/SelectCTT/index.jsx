@@ -1,14 +1,8 @@
-/*
- * /api/danh-muc-dan-toc
- * danh mục đơn vị
- */
 import React, { memo, useEffect, useState } from "react";
 import SelectComponents from "../SelectComponents";
 import { OptionTypeBase, Props as SelectProps } from "react-select";
-import { apiBenhVien, apiDichVu } from "../../services/apiFunction/DanhMuc";
-import { checkCallAPI } from "../../helpers/functions";
-
-// import { API_URL, get } from "../../helpers/api_helper";
+// import { apiSearch } from "../../services/apiFunction/DanhSachGD";
+// import { apiDichVu } from "../../services/apiFunction/DanhMuc";
 
 interface Props extends SelectProps<OptionTypeBase> {
   title?: string;
@@ -37,15 +31,10 @@ export default memo((props: Props) => {
   const [loading, setLoading] = useState(false);
 
   const dmDV = async () => {
-    setLoading(true);
-    apiDichVu().then((res) => {
-      if (res?.status == 200) {
-        setData(res.data.data)
-      } else {
-        console.log("ERR", res)
-        setData([])
-      }
-    }).finally(() => { setLoading(false) })
+    setData([
+      { code: "VNPAY", name: "VNPAY" },
+      { code: "MEGAPAY", name: "MEGAPAY" }
+    ]);
   };
 
   useEffect(() => {
@@ -107,3 +96,4 @@ export default memo((props: Props) => {
   };
   return renderSelectType();
 });
+

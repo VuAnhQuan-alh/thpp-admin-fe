@@ -261,7 +261,7 @@ export const callAPIPaging = (props) => {
       data: response?.data,
       meta: { totalPage: 0, totalItems: 0 },
     };
-    console.log("Header", response)
+    // console.log("Header", response)
     if (response?.headers["x-total-count"]) {
       const allDataCount = response?.headers["x-total-count"];
       returnData.meta.totalItems = allDataCount;
@@ -290,3 +290,9 @@ export const formatInputNumber = (n) => {
     ?.replace(/\B(?=(\d{3})+(?!\d))/g, "")
     ?.trim();
 };
+export function seo(data) {
+  document.title = data.title;
+  document
+    .querySelector('meta[name="description"]')
+    ?.setAttribute("content", data.metaDescription);
+}

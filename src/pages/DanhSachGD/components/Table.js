@@ -1,14 +1,31 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router";
 import { CardBody, CardTitle, Card, Table } from "reactstrap";
+import { ArrayMessageInvoice } from "../../../common/data/message-invoice";
 import PaginationRes from "../../../components/PaginationRes"
 import ModalChiTietHoaDon from "./ModalChiTietHoaDon";
 
 
-export const TableData = (props) => {
-  const { data, history } = props
+export const TableData = ({ data, history, setPageSize, pageSize }) => {
   const [modalDetail, setModalDetail] = useState(false);
   const [itemSelected, setItemSelected] = useState({});
+  const [totalPage, setTotalPage] = useState(0)
+  const checkStatus = (sys) => {
+    const result = ArrayMessageInvoice.find(i => {
+      for (const [key, value] of Object.entries(i)) {
+        if (sys === value) return true;
+        return false;
+      }
+    });
+    return result["MESS"];
+  }
+  React.useEffect(() => {
+    setTotalPage(0)
+    if (data?.total > 0) {
+      setTotalPage(Math.ceil(data.total / pageSize.size))
+    }
+  }, [data])
+
   return (
     <Card>
       <CardBody>
@@ -24,26 +41,41 @@ export const TableData = (props) => {
             >
               <thead>
                 <tr>
-                  <th>STT</th>
-                  <th>Bệnh viện/Phòng khám</th>
-                  <th>Kênh thực hiện</th>
-                  <th>Mã hóa đơn</th>
-                  <th>Khách hàng</th>
-                  <th>Số điện thoại</th>
-                  <th>Dịch vụ</th>
-                  <th>Mã giao dịch</th>
-                  <th>Tổng tiền</th>
-                  <th>Ngày giao dịch</th>
-                  <th>Trang thái </th>
+                  <th style={{ minWidth: "54px" }}>STT</th>
+                  <th style={{ minWidth: "110px" }}>Mã đối soát</th>
+                  <th style={{ width: "max-content", minWidth: "187px" }}>Bệnh viện/Phòng khám</th>
+                  <th style={{ minWidth: "130px" }}>Kênh thực hiện</th>
+                  <th style={{ width: "max-content", minWidth: "140px" }}>Cổng thanh toán</th>
+                  <th style={{ minWidth: "108px" }}>Mã hóa đơn</th>
+                  <th style={{ width: "max-content", minWidth: "140px" }}>Khách hàng</th>
+                  <th style={{ minWidth: "120px" }}>Số điện thoại</th>
+                  <th style={{ width: "max-content", minWidth: "100px" }}>Dịch vụ</th>
+                  <th style={{ minWidth: "120px" }}>Tổng tiền (đ)</th>
+                  <th style={{ minWidth: "140px" }}>Ngày giao dịch</th>
+                  <th style={{ width: "max-content", minWidth: "140px" }}>Trang thái </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody style={{ textAlign: "center" }}>
                 {data?.data && data.data.map((item, index) => (
-                  <tr>
-                    <th>{index}</th>
-                    <th>{item?.hospitalName}</th>
-                    <th>{item?.gatewayCode}</th>
-                    <th>
+                  <tr key={index}>
+                    <th>{++index}</th>
+                    <td>
+                      <a
+                        style={{ textDecorationLine: "underline" }}
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          // history.push(`/Doi-soat-giao-dich/${item?.transactionNo}`)
+                          history.push("/Doi-soat-giao-dich")
+                        }}
+                      >
+                        {item?.transactionNo}
+                      </a>
+                    </td>
+                    <td style={{ minWidth: "max-content", display: "block", textAlign: "left" }}>{item?.hospitalName}</td>
+                    <td>{item?.chanelType === 1 ? "Mobile" : item?.chanelType === 2 ? "Website" : null}</td>
+                    <td style={{ minWidth: "max-content", display: "block" }}>{item?.gatewayName}</td>
+                    <td>
                       <a
                         style={{ textDecorationLine: "underline" }}
                         href="#"
@@ -54,25 +86,13 @@ export const TableData = (props) => {
                         }} >
                         {item?.orderInfo}
                       </a>
-                    </th>
-                    <th>{item?.customerName}</th>
-                    <th>{item?.phone}</th>
-                    <th>{item?.serviceName}</th>
-                    <th>
-                      <a
-                        style={{ textDecorationLine: "underline" }}
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault()
-                          history.push("/Doi-soat-giao-dich-VNPay")
-                        }}
-                      >
-                        {item?.transactionNo}
-                      </a>
-                    </th>
-                    <th>{item?.amount}</th>
-                    <th>{item?.transactionDate}</th>
-                    <th>{item?.statusSys}</th>
+                    </td>
+                    <td style={{ minWidth: "max-content", display: "block", textAlign: "left" }}>{item?.customerName}</td>
+                    <td style={{ textAlign: "left" }}>{item?.phone}</td>
+                    <td style={{ minWidth: "max-content", display: "block", textAlign: "left" }}>{item?.serviceName}</td>
+                    <td>{item?.amount}</td>
+                    <td>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : "Null"}</td>
+                    <td style={{ minWidth: "max-content", display: "block", textAlign: "left" }}>{item?.statusSys ? checkStatus(item?.statusSys) : "Null"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -81,13 +101,16 @@ export const TableData = (props) => {
         </div>
       </CardBody>
       <PaginationRes
-        totalItems={data?.meta?.totalItems | 0}
-        totalPages={data?.meta?.totalPage | 1}
+        totalItems={data?.total || 0}
+        totalPages={totalPage}
 
-      // onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
-      // currentPage={pageSize?.page}
+        onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
+        currentPage={pageSize?.page}
       />
-      <ModalChiTietHoaDon modalDetail={modalDetail} setModalDetail={setModalDetail} item={itemSelected} />
+
+      <div style={{ position: "relative" }}>
+        <ModalChiTietHoaDon modalDetail={modalDetail} setModalDetail={setModalDetail} item={itemSelected} />
+      </div>
     </Card>
   )
 }

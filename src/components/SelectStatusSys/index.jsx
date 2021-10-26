@@ -1,29 +1,8 @@
-/*
- * /api/danh-muc-dan-toc
- * danh mục đơn vị
- */
 import React, { memo, useEffect, useState } from "react";
 import SelectComponents from "../SelectComponents";
-import { OptionTypeBase, Props as SelectProps } from "react-select";
 import { apiBenhVien, apiDichVu } from "../../services/apiFunction/DanhMuc";
-import { checkCallAPI } from "../../helpers/functions";
 
-// import { API_URL, get } from "../../helpers/api_helper";
-
-interface Props extends SelectProps<OptionTypeBase> {
-  title?: string;
-  horizontal?: boolean;
-  options?: Array<{
-    label: string,
-    value: any,
-  }>;
-  dropDownIcon?: boolean;
-  isFormik?: boolean;
-  defaultValue?: any;
-  disabled?: any;
-}
-
-export default memo((props: Props) => {
+export default memo((props) => {
   const {
     title,
     defaultValue,

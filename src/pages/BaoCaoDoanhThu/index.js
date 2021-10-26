@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
 
-import { callAPIPaging, checkCallAPI, checkKeyNull } from "../../helpers/functions";
+import { callAPIPaging, checkCallAPI, checkKeyNull, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DanhSachGD";
 import Table from "./components/Table";
 import { isEmpty } from "lodash";
@@ -32,6 +32,13 @@ const DanhSachGD = () => {
     })
   }
 
+  React.useEffect(() => {
+    seo({
+      title: "Báo Cáo Doanh Thu",
+      metaDescription: "True Hope Admin"
+    })
+  }, [])
+
   useEffect(() => {
     CallDanhSachGD();
   }, [pageSize])
@@ -42,7 +49,7 @@ const DanhSachGD = () => {
         <Row>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
-              <h4 className="page-title mb-0 font-size-18">Danh Sách Giao Dịch</h4>
+              <h4 className="page-title mb-0 font-size-18">Báo cáo doanh thu</h4>
             </div>
           </div>
         </Row>

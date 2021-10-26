@@ -19,30 +19,30 @@ const Sidebar = props => {
               <img src={avatar2} alt="" className="avatar-md mx-auto rounded-circle" />
             </div>
 
-              <div className="mt-3">
-                <Link to="#" className="text-dark fw-medium font-size-16">Patrick Becker</Link>
-                <p className="text-body mt-1 mb-0 font-size-13">UI/UX Designer</p>
-              </div>
+            <div className="mt-3">
+              <Link to="#" className="text-dark fw-medium font-size-16">Patrick Becker</Link>
+              <p className="text-body mt-1 mb-0 font-size-13">UI/UX Designer</p>
             </div>
-            <div data-simplebar className="h-100">
+          </div>
+          <div data-simplebar className="h-100">
             {props.type !== "condensed" ? <SidebarContent /> : <SidebarContent />}
           </div>
-          </div>
         </div>
+      </div>
     </React.Fragment>
   )
 }
 
 Sidebar.propTypes = {
-        type: PropTypes.string,
+  type: PropTypes.string,
 }
 
 const mapStatetoProps = state => {
   return {
-        layout: state.Layout,
+    layout: state.Layout,
   }
 }
 export default connect(
   mapStatetoProps,
-      {}
+  {}
 )(withRouter(withTranslation()(Sidebar)))

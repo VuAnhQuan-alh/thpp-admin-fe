@@ -84,16 +84,10 @@ const SidebarContent = props => {
         <div id="sidebar-menu">
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">{props.t("Menu")} </li>
-            <li>
-              <Link to="/#" className="waves-effect">
-                <span>{props.t("Đối soát giao dịch")}</span>
-              </Link>
-              <ul className="sub-menu">
-                <li><Link to="/Doi-soat-giao-dich-VNPay">{props.t("Đối soát giao dịch VNPay")}</Link></li>
-                <li><Link to="/Danh-sach-giao-dich">{props.t("Danh sách giao dịch")}</Link></li>
-                <li><Link to="/Bao-cao-doanh-thu">{props.t("Báo cáo doanh thu")}</Link></li>
-              </ul>
-            </li>
+            <li><Link to="/Doi-soat-giao-dich">{props.t("Đối soát giao dịch")}</Link></li>
+            <li><Link to="/Danh-sach-giao-dich">{props.t("Danh sách giao dịch")}</Link></li>
+            <li><Link to="/Bao-cao-doanh-thu">{props.t("Báo cáo doanh thu")}</Link></li>
+            <li><Link to="/Quan-tri">{props.t("Quản trị")}</Link></li>
           </ul>
         </div>
       </SimpleBar>

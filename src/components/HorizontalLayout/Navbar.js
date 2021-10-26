@@ -91,11 +91,14 @@ const Navbar = props => {
                 <div
                   className={classname("dropdown-menu", { show: dashboard })}
                 >
-                  <Link to="/Doi-soat-giao-dich-VNPay" className="dropdown-item">
-                    {props.t("Đối soát giao dịch VNPay")}
+                  <Link to="/Doi-soat-giao-dich/:id" className="dropdown-item">
+                    {props.t("Đối soát giao dịch")}
                   </Link>
                   <Link to="/Danh-sach-giao-dich" className="dropdown-item">
                     {props.t("Danh sách giao dịch")}
+                  </Link>
+                  <Link to="/Bao-cao-doanh-thu" className="dropdown-item">
+                    {props.t("Báo cáo doanh thu")}
                   </Link>
                 </div>
               </li>
