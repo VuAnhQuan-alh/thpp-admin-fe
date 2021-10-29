@@ -12,6 +12,7 @@ import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
 import SelectCTT from "../../components/SelectCTT";
 import SelectChanel from "../../components/SelectChanel";
+import SelectStatusSys from "../../components/SelectStatusSys";
 
 const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -93,14 +94,7 @@ const DanhSachGD = () => {
                         <Field
                           name="searchText"
                           component={InputField}
-                          label="Tìm kiếm theo mã, hóa đơn"
-                        />
-                      </div>
-                      <div className="col-md-3">
-                        <Field
-                          name="gatewayCode"
-                          component={SelectCTT}
-                          title="Cổng thanh toán"
+                          label="Tìm kiếm theo mã hóa đơn"
                         />
                       </div>
                       <div className="col-md-3">
@@ -115,6 +109,13 @@ const DanhSachGD = () => {
                           name="chanelType"
                           component={SelectChanel}
                           title="Kênh thực hiện"
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <Field
+                          name="statusSys"
+                          component={SelectStatusSys}
+                          title="Trạng thái giao dịch"
                         />
                       </div>
                     </Row>

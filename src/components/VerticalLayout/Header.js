@@ -10,22 +10,22 @@ import { Link } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownMenu } from "reactstrap";
 
 // Import menuDropdown
-import LanguageDropdown from "../CommonForBoth/TopbarDropdown/LanguageDropdown";
-import NotificationDropdown from "../CommonForBoth/TopbarDropdown/NotificationDropdown";
+// import LanguageDropdown from "../CommonForBoth/TopbarDropdown/LanguageDropdown";
+// import NotificationDropdown from "../CommonForBoth/TopbarDropdown/NotificationDropdown";
 import ProfileMenu from "../CommonForBoth/TopbarDropdown/ProfileMenu";
 
-import logoSm from "../../assets/images/logo-sm.png";
-import logoDark from "../../assets/images/logo-dark.png";
-import logoLight from "../../assets/images/logo-light.png";
+// import logoSm from "../../assets/images/logo-sm.png";
+// import logoDark from "../../assets/images/logo-dark.png";
+// import logoLight from "../../assets/images/logo-light.png";
 
 // import images
-import github from "../../assets/images/brands/github.png";
-import bitbucket from "../../assets/images/brands/bitbucket.png";
-import dribbble from "../../assets/images/brands/dribbble.png";
-import dropbox from "../../assets/images/brands/dropbox.png";
-import mail_chimp from "../../assets/images/brands/mail_chimp.png";
-import slack from "../../assets/images/brands/slack.png";
-import Background from "../../assets/images/megamenu-img.png";
+// import github from "../../assets/images/brands/github.png";
+// import bitbucket from "../../assets/images/brands/bitbucket.png";
+// import dribbble from "../../assets/images/brands/dribbble.png";
+// import dropbox from "../../assets/images/brands/dropbox.png";
+// import mail_chimp from "../../assets/images/brands/mail_chimp.png";
+// import slack from "../../assets/images/brands/slack.png";
+// import Background from "../../assets/images/megamenu-img.png";
 
 //i18n
 import { withTranslation } from "react-i18next";
@@ -36,6 +36,7 @@ import {
   toggleLeftmenu,
   changeSidebarType,
 } from "../../store/actions";
+import URL_Logo from "../../assets/images/logo-trueHope.png"
 
 const Header = (props) => {
   const [search, setsearch] = useState(false);
@@ -80,7 +81,7 @@ const Header = (props) => {
 
   return (
     <React.Fragment>
-      <header id="page-topbar">
+      <header id="page-topbar" style={{ background: "#fff" }}>
         <div className="navbar-header">
           <Container fluid>
             <div className="float-end">
@@ -119,7 +120,7 @@ const Header = (props) => {
                   </Form>
                 </DropdownMenu>
               </Dropdown>
-              <LanguageDropdown />{" "}
+              {/* <LanguageDropdown />{" "} */}
               <Dropdown className="d-none d-lg-inline-block ms-1">
                 <button
                   type="button"
@@ -127,13 +128,15 @@ const Header = (props) => {
                     toggleFullscreen();
                   }}
                   className="btn header-item noti-icon waves-effect"
+
                   data-toggle="fullscreen"
                 >
-                  <i className="mdi mdi-fullscreen"></i>
+                  <i className="mdi mdi-fullscreen" style={{ color: "#2a4492" }}></i>
                 </button>
               </Dropdown>{" "}
-              <NotificationDropdown /> <ProfileMenu />{" "}
-              <button
+              {/* <NotificationDropdown /> */}
+              <ProfileMenu />{" "}
+              {/* <button
                 type="button"
                 className="btn header-item noti-icon right-bar-toggle waves-effect"
                 onClick={() => {
@@ -141,18 +144,20 @@ const Header = (props) => {
                 }}
               >
                 <i className="mdi mdi-settings-outline"></i>
-              </button>
+              </button> */}
             </div>
             <div>
               <div className="navbar-brand-box">
-                <Link to="/" className="logo logo-dark">
+                {/* <Link to="/" className="logo logo-dark">
                   <span style={{ color: "#FFFF" }} className="logo-sm">VNPay</span>
                   <span style={{ color: "#FFFF" }} className="logo-lg">VNPay</span>
-                </Link>
+                </Link> */}
 
                 <Link to="/" className="logo logo-light">
                   <span style={{ color: "#FFFF" }} className="logo-sm">VNPay</span>
-                  <span style={{ color: "#FFFF" }} className="logo-lg">VNPay</span>
+                  <div className="logo-lg">
+                    <img src={URL_Logo} alt="Logo True Hope" width="100%" />
+                  </div>
                 </Link>
               </div>
               <button

@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router";
-import { CardBody, CardTitle, Card, Table } from "reactstrap";
+import { Table, Tbody, Th, Thead, Tr } from "react-super-responsive-table";
+import { CardBody, CardTitle, Card } from "reactstrap";
 import { ArrayMessageInvoice } from "../../../common/data/message-invoice";
 import PaginationRes from "../../../components/PaginationRes"
+import { checkStatusSys } from "../../../helpers/functions";
 import ModalChiTietHoaDon from "./ModalChiTietHoaDon";
 
-
+const styleTH = {
+  overflow: "hidden",
+  whiteSpace: "nowrap"
+}
 export const TableData = ({ data, history, setPageSize, pageSize }) => {
   const [modalDetail, setModalDetail] = useState(false);
   const [itemSelected, setItemSelected] = useState({});
   const [totalPage, setTotalPage] = useState(0)
-  const checkStatus = (sys) => {
-    const result = ArrayMessageInvoice.find(i => {
-      for (const [key, value] of Object.entries(i)) {
-        if (sys === value) return true;
-        return false;
-      }
-    });
-    return result["MESS"];
-  }
+
   React.useEffect(() => {
     setTotalPage(0)
     if (data?.total > 0) {
@@ -29,7 +26,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
   return (
     <Card>
       <CardBody>
-        <CardTitle className="h4">Thông tin đối soát </CardTitle>
+        <CardTitle className="h4">thông tin đối soát </CardTitle>
         <div className="table-rep-plugin">
           <div
             className="table-responsive mb-0"
@@ -39,27 +36,27 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
               id="tech-companies-1"
               className="table table-striped table-bordered"
             >
-              <thead>
-                <tr>
-                  <th style={{ minWidth: "54px" }}>STT</th>
-                  <th style={{ minWidth: "120px" }}>Mã giao dịch</th>
-                  <th style={{ width: "max-content", minWidth: "187px" }}>Bệnh viện/Phòng khám</th>
-                  <th style={{ minWidth: "130px" }}>Kênh thực hiện</th>
-                  <th style={{ width: "max-content", minWidth: "140px" }}>Cổng thanh toán</th>
-                  <th style={{ minWidth: "108px" }}>Mã hóa đơn</th>
-                  <th style={{ width: "max-content", minWidth: "140px" }}>Khách hàng</th>
-                  <th style={{ minWidth: "120px" }}>Số điện thoại</th>
-                  <th style={{ width: "max-content", minWidth: "100px" }}>Dịch vụ</th>
-                  <th style={{ minWidth: "120px" }}>Tổng tiền (đ)</th>
-                  <th style={{ minWidth: "140px" }}>Ngày giao dịch</th>
-                  <th style={{ width: "max-content", minWidth: "140px" }}>Trang thái </th>
-                </tr>
-              </thead>
-              <tbody style={{ textAlign: "center" }}>
+              <Thead>
+                <Tr>
+                  <Th style={styleTH}>STT</Th>
+                  <Th style={styleTH}>mã giao dịch</Th>
+                  <Th style={styleTH}>Bệnh viện/Phòng khám</Th>
+                  <Th style={styleTH}>Kênh thực hiện</Th>
+                  <Th style={styleTH}>Cổng thanh toán</Th>
+                  <Th style={styleTH}>Mã hóa đơn</Th>
+                  <Th style={styleTH}>Khách hàng</Th>
+                  <Th style={styleTH}>Số điện thoại</Th>
+                  <Th style={styleTH}>Dịch vụ</Th>
+                  <Th style={styleTH}>Tổng tiền (đ)</Th>
+                  <Th style={styleTH}>Ngày giao dịch</Th>
+                  <Th style={styleTH}>Trang thái </Th>
+                </Tr>
+              </Thead>
+              <Tbody style={{ textAlign: "center" }}>
                 {data?.data && data.data.map((item, index) => (
-                  <tr key={index}>
-                    <th>{++index}</th>
-                    <td>
+                  <Tr key={index}>
+                    <Th style={styleTH}>{++index}</Th>
+                    <Th style={styleTH}>
                       <a
                         style={{ textDecorationLine: "underline" }}
                         href="#"
@@ -71,11 +68,11 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                       >
                         {item?.transactionNo}
                       </a>
-                    </td>
-                    <td style={{ minWidth: "max-content", display: "block", textAlign: "left" }}>{item?.hospitalName}</td>
-                    <td>{item?.chanelType === 1 ? "Mobile" : item?.chanelType === 2 ? "Website" : null}</td>
-                    <td style={{ minWidth: "max-content", display: "block" }}>{item?.gatewayName}</td>
-                    <td>
+                    </Th>
+                    <Th style={styleTH}>{item?.hospitalName}</Th>
+                    <Th style={styleTH}>{item?.chanelType === 1 ? "Mobile" : item?.chanelType === 2 ? "Website" : null}</Th>
+                    <Th style={styleTH}>{item?.gatewayName}</Th>
+                    <Th style={styleTH}>
                       <a
                         style={{ textDecorationLine: "underline" }}
                         href="#"
@@ -86,16 +83,16 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                         }} >
                         {item?.orderInfo}
                       </a>
-                    </td>
-                    <td style={{ minWidth: "max-content", display: "block", textAlign: "left" }}>{item?.customerName}</td>
-                    <td style={{ textAlign: "left" }}>{item?.phone}</td>
-                    <td style={{ minWidth: "max-content", display: "block", textAlign: "left" }}>{item?.serviceName}</td>
-                    <td>{item?.amount}</td>
-                    <td>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : "Null"}</td>
-                    <td style={{ minWidth: "max-content", display: "block", textAlign: "left" }}>{item?.statusSys ? checkStatus(item?.statusSys) : "Null"}</td>
-                  </tr>
+                    </Th>
+                    <Th style={styleTH}>{item?.customerName}</Th>
+                    <Th style={styleTH}>{item?.phone}</Th>
+                    <Th style={styleTH}>{item?.serviceName}</Th>
+                    <Th style={styleTH}>{item?.amount}</Th>
+                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : "Null"}</Th>
+                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : "Null"}</Th>
+                  </Tr>
                 ))}
-              </tbody>
+              </Tbody>
             </Table>
           </div>
         </div>

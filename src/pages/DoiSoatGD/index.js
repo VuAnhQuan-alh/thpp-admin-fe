@@ -11,6 +11,7 @@ import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectDV from "../../components/SelectDV";
 import SelectChanel from "../../components/SelectChanel";
 import SelectStatusSys from "../../components/SelectStatusSys";
+import SelectCTT from "../../components/SelectCTT";
 
 const DoiSoatGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -51,12 +52,11 @@ const DoiSoatGD = () => {
               <Formik
                 initialValues={{
                   hospitalType: null,
-                  gatewayCode: null,
-                  customName: "",
+                  customerName: "",
                   startDate: "",
                   enDate: "",
                   searchText: "",
-                  serviceCode: null,
+                  chanelType: null,
                   statusSys: null,
                 }}
                 onSubmit={(values) => {
@@ -67,7 +67,29 @@ const DoiSoatGD = () => {
               >
                 {() => (
                   <Form>
-                    <Row className="d-flex justify-content-between align-items-end">
+                    <Row className="d-flex justify-content-between align-items-end space-x-2">
+                      <div className="col-md-6">
+                        <Field
+                          name="hospitalType"
+                          component={SelectBenhVien}
+                          title="Bệnh viện/phòng khám"
+                        /></div>
+                      <div className="col-md-3">
+                        <Field
+                          name="startDate"
+                          component={DatePicker}
+                          title="Từ ngày"
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <Field
+                          name="endDate"
+                          component={DatePicker}
+                          title="Đến ngày"
+                        />
+                      </div>
+                    </Row>
+                    <Row className="d-flex justify-content-between align-items-end mt-3">
                       <div className="col-md-3" style={{ marginBottom: "-5px" }}>
                         <Field
                           name="searchText"
@@ -75,41 +97,25 @@ const DoiSoatGD = () => {
                           label="Tìm kiếm theo mã giao dịch"
                         />
                       </div>
-                      <div className="col-md-3" style={{ marginBottom: "-5px" }}>
-                        <Field
-                          name="customName"
-                          component={InputField}
-                          label="Tìm kiếm khách hàng"
-                        />
-                      </div>
                       <div className="col-md-3">
                         <Field
                           name="chanelType"
-                          component={SelectChanel}
-                          title="Kênh thực hiện"
+                          component={SelectCTT}
+                          title="Cổng thanh toán"
+                        />
+                      </div>
+                      <div className="col-md-3" style={{ marginBottom: "-5px" }}>
+                        <Field
+                          name="customerName"
+                          component={InputField}
+                          label="Khách hàng Thanh toán"
                         />
                       </div>
                       <div className="col-md-3">
-                        <Field
-                          name="serviceCode"
-                          component={SelectDV}
-                          title="Dịch vụ"
-                        />
-                      </div>
-                    </Row>
-                    <Row className="d-flex justify-content-between align-items-end mt-3">
-                      <div className="col-md-6">
                         <Field
                           name="statusSys"
                           component={SelectStatusSys}
                           title="Trạng thái giao dịch"
-                        />
-                      </div>
-                      <div className="col-md-6">
-                        <Field
-                          name="hospitalType"
-                          component={SelectBenhVien}
-                          title="Bệnh viện/phòng khám"
                         />
                       </div>
                     </Row>

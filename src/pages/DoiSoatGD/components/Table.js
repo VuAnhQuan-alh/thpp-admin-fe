@@ -3,18 +3,17 @@ import { Table, Tbody, Th, Thead, Tr } from "react-super-responsive-table";
 import { CardBody, CardTitle, Row, Card } from "reactstrap";
 import { ArrayMessageInvoice } from "../../../common/data/message-invoice";
 import PaginationRes from "../../../components/PaginationRes"
+import { checkStatusSys } from "../../../helpers/functions";
+
+const styleTH = {
+  overflow: "hidden",
+  whiteSpace: "nowrap"
+}
+
 export default ({ data, setPageSize, pageSize }) => {
   // const [modalDetail, setModalDetail] = useState(false);
   const [totalPage, setTotalPage] = React.useState(0)
-  const checkStatus = (sys) => {
-    const result = ArrayMessageInvoice.find(i => {
-      for (const [key, value] of Object.entries(i)) {
-        if (sys === value) return true
-        return false
-      }
-    })
-    return result['MESS']
-  }
+
   React.useEffect(() => {
     setTotalPage(0)
     if (data?.total > 0) {
@@ -38,37 +37,39 @@ export default ({ data, setPageSize, pageSize }) => {
             >
               <Thead>
                 <Tr>
-                  <Th data-priority="1">STT</Th>
-                  <Th data-priority="1" style={{ minWidth: "200px" }}>Bệnh viện/Phòng khám</Th>
-                  <Th data-priority="3" style={{ minWidth: "180px" }}>Khách hàng</Th>
-                  <Th data-priority="3" style={{ minWidth: "140px" }}>Số điện thoại</Th>
-                  <Th data-priority="6" style={{ minWidth: "160px" }}>Dịch vụ</Th>
-                  <Th data-priority="6" style={{ minWidth: "140px" }}>Tổng tiền(vnđ)</Th>
-                  <Th data-priority="6" style={{ minWidth: "140px" }}>Kênh giao dịch</Th>
-                  <Th data-priority="3" style={{ minWidth: "180px" }}>Ngày giao dịch</Th>
-                  <Th data-priority="6" style={{ minWidth: "160px" }}>Trang thái giao dịch </Th>
-                  <Th data-priority="6" style={{ minWidth: "160px" }}>Cổng Thanh toán</Th>
-                  <Th data-priority="1" style={{ minWidth: "140px" }}>Mã Giao dịch</Th>
-                  <Th data-priority="3" style={{ minWidth: "130px" }}>Mã tham chiếu</Th>
-                  <Th data-priority="6" style={{ minWidth: "120px" }}>Thao tác</Th>
+                  <Th style={styleTH}>STT</Th>
+                  <Th style={styleTH}>Mã Giao dịch</Th>
+                  <Th style={styleTH}>Mã tham chiếu</Th>
+                  <Th style={styleTH}>Cổng Thanh toán</Th>
+                  <Th style={styleTH}>Ngày giao dịch</Th>
+                  <Th style={styleTH}>Khách hàng thanh toán</Th>
+                  <Th style={styleTH}>Kênh thực hiện</Th>
+                  <Th style={styleTH}>Trang thái giao dịch </Th>
+                  <Th style={styleTH}>Bệnh viện/Phòng khám</Th>
+                  <Th style={styleTH}>Khách hàng</Th>
+                  <Th style={styleTH}>Số điện thoại</Th>
+                  <Th style={styleTH}>Dịch vụ</Th>
+                  <Th style={styleTH}>Tổng tiền(vnđ)</Th>
+                  <Th style={styleTH}>Thao tác</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {data?.data && data.data.map((item, index) => (
                   <Tr key={index}>
-                    <Th data-priority="1">{index}</Th>
-                    <Th data-priority="1">{item?.hospitalName}</Th>
-                    <Th data-priority="1">{item?.transactionNo}</Th>
-                    <Th data-priority="3">{item?.gatewayCode}</Th>
-                    <Th data-priority="3">{item?.customerName}</Th>
-                    <Th data-priority="3">{item?.phone}</Th>
-                    <Th data-priority="6">{item?.serviceName}</Th>
-                    <Th data-priority="6">{item?.amount}</Th>
-                    <Th data-priority="6">{item?.gatewayName}</Th>
-                    <Th data-priority="3">{item?.transactionDate}</Th>
-                    <Th data-priority="6">{item?.statusSys}</Th>
-                    <Th data-priority="6">{item?.statusSys}</Th>
-                    <Th data-priority="6">Thao tác</Th>
+                    <Th style={styleTH}>{item?.id}</Th>
+                    <Th style={styleTH}>abc</Th>
+                    <Th style={styleTH}>Xyz</Th>
+                    <Th style={styleTH}>{item?.gatewayName}</Th>
+                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : "Null"}</Th>
+                    <Th style={styleTH}>{item?.customerName}</Th>
+                    <Th style={styleTH}>{item?.chanelType === 1 ? "Mobile" : "Website"}</Th>
+                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : "Null"}</Th>
+                    <Th style={styleTH}>{item?.hospitalName}</Th>
+                    <Th style={styleTH}>{item?.customerName}</Th>
+                    <Th style={styleTH}>{item?.phone}</Th>
+                    <Th style={styleTH}>{item?.serviceName}</Th>
+                    <Th style={styleTH}>{item?.amount}</Th>
+                    <Th style={styleTH}>Thao tác</Th>
                   </Tr>
                 ))}
               </Tbody>

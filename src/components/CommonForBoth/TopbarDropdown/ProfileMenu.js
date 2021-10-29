@@ -41,16 +41,16 @@ const ProfileMenu = props => {
             src={user4}
             alt="Header Avatar"
           />{" "}
-          <span className="d-none d-xl-inline-block ms-1">{username}</span>{" "}
-          <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>{" "}
+          <span className="d-none d-xl-inline-block ms-1" style={{ color: "#2a4492" }}>{username}</span>{" "}
+          <i className="mdi mdi-chevron-down d-none d-xl-inline-block" style={{ color: "#2a4492" }}></i>{" "}
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu-end">
-          <DropdownItem tag="a" href="/profile">
+          {/* <DropdownItem tag="a" href="/profile">
             {" "}
             <i className="bx bx-user font-size-16 align-middle me-1"></i>{" "}
             {props.t("View Profile")}{" "}
-          </DropdownItem>
-          <div className="dropdown-divider" />
+          </DropdownItem> */}
+          {/* <div className="dropdown-divider" /> */}
           <button className="dropdown-item text-danger" onClick={() => { dispatch(logoutUser()) }}>
             <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>{" "}
             <span>{props.t("Logout")}</span>

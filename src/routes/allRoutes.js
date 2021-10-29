@@ -20,7 +20,7 @@ const userRoutes = [
   { path: "/Quan-tri", component: AdminSite },
 
   // //profile
-  { path: "/profile", component: UserProfile },
+  // { path: "/profile", component: UserProfile },
 
   // this route should be at the end of all other routes
   { path: "/", exact: true, component: () => <Redirect to="/Doi-soat-giao-dich" /> },

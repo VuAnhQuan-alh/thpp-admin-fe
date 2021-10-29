@@ -1,5 +1,16 @@
 /* eslint-disable no-extend-native */
 import _, { isEmpty, isNumber, uniqBy } from "lodash";
+import { ArrayMessageInvoice } from "../common/data/message-invoice";
+
+export const checkStatusSys = (sys) => {
+  const result = ArrayMessageInvoice.find(i => {
+    for (const [key, value] of Object.entries(i)) {
+      if (sys === value) return true;
+      return false;
+    }
+  });
+  return result["MESS"];
+}
 
 export const removeAccents = (str) => {
   if (!str) return "";

@@ -98,9 +98,8 @@ class Layout extends Component {
               type={this.props.leftSideBarType}
               isMobile={this.state.isMobile}
             />
-            <div className="main-content">
+            <div className="main-content" style={{ padding: "0px" }}>
               {this.props.children}
-              <Footer />
             </div>
           </div>
         </div>
