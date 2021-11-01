@@ -39,7 +39,6 @@ export default ({ modalDetail, setModalDetail, item }) => {
       }
     });
   };
-  // console.log(invoice)
   useEffect(() => {
     if (modalDetail && !isEmpty(item) && item?.txnRef) {
       callChiTietHoaDon();
@@ -47,7 +46,6 @@ export default ({ modalDetail, setModalDetail, item }) => {
   }, [modalDetail]);
   React.useEffect(() => {
     if (invoice.length > 0) {
-      console.log(invoice)
       const result = invoice.reduce((acc, curr) => curr.subTotal + acc, 0)
       setPayTotal(result)
     }

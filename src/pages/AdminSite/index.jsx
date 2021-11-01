@@ -45,7 +45,7 @@ export default () => {
 
   return (
     <React.Fragment>
-      <div className="page-content">
+      <div className="page-content" style={{ maxWidth: "1440px", margin: "10px auto" }}>
         <Row>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
@@ -73,44 +73,55 @@ export default () => {
               >
                 {() => (
                   <Form>
-                    <div class="row">
-                      <div class="col-sm-6 col-md-2 col-xs-6">
+                    <Row className="d-flex justify-content-between align-items-center space-x-2">
+                      <div className="col-sm-3">
                         <Field
-                          name="benhVien"
-                          component={SelectBenhVien}
-                          title="Bệnh viện/phòng khám"
-                        /></div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
-                        <Field
-                          name="startDate"
-                          component={DatePicker}
-                          title="Từ ngày"
-                        />
-                      </div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
-                        <Field
-                          name="endDate"
-                          component={DatePicker}
-                          title="Đến ngày"
-                        />
-                      </div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
-                        <Field
-                          name="dichVu"
-                          component={SelectDV}
-                          title="Dịch vụ"
-                        />
-                      </div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
-                        <Field
-                          name="benhVien"
+                          name="customerName"
                           component={InputField}
-                          label="Tìm kiếm theo mã, hóa đơn"
+                          label="Họ tên"
                         />
                       </div>
-                      <div class="col-sm-6 col-md-3 col-xs-6 justify-content-start  d-flex align-items-center" >
+                      <div className="col-sm-3">
+                        <Field
+                          name="customerPhone"
+                          component={InputField}
+                          label="Số điện thoại"
+                        />
+                      </div>
+                      <div className="col-sm-3">
+                        <Field
+                          name="cmndcccd"
+                          component={InputField}
+                          label="CMND/CCCD"
+                        />
+                      </div>
+                      <div className="col-sm-3">
+                        <Field
+                          name="email"
+                          component={InputField}
+                          label="Email"
+                        />
+                      </div>
+                    </Row>
+
+                    <Row className="d-flex justify-content-between align-items-center space-x-2">
+                      <div className="col-sm-3">
+                        <Field
+                          name="username"
+                          component={InputField}
+                          label="Username"
+                        />
+                      </div>
+                      <div className="col-sm-3" style={{ marginBottom: "5px" }}>
+                        <Field
+                          name="sync"
+                          component={SelectBenhVien}
+                          title="First sync"
+                        />
+                      </div>
+                      <div className="col-sm-6 d-flex justify-content-end align-items-end">
                         <Button
-                          color="secondery"
+                          color="primary"
                           className="btn btn-primary waves-effect waves-light mt-2"
                           type="submit"
                           id="btn-tra-cuuDC"
@@ -119,7 +130,7 @@ export default () => {
                           <i className="fas fa-search "></i> Tìm kiếm
                         </Button>
                       </div>
-                    </div>
+                    </Row>
                   </Form>
                 )}
               </Formik>

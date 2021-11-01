@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom"
 import Login from "../pages/Authentication/Login"
 import Register from "../pages/Authentication/Register"
 // Profile
-import UserProfile from "../pages/Authentication/user-profile"
+// import UserProfile from "../pages/Authentication/user-profile"
 import DanhSachGD from "../pages/DanhSachGD"
 import DoiSoatGD from "../pages/DoiSoatGD"
 import BaoCaoDoanhThu from "../pages/BaoCaoDoanhThu"
@@ -14,6 +14,7 @@ import AdminSite from "../pages/AdminSite"
 
 
 const userRoutes = [
+  { path: "/Doi-soat-giao-dich/:id", component: DoiSoatGD },
   { path: "/Doi-soat-giao-dich", component: DoiSoatGD },
   { path: "/Danh-sach-giao-dich", component: DanhSachGD },
   { path: "/Bao-cao-doanh-thu", component: BaoCaoDoanhThu },

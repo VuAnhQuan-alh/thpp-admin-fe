@@ -69,7 +69,7 @@ export default ({ data, setPageSize, pageSize }) => {
                     <Th style={styleTH}>{item?.phone}</Th>
                     <Th style={styleTH}>{item?.serviceName}</Th>
                     <Th style={styleTH}>{item?.amount}</Th>
-                    <Th style={styleTH}>Thao tác</Th>
+                    <Th style={styleTH}></Th>
                   </Tr>
                 ))}
               </Tbody>

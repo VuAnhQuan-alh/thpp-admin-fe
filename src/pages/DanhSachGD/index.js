@@ -6,11 +6,11 @@ import DatePicker from "../../components/DatePicker";
 import { callAPIPaging, checkCallAPI, checkKeyNull, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DanhSachGD";
 import Table from "./components/Table";
-import { isEmpty } from "lodash";
+// import { isEmpty } from "lodash";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
-import SelectCTT from "../../components/SelectCTT";
+// import SelectCTT from "../../components/SelectCTT";
 import SelectChanel from "../../components/SelectChanel";
 import SelectStatusSys from "../../components/SelectStatusSys";
 
@@ -122,7 +122,7 @@ const DanhSachGD = () => {
                     <div className="d-flex justify-content-end align-items-center mt-3">
                       <Button
                         color="primary"
-                        className="btn btn-primary waves-effect waves-light mt-3"
+                        className="btn btn-primary waves-effect waves-light mt-2"
                         type="submit"
                         id="btn-tra-cuuDC"
                         style={{ marginRight: "20px" }}
@@ -131,7 +131,7 @@ const DanhSachGD = () => {
                       </Button>
                       <Button
                         color="info"
-                        className="btn btn-primary waves-effect waves-light mt-3"
+                        className="btn btn-primary waves-effect waves-light mt-2"
                         type="submit"
                         id="btn-tra-cuuDC"
                       // onClick={() => { }}

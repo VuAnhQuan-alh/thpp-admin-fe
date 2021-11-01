@@ -56,7 +56,7 @@ const SidebarContent = props => {
       const ul = document.getElementById("side-menu")
       const items = ul.getElementsByTagName("a")
       for (let i = 0; i < items.length; ++i) {
-        if (pathName === items[i].pathname) {
+        if (pathName.includes(items[i].pathname)) {
           matchingMenuItem = items[i]
           break
         }

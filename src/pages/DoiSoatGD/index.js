@@ -17,6 +17,14 @@ const DoiSoatGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([])
+  const urlPath = window?.location?.pathname.split("/")
+
+  React.useEffect(() => {
+    if (!isNaN(urlPath[2])) {
+      apiSearch(checkKeyNull({ page: 1, size: 1, searchText: `${urlPath[2]}` }))
+    }
+  }, [window?.location?.pathname])
+
   const CallDanhSachGD = () => {
     const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
     apiSearch(checkKeyNull(paramSearch)).then((res) => {
@@ -55,7 +63,7 @@ const DoiSoatGD = () => {
                   customerName: "",
                   startDate: "",
                   enDate: "",
-                  searchText: "",
+                  searchText: `${urlPath[2] || ""}`,
                   chanelType: null,
                   statusSys: null,
                 }}

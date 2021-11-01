@@ -3,10 +3,17 @@ import { withRouter } from "react-router";
 import { Card, CardBody, CardTitle, Table } from "reactstrap";
 import PaginationRes from "../../../components/PaginationRes";
 
+const styleTH = {
+  overflow: "hidden",
+  whiteSpace: "nowrap"
+}
 export const TableData = (props) => {
   const { data, history } = props
   const [itemSelected, setItemSelected] = useState({});
   const [onChange, setOnChange] = React.useState(false)
+  const iptEl = React.useRef(null)
+  const [statusUser, setStatusUser] = useState(false)
+
   return (
     <Card>
       <CardBody>
@@ -22,30 +29,40 @@ export const TableData = (props) => {
             >
               <thead className="text-center">
                 <tr>
-                  <th style={{ minWidth: "90px" }}></th>
-                  <th>Nhân viên</th>
-                  <th style={{ minWidth: "150px" }}>Đối soát giao dịch</th>
-                  <th style={{ minWidth: "170px" }}>Danh sách giao dịch</th>
-                  <th style={{ minWidth: "160px" }}>Báo cáo doanh thu</th>
-                  <th style={{ minWidth: "90px" }}>Quản trị</th>
-                  <th style={{ minWidth: "100px" }}>Hoạt động</th>
-                  <th style={{ minWidth: "130px" }}>Số điện thoại</th>
-                  <th style={{ minWidth: "110px" }}>Cmnd/cccd</th>
+                  <th style={styleTH}></th>
+                  <th style={styleTH}>Nhân viên</th>
+                  <th style={styleTH}>Email</th>
+                  <th style={styleTH}>Username</th>
+                  <th style={styleTH}>First sync</th>
+                  <th style={styleTH}>Đối soát giao dịch</th>
+                  <th style={styleTH}>Danh sách giao dịch</th>
+                  <th style={styleTH}>Báo cáo doanh thu</th>
+                  <th style={styleTH}>Quản trị</th>
+                  <th style={styleTH}>Hoạt động</th>
+                  <th style={styleTH}>Số điện thoại</th>
+                  <th style={styleTH}>Cmnd/cccd</th>
                 </tr>
               </thead>
               <tbody className="text-center">
                 <tr>
                   <th>
-                    <button
-                      className={onChange ? "btn btn-sm btn-primary" : "btn btn-sm btn-secondary"}
-                      onClick={() => setOnChange(!onChange)}>{onChange ? "Update" : "Edit"}</button>
+                    <div style={{ width: "70px", textAlign: "center" }}>
+                      <button
+                        className={onChange ? "btn btn-sm btn-primary" : "btn btn-sm btn-secondary"}
+                        onClick={() => setOnChange(!onChange)}>
+                        {onChange ? "Update" : "Edit"}
+                      </button>
+                    </div>
                   </th>
-                  <td>
+                  <td style={styleTH}>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minWidth: "max-content" }}>
-                      <i class="fas fa-user-tie"></i>
+                      <i className="fas fa-user-tie"></i>
                       <div style={{ marginLeft: "10px" }}>Nguyen Hoang Tung</div>
                     </div>
                   </td>
+                  <td style={styleTH}>tungnh@sphinxjsc.com</td>
+                  <td style={styleTH}>tungSphinxJSC</td>
+                  <td style={styleTH}>True</td>
                   <td>
                     <input
                       type="checkbox"
@@ -85,17 +102,20 @@ export const TableData = (props) => {
                   <td>
                     <div className="form-check form-switch">
                       <input
+                        ref={iptEl}
                         type="checkbox"
                         name="sta"
                         id="sta"
                         role="switch"
                         disabled={!onChange}
                         className="form-check-input"
+                        onClick={() => setStatusUser(!statusUser)}
                       />
+                      <div style={{ width: "70px", textAlign: "right" }}>{statusUser ? "Active" : "Inactive"}</div>
                     </div>
                   </td>
-                  <td>0383072806</td>
-                  <td>187925792</td>
+                  <td style={styleTH}>0383072806</td>
+                  <td style={styleTH}>187925792</td>
                 </tr>
               </tbody>
             </Table>
