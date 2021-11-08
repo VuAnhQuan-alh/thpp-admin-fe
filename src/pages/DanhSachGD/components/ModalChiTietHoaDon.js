@@ -18,6 +18,7 @@ const styleMain = {
   transitionDelay: "500ms",
   display: "flex",
   justifyContent: "center",
+  maxWidth: `${window.screen.width > 768 ? 768 : window.screen.width - 50}px`,
   alignItems: "center"
 }
 const mr10 = { marginRight: "10px" }
@@ -28,19 +29,20 @@ const styleTH = {
 
 export default ({ modalDetail, setModalDetail, item }) => {
   const initialValues = [{
-    quantity: 0,
-    price: 0,
-    subTotal: 0,
-    productName: null
+    discountAmount: null,
+    discountCode: null,
+    services: [],
+    id: null
   }]
   const screenHeight = window.screen.height
   const [invoice, setInvoice] = React.useState([])
+  const [priceTotal, setPriceTotal] = React.useState(0)
   const [payTotal, setPayTotal] = React.useState(0)
   const callChiTietHoaDon = () => {
     apiChiTietGD(item?.txnRef).then((res) => {
       setInvoice(initialValues)
       if (res?.data?.data?.data) {
-        setInvoice(res?.data?.data?.data)
+        setInvoice({ ...initialValues, ...res?.data?.data?.data })
       }
     });
   };
@@ -49,17 +51,18 @@ export default ({ modalDetail, setModalDetail, item }) => {
       callChiTietHoaDon();
     }
   }, [modalDetail]);
-  React.useEffect(() => {
-    if (invoice.length > 0) {
-      const result = invoice.reduce((acc, curr) => curr.subTotal + acc, 0)
-      setPayTotal(result)
+  useEffect(() => {
+    if (invoice?.services?.length > 0) {
+      const result = invoice.services.reduce((acc, curr) => acc + parseInt(curr?.amount), 0)
+      setPriceTotal(result)
+      setPayTotal(result - parseInt(invoice?.discountAmount))
     }
   }, [invoice])
 
   return (
     <>
       <Modal isOpen={modalDetail} style={styleMain} toggle={() => { setModalDetail(!modalDetail) }}>
-        <Card style={{ padding: "20px", margin: "0px" }}>
+        <Card style={{ padding: "20px", maxHeight: `${screenHeight - 50}px`, overflowY: "auto" }}>
           <Row>
             <Col className="fw-bold fs-3">Thông tin hóa đơn</Col>
           </Row>
@@ -97,10 +100,10 @@ export default ({ modalDetail, setModalDetail, item }) => {
             <Row>
               <Col className="fw-bold fs-3">Chi tiết hóa đơn</Col>
             </Row>
-            <CardBody style={{ padding: "0px auto" }}>
+            <CardBody style={{ padding: "0px auto", margin: "16px", }}>
               <Row style={{ overflow: "auto", display: "block", width: "100%", margin: "0px" }}>
                 <div className="table-rep-plugin" style={{ padding: "0px" }}>
-                  <div className="table-responsive" data-pattern="priority-columns">
+                  <div className="table-responsive table-scroll-horizontal" data-pattern="priority-columns">
                     <Table className="table table-hover">
                       <Thead className="table-primary" style={{}}>
                         <Tr className="text-center">
@@ -132,9 +135,9 @@ export default ({ modalDetail, setModalDetail, item }) => {
                   <div className="text-end my-1">Tổng tiền thanh toán:</div>
                 </Col>
                 <Col className="col-3">
-                  <div className="fw-bold my-1">Null</div>
-                  <div className="my-1">{new Intl.NumberFormat().format(payTotal)} VNĐ</div>
-                  <div className="my-1">0 VNĐ</div>
+                  <div className="fw-bold my-1">{invoice?.discountCode || ""}</div>
+                  <div className="my-1">{new Intl.NumberFormat().format(priceTotal)} VNĐ</div>
+                  <div className="my-1">{new Intl.NumberFormat().format(invoice?.discountAmount) + " VNĐ" || "0 VNĐ"}</div>
                   <div className="fw-bold my-1">{new Intl.NumberFormat().format(payTotal)} VNĐ</div>
                 </Col>
               </Row>
@@ -148,7 +151,7 @@ export default ({ modalDetail, setModalDetail, item }) => {
             </Row>
           </Row>
         </Card>
-      </Modal>
+      </Modal >
     </>
   );
 };

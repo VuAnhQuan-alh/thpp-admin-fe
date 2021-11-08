@@ -56,8 +56,8 @@ export default ({ data, setPageSize, pageSize }) => {
                   <Tr key={index}>
                     <Th style={styleTH}>{item?.id}</Th>
                     <Th style={styleTH}>{item?.transactionNo}</Th>
-                    <Th style={styleTH}>Xyz</Th>
-                    <Th style={styleTH}>{item?.gatewayName}</Th>
+                    <Th style={styleTH}>{item?.txnRef ? `${item.txnRef.substring(0, 8)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : "Null"}</Th>
+                    <Th style={styleTH} className="text-center">{item?.gatewayName}</Th>
                     <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : "Null"}</Th>
                     <Th style={styleTH}>{item?.customerName}</Th>
                     <Th style={styleTH}>{item?.chanelType === 1 ? "Mobile" : "Website"}</Th>

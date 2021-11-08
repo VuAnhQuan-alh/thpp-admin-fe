@@ -19,6 +19,20 @@
 // @import "./rtl/structure-rtl";
 // @import "./rtl/text-rtl";
 
+.table-scroll-horizontal {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-height: 192px !important;
+  // min-height: 100px !important;
+  thead tr:nth-child(1) th {
+    background: white;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1;
+  }
+}
 .react-bootstrap-table-page-btns-ul {
   margin-bottom: 0px;
 }

@@ -62,7 +62,8 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                         href="#"
                         onClick={(e) => {
                           e.preventDefault()
-                          history.push(`/Doi-soat-giao-dich/${item?.transactionNo}`)
+                          window.localStorage.setItem("transNo", item?.transactionNo)
+                          history.push("/Doi-soat-giao-dich")
                         }}
                       >
                         {item?.transactionNo}

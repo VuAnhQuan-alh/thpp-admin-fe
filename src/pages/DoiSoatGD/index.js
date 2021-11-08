@@ -15,11 +15,13 @@ const DoiSoatGD = () => {
   const [params, setParams] = useState({});
   const [data, setData] = useState([])
   const urlPath = window?.location?.pathname.split("/")
+  const trans = window.localStorage.getItem("transNo")
 
   React.useEffect(() => {
-    if (!isNaN(urlPath[2])) {
-      apiSearch(checkKeyNull({ page: 1, size: 1, transactionNo: `${urlPath[2]}` }))
+    if (trans !== null) {
+      apiSearch(checkKeyNull({ page: 1, size: 1, transactionNo: trans }))
         .then(res => {
+          window.localStorage.removeItem("transNo")
           setData(res?.data)
         })
     } else {
@@ -57,12 +59,11 @@ const DoiSoatGD = () => {
                   customerName: "",
                   startDate: "",
                   enDate: "",
-                  transactionNo: `${urlPath[2] || ""}`,
+                  transactionNo: `${trans || ""}`,
                   chanelType: null,
                   statusSys: null,
                 }}
                 onSubmit={(values) => {
-                  console.log("value", values);
                   setParams(values);
                   setPageSize({ ...pageSize, page: 1, size: 10 })
                 }}
