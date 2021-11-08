@@ -23,7 +23,7 @@ export default (props: Props) => {
         {window.innerWidth > 768 && <Col md="5" />}
         <Col
           md={`${window.innerWidth > 768 ? "7" : "12"}`}
-          className={`d-flex ${totalItems?"justify-content-between":"justify-content-end"} align-items-center`}
+          className={`d-flex ${totalItems ? "justify-content-between" : "justify-content-end"} align-items-center`}
         >
           {totalPages > 1 && (
             <>

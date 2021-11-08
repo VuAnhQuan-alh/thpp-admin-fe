@@ -34,7 +34,7 @@ const DanhSachGD = () => {
 
   useEffect(() => {
     CallDanhSachGD();
-  }, [pageSize])
+  }, [pageSize, params])
 
   return (
     <React.Fragment>
@@ -52,15 +52,14 @@ const DanhSachGD = () => {
               <Formik
                 initialValues={{
                   hospitalType: null,
-                  chanelType: null,
+                  channelType: null,
                   serviceCode: null,
-                  gatewayCode: "",
-                  searchText: "",
+                  orderInfo: "",
                   startDate: "",
                   endDate: "",
+                  statusSys: ""
                 }}
                 onSubmit={(values) => {
-                  console.log(values)
                   setParams(values);
                   setPageSize({ ...pageSize, page: 1, size: 10 })
                 }}
@@ -92,7 +91,7 @@ const DanhSachGD = () => {
                     <Row className="d-flex justify-content-between align-items-end mt-3">
                       <div className="col-md-3" style={{ marginBottom: "-5px" }}>
                         <Field
-                          name="searchText"
+                          name="orderInfo"
                           component={InputField}
                           label="Tìm kiếm theo mã hóa đơn"
                         />
@@ -106,7 +105,7 @@ const DanhSachGD = () => {
                       </div>
                       <div className="col-md-3">
                         <Field
-                          name="chanelType"
+                          name="channelType"
                           component={SelectChanel}
                           title="Kênh thực hiện"
                         />

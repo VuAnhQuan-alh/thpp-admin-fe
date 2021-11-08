@@ -39,7 +39,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
               <Thead>
                 <Tr>
                   <Th style={styleTH}>STT</Th>
-                  <Th style={styleTH}>mã giao dịch</Th>
+                  <Th style={styleTH}>Mã giao dịch</Th>
                   <Th style={styleTH}>Bệnh viện/Phòng khám</Th>
                   <Th style={styleTH}>Kênh thực hiện</Th>
                   <Th style={styleTH}>Cổng thanh toán</Th>
@@ -49,13 +49,13 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                   <Th style={styleTH}>Dịch vụ</Th>
                   <Th style={styleTH}>Tổng tiền (đ)</Th>
                   <Th style={styleTH}>Ngày giao dịch</Th>
-                  <Th style={styleTH}>Trang thái </Th>
+                  <Th style={styleTH}>Trạng thái </Th>
                 </Tr>
               </Thead>
               <Tbody style={{ textAlign: "center" }}>
-                {data?.data && data.data.map((item, index) => (
+                {data?.data?.length > 0 && data.data.map((item, index) => (
                   <Tr key={index}>
-                    <Th style={styleTH}>{++index}</Th>
+                    <Th style={styleTH}>{item.id}</Th>
                     <Th style={styleTH}>
                       <a
                         style={{ textDecorationLine: "underline" }}
@@ -69,7 +69,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                       </a>
                     </Th>
                     <Th style={styleTH}>{item?.hospitalName}</Th>
-                    <Th style={styleTH}>{item?.chanelType === 1 ? "Mobile" : item?.chanelType === 2 ? "Website" : null}</Th>
+                    <Th style={styleTH}>{item?.channelType === 1 ? "Mobile" : item?.channelType === 2 ? "Website" : "Tiền Mặt"}</Th>
                     <Th style={styleTH}>{item?.gatewayName}</Th>
                     <Th style={styleTH}>
                       <a

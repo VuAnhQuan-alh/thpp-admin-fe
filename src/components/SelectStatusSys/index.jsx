@@ -45,7 +45,6 @@ export default memo((props) => {
   );
 
   const patchedOnChange = (selectedOption) => {
-    //
     const selectedValue = selectedOption ? selectedOption.code : selectedOption;
 
     const changeEvent = {
@@ -69,7 +68,7 @@ export default memo((props) => {
             value={selectedOption || ""}
             onChange={patchedOnChange}
             options={data}
-            getOptionLabel={(item) => `${item.name}`}
+            getOptionLabel={(item) => `${item.MESS}`}
             getOptionValue={(item) => item.code}
             error={form.errors[field.name]}
             {...remainProps}

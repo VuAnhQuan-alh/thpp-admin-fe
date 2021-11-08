@@ -1,4 +1,5 @@
 import { isEmpty } from "lodash";
+import { Table, Tbody, Thead, Td, Th, Tr } from "react-super-responsive-table"
 import React, { useEffect } from "react";
 import { Card, CardBody, Col, Modal, Row, Button } from "reactstrap";
 import { apiChiTietGD } from "../../../services/apiFunction/DanhSachGD";
@@ -20,6 +21,10 @@ const styleMain = {
   alignItems: "center"
 }
 const mr10 = { marginRight: "10px" }
+const styleTH = {
+  overflow: "hidden",
+  whiteSpace: "nowrap"
+}
 
 export default ({ modalDetail, setModalDetail, item }) => {
   const initialValues = [{
@@ -50,22 +55,23 @@ export default ({ modalDetail, setModalDetail, item }) => {
       setPayTotal(result)
     }
   }, [invoice])
+
   return (
     <>
       <Modal isOpen={modalDetail} style={styleMain} toggle={() => { setModalDetail(!modalDetail) }}>
-        <Card className="p-4">
+        <Card style={{ padding: "20px", margin: "0px" }}>
           <Row>
             <Col className="fw-bold fs-3">Thông tin hóa đơn</Col>
           </Row>
           <CardBody>
             <Row>
-              <Col className="d-flex justify-content-start mb-1">
+              <Col style={{ padding: "0px" }} className="d-flex justify-content-start mb-1">
                 <div style={mr10}>Khách hàng:</div>
                 <div className="fw-bold ml-5">{item?.customerName}</div>
               </Col>
             </Row>
             <Row>
-              <Col className="col-md-6">
+              <Col style={{ padding: "0px" }} className="col-md-6">
                 <div className="d-flex justify-content-start mb-1">
                   <div style={mr10}>Mã Hóa Đơn:</div>
                   <div className="fw-bold">{item?.orderInfo}</div>
@@ -91,34 +97,32 @@ export default ({ modalDetail, setModalDetail, item }) => {
             <Row>
               <Col className="fw-bold fs-3">Chi tiết hóa đơn</Col>
             </Row>
-            <CardBody>
-              <Row style={{ position: "relative", height: screenHeight * 0.24, overflow: "auto", display: "block", width: "100%", margin: "0px" }}>
-                <table className="table table-hover text-center">
-                  <thead className="table-primary" style={{ position: "fixed" }}>
-                    <tr>
-                      <th scope="col" style={{ width: "354px", textAlign: "start" }}>Sản phẩm/ Dịch vụ</th>
-                      <th scope="col" style={{ width: "100px" }}>Số lượng</th>
-                      <th scope="col" style={{ width: "120px" }}>Đơn giá (đ)</th>
-                      <th scope="col" style={{ width: "120px" }}>Thành tiền (đ)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style={{ height: "48px", visibility: "hidden" }}>
-                      <th scope="row"></th>
-                      <td style={{ width: "100px" }}></td>
-                      <td style={{ width: "120px" }}></td>
-                      <td style={{ width: "120px" }}></td>
-                    </tr>
-                    {invoice.map((inv, index) => (
-                      <tr key={index}>
-                        <th scope="row" className="text-start">{inv?.productName}</th>
-                        <td>{inv?.quantity}</td>
-                        <td>{new Intl.NumberFormat().format(inv?.price)}</td>
-                        <td>{new Intl.NumberFormat().format(inv?.subTotal)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            <CardBody style={{ padding: "0px auto" }}>
+              <Row style={{ overflow: "auto", display: "block", width: "100%", margin: "0px" }}>
+                <div className="table-rep-plugin" style={{ padding: "0px" }}>
+                  <div className="table-responsive" data-pattern="priority-columns">
+                    <Table className="table table-hover">
+                      <Thead className="table-primary" style={{}}>
+                        <Tr className="text-center">
+                          <Th style={styleTH} className="text-start">Sản phẩm/ Dịch vụ</Th>
+                          <Th style={styleTH}>Số lượng</Th>
+                          <Th style={styleTH}>Đơn giá (đ)</Th>
+                          <Th style={styleTH}>Thành tiền (đ)</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody className="text-center">
+                        {invoice?.services?.length > 0 && invoice?.services?.map((inv, index) => (
+                          <tr key={index}>
+                            <Td className="text-start" style={styleTH}>{inv?.serviceName}</Td>
+                            <Td style={styleTH}>{inv?.count}</Td>
+                            <Td style={styleTH}>{new Intl.NumberFormat().format(inv?.price)}</Td>
+                            <Td style={styleTH}>{new Intl.NumberFormat().format(inv?.amount)}</Td>
+                          </tr>
+                        ))}
+                      </Tbody>
+                    </Table>
+                  </div>
+                </div>
               </Row>
               <Row className="d-flex justify-content-end mt-3">
                 <Col className="col-3">

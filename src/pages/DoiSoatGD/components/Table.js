@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Table, Tbody, Th, Thead, Tr } from "react-super-responsive-table";
 import { CardBody, CardTitle, Row, Card } from "reactstrap";
-import { ArrayMessageInvoice } from "../../../common/data/message-invoice";
 import PaginationRes from "../../../components/PaginationRes"
 import { checkStatusSys } from "../../../helpers/functions";
 
@@ -11,7 +10,6 @@ const styleTH = {
 }
 
 export default ({ data, setPageSize, pageSize }) => {
-  // const [modalDetail, setModalDetail] = useState(false);
   const [totalPage, setTotalPage] = React.useState(0)
 
   React.useEffect(() => {

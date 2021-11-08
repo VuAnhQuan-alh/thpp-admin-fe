@@ -3,13 +3,10 @@ import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
 import SelectBenhVien from "../../components/SelectBenhVien";
-import { callAPIPaging, checkCallAPI, checkKeyNull, seo } from "../../helpers/functions";
+import { checkKeyNull, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DoisoatGDVNPay";
 import Table from "./components/Table";
-import { isEmpty } from "lodash";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
-import SelectDV from "../../components/SelectDV";
-import SelectChanel from "../../components/SelectChanel";
 import SelectStatusSys from "../../components/SelectStatusSys";
 import SelectCTT from "../../components/SelectCTT";
 
@@ -21,16 +18,17 @@ const DoiSoatGD = () => {
 
   React.useEffect(() => {
     if (!isNaN(urlPath[2])) {
-      apiSearch(checkKeyNull({ page: 1, size: 1, searchText: `${urlPath[2]}` }))
+      apiSearch(checkKeyNull({ page: 1, size: 1, transactionNo: `${urlPath[2]}` }))
+        .then(res => {
+          setData(res?.data)
+        })
+    } else {
+      const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
+      apiSearch(checkKeyNull(paramSearch)).then((res) => {
+        setData(res?.data)
+      })
     }
-  }, [window?.location?.pathname])
-
-  const CallDanhSachGD = () => {
-    const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
-    apiSearch(checkKeyNull(paramSearch)).then((res) => {
-      setData(res?.data)
-    })
-  }
+  }, [window?.location?.pathname, pageSize])
 
   React.useEffect(() => {
     seo({
@@ -38,10 +36,6 @@ const DoiSoatGD = () => {
       metaDescription: "True Hope Admin"
     })
   }, [])
-
-  useEffect(() => {
-    CallDanhSachGD();
-  }, [pageSize])
 
   return (
     <React.Fragment>
@@ -63,7 +57,7 @@ const DoiSoatGD = () => {
                   customerName: "",
                   startDate: "",
                   enDate: "",
-                  searchText: `${urlPath[2] || ""}`,
+                  transactionNo: `${urlPath[2] || ""}`,
                   chanelType: null,
                   statusSys: null,
                 }}
@@ -100,7 +94,7 @@ const DoiSoatGD = () => {
                     <Row className="d-flex justify-content-between align-items-end mt-3">
                       <div className="col-md-3" style={{ marginBottom: "-5px" }}>
                         <Field
-                          name="searchText"
+                          name="transactionNo"
                           component={InputField}
                           label="Tìm kiếm theo mã giao dịch"
                         />
@@ -153,7 +147,7 @@ const DoiSoatGD = () => {
           </Card>
         </Row>
         <Row>
-          <Table data={data || []} pageSize={pageSize} setPageSize={setPageSize} />
+          <Table data={data} pageSize={pageSize} setPageSize={setPageSize} />
         </Row>
       </div>
     </React.Fragment>
