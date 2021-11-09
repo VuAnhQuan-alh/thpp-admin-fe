@@ -30,8 +30,8 @@ export default memo((props: Props) => {
 
   const dmDV = async () => {
     setData([
-      { code: 1, name: "Mobile" },
-      { code: 2, name: "Website" }
+      { code: 0, name: "Mobile" },
+      { code: 1, name: "Website" }
     ]);
   };
 

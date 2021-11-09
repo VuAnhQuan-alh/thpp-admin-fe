@@ -70,7 +70,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                       </a>
                     </Th>
                     <Th style={styleTH}>{item?.hospitalName ? item.hospitalName : <span className='text-danger'>Empty data</span>}</Th>
-                    <Th className="text-center" style={styleTH}>{item?.channelType === 1 ? "Mobile" : item?.channelType === 2 ? "Website" : "Tiền Mặt"}</Th>
+                    <Th className="text-center" style={styleTH}>{item?.channelType === 0 ? "Mobile" : item?.channelType === 1 ? "Website" : "Tiền Mặt"}</Th>
                     <Th className="text-center" style={styleTH}>{item?.gatewayName ? item.gatewayName : "Tiền mặt"}</Th>
                     <Th className="text-center" style={styleTH}>
                       <a

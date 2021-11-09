@@ -60,7 +60,7 @@ export default ({ data, setPageSize, pageSize }) => {
                     <Th style={styleTH} className="text-center">{item?.gatewayName ? item.gatewayName : "Tiền mặt"}</Th>
                     <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : <span className="text-danger">Empty data</span>}</Th>
                     <Th style={styleTH}>{item?.customerName}</Th>
-                    <Th style={styleTH}>{item?.chanelType === 1 ? "Mobile" : "Website"}</Th>
+                    <Th style={styleTH}>{item?.channelType === 1 ? "Mobile" : "Website"}</Th>
                     <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : <span className="text-danger">Empty data</span>}</Th>
                     <Th style={styleTH}>{item?.hospitalName ? item.hospitalName : <span className="text-danger">Empty data</span>}</Th>
                     <Th style={styleTH}>{item?.customerName}</Th>

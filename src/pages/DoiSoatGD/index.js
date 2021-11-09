@@ -25,6 +25,7 @@ const DoiSoatGD = () => {
         })
     } else {
       const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
+      console.log(paramSearch)
       apiSearch(checkKeyNull(paramSearch)).then((res) => {
         setData(res?.data)
       })
@@ -59,7 +60,7 @@ const DoiSoatGD = () => {
                   startDate: "",
                   enDate: "",
                   transactionNo: `${trans || ""}`,
-                  chanelType: null,
+                  gatewayCode: null,
                   statusSys: null,
                 }}
                 onSubmit={(values) => {
@@ -101,7 +102,7 @@ const DoiSoatGD = () => {
                       </div>
                       <div className="col-md-3">
                         <Field
-                          name="chanelType"
+                          name="gatewayCode"
                           component={SelectCTT}
                           title="Cổng thanh toán"
                         />

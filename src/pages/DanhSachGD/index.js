@@ -22,6 +22,7 @@ const DanhSachGD = () => {
   const [data, setData] = useState([]);
   const CallDanhSachGD = () => {
     const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
+    console.log(paramSearch)
     apiSearch(checkKeyNull(paramSearch)).then((res) => {
       setData(res?.data);
     })
