@@ -38,6 +38,7 @@ import {
 } from "../../store/actions";
 import URL_Logo from "../../assets/images/logo-trueHope.png"
 
+console.log("version: 1.0.2")
 const Header = (props) => {
   const [search, setsearch] = useState(false);
   const [megaMenu, setmegaMenu] = useState(false);

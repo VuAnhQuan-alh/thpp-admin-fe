@@ -22,14 +22,12 @@ const DanhSachGD = () => {
   const [data, setData] = useState([]);
   const CallDanhSachGD = () => {
     const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
-    console.log(paramSearch)
     apiSearch(checkKeyNull(paramSearch)).then((res) => {
       setData(res?.data);
     })
   }
   const exportFile = () => {
     const paramExport = { ...params, ...pageSize }
-    console.log(paramExport)
     printFile({
       url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
       type: "xlsx",
