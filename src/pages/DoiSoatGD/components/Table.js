@@ -56,17 +56,17 @@ export default ({ data, setPageSize, pageSize }) => {
                   <Tr key={index}>
                     <Th style={styleTH}>{item?.id}</Th>
                     <Th style={styleTH}>{item?.transactionNo}</Th>
-                    <Th style={styleTH}>{item?.txnRef ? `${item.txnRef.substring(0, 8)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : "Null"}</Th>
-                    <Th style={styleTH} className="text-center">{item?.gatewayName}</Th>
-                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : "Null"}</Th>
+                    <Th style={styleTH}>{item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : "Null"}</Th>
+                    <Th style={styleTH} className="text-center">{item?.gatewayName ? item.gatewayName : "Tiền mặt"}</Th>
+                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : <span className="text-danger">Empty data</span>}</Th>
                     <Th style={styleTH}>{item?.customerName}</Th>
                     <Th style={styleTH}>{item?.chanelType === 1 ? "Mobile" : "Website"}</Th>
-                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : "Null"}</Th>
-                    <Th style={styleTH}>{item?.hospitalName}</Th>
+                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : <span className="text-danger">Empty data</span>}</Th>
+                    <Th style={styleTH}>{item?.hospitalName ? item.hospitalName : <span className="text-danger">Empty data</span>}</Th>
                     <Th style={styleTH}>{item?.customerName}</Th>
                     <Th style={styleTH}>{item?.phone}</Th>
                     <Th style={styleTH}>{item?.serviceName}</Th>
-                    <Th style={styleTH}>{item?.amount}</Th>
+                    <Th className="text-center" style={styleTH}>{new Intl.NumberFormat().format(item?.amount)}</Th>
                     <Th style={styleTH}></Th>
                   </Tr>
                 ))}
@@ -79,6 +79,7 @@ export default ({ data, setPageSize, pageSize }) => {
         totalItems={data?.total || 0}
         totalPages={totalPage}
         onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
+        onChangeSize={(e) => setPageSize({ ...pageSize, size: e })}
         currentPage={pageSize?.page}
       />
     </Card>

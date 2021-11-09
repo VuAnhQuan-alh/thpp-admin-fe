@@ -15,4 +15,4 @@ export const dvBenhVien = `${URL}/api/hospital-sv/get-all`;
 export const timKiemDanhSachGD = `${URL}/api/history/search`;
 export const chiTietHoaDon = `${URL}/api/history/get-invoice/`;
 
-
+export const apiExportFile = `${URL}/api/history/export`

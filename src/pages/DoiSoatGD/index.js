@@ -14,7 +14,6 @@ const DoiSoatGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([])
-  const urlPath = window?.location?.pathname.split("/")
   const trans = window.localStorage.getItem("transNo")
 
   React.useEffect(() => {
@@ -30,7 +29,7 @@ const DoiSoatGD = () => {
         setData(res?.data)
       })
     }
-  }, [window?.location?.pathname, pageSize])
+  }, [pageSize.page, pageSize.size])
 
   React.useEffect(() => {
     seo({
@@ -65,7 +64,7 @@ const DoiSoatGD = () => {
                 }}
                 onSubmit={(values) => {
                   setParams(values);
-                  setPageSize({ ...pageSize, page: 1, size: 10 })
+                  setPageSize({ ...pageSize, page: 1 })
                 }}
               >
                 {() => (
@@ -130,15 +129,15 @@ const DoiSoatGD = () => {
                         id="btn-tra-cuuDC"
                         style={{ marginRight: "20px" }}
                       >
-                        <i className="fas fa-search "></i> Tìm kiếm
+                        <i className="fas fa-search "></i>&nbsp;Tìm kiếm
                       </Button>
                       <Button
-                        color="primary"
+                        color="info"
                         className="btn btn-primary waves-effect waves-light mt-2"
                         type="submit"
                         id="btn-tra-cuuDC"
                       >
-                        <i className="fas fa-print"></i>Xuất excel
+                        <i className="fas fa-print"></i>&nbsp;Xuất excel
                       </Button>
                     </div>
                   </Form>

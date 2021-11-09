@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
 
-import { callAPIPaging, checkCallAPI, checkKeyNull, seo } from "../../helpers/functions";
+import { callAPIPaging, checkCallAPI, checkKeyNull, convertParamsToQuery, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DanhSachGD";
 import Table from "./components/Table";
 // import { isEmpty } from "lodash";
@@ -13,6 +13,8 @@ import SelectDV from "../../components/SelectDV";
 // import SelectCTT from "../../components/SelectCTT";
 import SelectChanel from "../../components/SelectChanel";
 import SelectStatusSys from "../../components/SelectStatusSys";
+import { printFile } from "../../services/apiFunction/printFile";
+import { apiExportFile } from "../../constrains/apiURL";
 
 const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -22,6 +24,15 @@ const DanhSachGD = () => {
     const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
     apiSearch(checkKeyNull(paramSearch)).then((res) => {
       setData(res?.data);
+    })
+  }
+  const exportFile = () => {
+    const paramExport = { ...params, ...pageSize }
+    console.log(paramExport)
+    printFile({
+      url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
+      type: "xlsx",
+      method: "GET"
     })
   }
 
@@ -34,7 +45,7 @@ const DanhSachGD = () => {
 
   useEffect(() => {
     CallDanhSachGD();
-  }, [pageSize, params])
+  }, [pageSize])
 
   return (
     <React.Fragment>
@@ -126,16 +137,16 @@ const DanhSachGD = () => {
                         id="btn-tra-cuuDC"
                         style={{ marginRight: "20px" }}
                       >
-                        <i className="fas fa-search "></i> Tìm kiếm
+                        <i className="fas fa-search "></i>&nbsp;Tìm kiếm
                       </Button>
                       <Button
                         color="info"
                         className="btn btn-primary waves-effect waves-light mt-2"
                         type="submit"
                         id="btn-tra-cuuDC"
-                      // onClick={() => { }}
+                        onClick={() => exportFile()}
                       >
-                        <i className="fas fa-print"></i> Xuất excel
+                        <i className="fas fa-print"></i>&nbsp;Xuất excel
                       </Button>
                     </div>
                   </Form>

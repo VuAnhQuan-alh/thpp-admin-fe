@@ -21,7 +21,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
     if (data?.total > 0) {
       setTotalPage(Math.ceil(data.total / pageSize.size))
     }
-  }, [data])
+  }, [data, pageSize])
 
   return (
     <Card>
@@ -52,11 +52,11 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                   <Th style={styleTH}>Trạng thái </Th>
                 </Tr>
               </Thead>
-              <Tbody style={{ textAlign: "center" }}>
+              <Tbody>
                 {data?.data?.length > 0 && data.data.map((item, index) => (
                   <Tr key={index}>
-                    <Th style={styleTH}>{item.id}</Th>
-                    <Th style={styleTH}>
+                    <Th className="text-center" style={styleTH}>{item.id}</Th>
+                    <Th className="text-center" style={styleTH}>
                       <a
                         style={{ textDecorationLine: "underline" }}
                         href="#"
@@ -69,10 +69,10 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                         {item?.transactionNo}
                       </a>
                     </Th>
-                    <Th style={styleTH}>{item?.hospitalName}</Th>
-                    <Th style={styleTH}>{item?.channelType === 1 ? "Mobile" : item?.channelType === 2 ? "Website" : "Tiền Mặt"}</Th>
-                    <Th style={styleTH}>{item?.gatewayName}</Th>
-                    <Th style={styleTH}>
+                    <Th style={styleTH}>{item?.hospitalName ? item.hospitalName : <span className='text-danger'>Empty data</span>}</Th>
+                    <Th className="text-center" style={styleTH}>{item?.channelType === 1 ? "Mobile" : item?.channelType === 2 ? "Website" : "Tiền Mặt"}</Th>
+                    <Th className="text-center" style={styleTH}>{item?.gatewayName ? item.gatewayName : "Tiền mặt"}</Th>
+                    <Th className="text-center" style={styleTH}>
                       <a
                         style={{ textDecorationLine: "underline" }}
                         href="#"
@@ -87,9 +87,9 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                     <Th style={styleTH}>{item?.customerName}</Th>
                     <Th style={styleTH}>{item?.phone}</Th>
                     <Th style={styleTH}>{item?.serviceName}</Th>
-                    <Th style={styleTH}>{item?.amount}</Th>
-                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : "Null"}</Th>
-                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : "Null"}</Th>
+                    <Th className="text-center" style={styleTH}>{new Intl.NumberFormat().format(item?.amount)}</Th>
+                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : <span className='text-danger'>Empty data</span>}</Th>
+                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : <span className='text-danger'>Empty data</span>}</Th>
                   </Tr>
                 ))}
               </Tbody>
@@ -100,8 +100,12 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
       <PaginationRes
         totalItems={data?.total || 0}
         totalPages={totalPage}
-
-        onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
+        onChangePage={(e) => {
+          setPageSize({ ...pageSize, page: e })
+        }}
+        onChangeSize={(e) => {
+          setPageSize({ ...pageSize, size: e })
+        }}
         currentPage={pageSize?.page}
       />
 

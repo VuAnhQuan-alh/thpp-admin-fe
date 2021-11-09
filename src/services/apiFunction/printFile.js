@@ -20,6 +20,7 @@ const createType = (type) => {
 export const printFile = async (params) => {
   const { url, body, type, name, message, method } = params
   const typeCreated = createType(type)
+  console.log(url)
 
   try {
     const response = method === "GET"
