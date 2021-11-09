@@ -45,7 +45,7 @@ const DanhSachGD = () => {
 
   useEffect(() => {
     CallDanhSachGD();
-  }, [pageSize])
+  }, [pageSize, params])
 
   return (
     <React.Fragment>

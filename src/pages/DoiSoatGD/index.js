@@ -29,7 +29,7 @@ const DoiSoatGD = () => {
         setData(res?.data)
       })
     }
-  }, [pageSize.page, pageSize.size])
+  }, [pageSize, params])
 
   React.useEffect(() => {
     seo({
