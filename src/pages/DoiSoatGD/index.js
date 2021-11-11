@@ -3,12 +3,14 @@ import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
 import SelectBenhVien from "../../components/SelectBenhVien";
-import { checkKeyNull, seo } from "../../helpers/functions";
+import { checkKeyNull, convertParamsToQuery, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DoisoatGDVNPay";
 import Table from "./components/Table";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectStatusSys from "../../components/SelectStatusSys";
 import SelectCTT from "../../components/SelectCTT";
+import { apiExportFile } from "../../constrains/apiURL";
+import { printFile } from "../../services/apiFunction/printFile";
 
 const DoiSoatGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -136,6 +138,15 @@ const DoiSoatGD = () => {
                         className="btn btn-primary waves-effect waves-light mt-2"
                         type="submit"
                         id="btn-tra-cuuDC"
+                        onClick={() => {
+                          const paramExport = { ...params, ...pageSize }
+                          printFile({
+                            url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
+                            type: "xlsx",
+                            method: "GET",
+                            name: "DSDoiSoatGiaoDich"
+                          })
+                        }}
                       >
                         <i className="fas fa-print"></i>&nbsp;Xuất excel
                       </Button>

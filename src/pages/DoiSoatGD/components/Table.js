@@ -35,7 +35,7 @@ export default ({ data, setPageSize, pageSize }) => {
             >
               <Thead>
                 <Tr>
-                  <Th style={styleTH}>STT</Th>
+                  {/* <Th style={styleTH}>STT</Th> */}
                   <Th style={styleTH}>Mã Giao dịch</Th>
                   <Th style={styleTH}>Mã tham chiếu</Th>
                   <Th style={styleTH}>Cổng Thanh toán</Th>
@@ -54,7 +54,7 @@ export default ({ data, setPageSize, pageSize }) => {
               <Tbody>
                 {data?.data && data.data.map((item, index) => (
                   <Tr key={index}>
-                    <Th style={styleTH}>{item?.id}</Th>
+                    {/* <Th style={styleTH}>{item?.id}</Th> */}
                     <Th style={styleTH}>{item?.transactionNo}</Th>
                     <Th style={styleTH}>{item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : "Null"}</Th>
                     <Th style={styleTH} className="text-center">{item?.gatewayName ? item.gatewayName : "Tiền mặt"}</Th>

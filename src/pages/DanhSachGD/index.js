@@ -31,7 +31,8 @@ const DanhSachGD = () => {
     printFile({
       url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
       type: "xlsx",
-      method: "GET"
+      method: "GET",
+      name: "DSGiaoDich"
     })
   }
 

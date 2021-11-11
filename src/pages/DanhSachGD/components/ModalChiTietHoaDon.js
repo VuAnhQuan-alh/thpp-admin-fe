@@ -152,7 +152,7 @@ export default ({ modalDetail, setModalDetail, item }) => {
             </Row>
           </Row>
         </Card>
-      </Modal >
+      </Modal>
     </>
   );
 };

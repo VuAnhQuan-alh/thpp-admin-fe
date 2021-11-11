@@ -38,7 +38,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
             >
               <Thead>
                 <Tr>
-                  <Th style={styleTH}>STT</Th>
+                  {/* <Th style={styleTH}>STT</Th> */}
                   <Th style={styleTH}>Mã giao dịch</Th>
                   <Th style={styleTH}>Bệnh viện/Phòng khám</Th>
                   <Th style={styleTH}>Kênh thực hiện</Th>
@@ -55,7 +55,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
               <Tbody>
                 {data?.data?.length > 0 && data.data.map((item, index) => (
                   <Tr key={index}>
-                    <Th className="text-center" style={styleTH}>{item.id}</Th>
+                    {/* <Th className="text-center" style={styleTH}>{item.id}</Th> */}
                     <Th className="text-center" style={styleTH}>
                       <a
                         style={{ textDecorationLine: "underline" }}

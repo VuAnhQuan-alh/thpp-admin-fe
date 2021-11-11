@@ -28,7 +28,7 @@ export const printFile = async (params) => {
       : await httpServices.post(url, body || null, { responseType: "arraybuffer" })
 
     if (response) {
-      if (response?.byteLength > 0) {
+      if (response?.status === 200) {
         const file = new Blob([response], { type: typeCreated || "pdf" })
         const fileUrl = await URL.createObjectURL(file)
         if (name) {
