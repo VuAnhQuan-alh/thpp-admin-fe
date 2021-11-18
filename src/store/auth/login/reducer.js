@@ -19,7 +19,6 @@ const login = (state = initialState, action) => {
         ...state,
         loading: true,
         data: action.payload
-
       }
     case LOGIN_SUCCESS:
       return {

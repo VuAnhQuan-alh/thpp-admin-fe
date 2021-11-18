@@ -6,7 +6,7 @@ export const STATUS = {
     error: [500, 400],
 }
 //
-export const signin = `${URL}/api/auth`;
+export const signin = `${URL}/api/auth-user/authenticate`;
 export const profile = `${URL}/sprs/api/user`;
 export const dsBenhVien = `${URL}/api/hospital/get-all`;
 export const dvBenhVien = `${URL}/api/hospital-sv/get-all`;
@@ -15,4 +15,9 @@ export const dvBenhVien = `${URL}/api/hospital-sv/get-all`;
 export const timKiemDanhSachGD = `${URL}/api/history/search`;
 export const chiTietHoaDon = `${URL}/api/history/get-invoice/`;
 
+// Export file xlsx
 export const apiExportFile = `${URL}/api/history/export`
+
+// Quan tri user
+export const userSearch = `${URL}/api/user/search`;
+export const userUpdate = `${URL}/api/user/update`;

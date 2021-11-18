@@ -38,7 +38,7 @@ import {
 } from "../../store/actions";
 import URL_Logo from "../../assets/images/logo-trueHope.png"
 
-console.log("version: 1.0.3")
+console.log("version: 1.0.4")
 const Header = (props) => {
   const [search, setsearch] = useState(false);
   const [megaMenu, setmegaMenu] = useState(false);
@@ -148,7 +148,7 @@ const Header = (props) => {
               </button> */}
             </div>
             <div>
-              <div className="navbar-brand-box">
+              <div className="navbar-brand-box" style={{ paddingLeft: "0px" }}>
                 {/* <Link to="/" className="logo logo-dark">
                   <span style={{ color: "#FFFF" }} className="logo-sm">VNPay</span>
                   <span style={{ color: "#FFFF" }} className="logo-lg">VNPay</span>

@@ -58,7 +58,7 @@
     "react-responsive-pagination": "^1.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
-    "react-select": "^4.1.0",
+    "react-select": "^5.2.1",
     "react-slick": "^0.28.0",
     "react-sparklines": "^1.7.0",
     "react-super-responsive-table": "^5.2.0",

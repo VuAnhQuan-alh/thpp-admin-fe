@@ -145,8 +145,18 @@ const DanhSachGD = () => {
                         type="submit"
                         id="btn-tra-cuuDC"
                         onClick={() => exportFile()}
+                        style={{ marginRight: "20px" }}
                       >
-                        <i className="fas fa-print"></i>&nbsp;Xuất excel
+                        <i className="fas fa-print"></i>&nbsp;In trang
+                      </Button>
+                      <Button
+                        color="info"
+                        className="btn btn-primary waves-effect waves-light mt-2"
+                        type="submit"
+                        id="btn-tra-cuuDC"
+                        onClick={() => exportFile()}
+                      >
+                        <i className="fas fa-print"></i>&nbsp;In tất cả
                       </Button>
                     </div>
                   </Form>

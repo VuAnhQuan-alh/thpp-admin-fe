@@ -51,8 +51,10 @@ const Login = (props) => {
                   <div className="p-2">
                     <Formik
                       initialValues={{
-                        connectId: "7e41c1015ef74c129e8e8ab20d75bf01",
-                        connectKey: "pfHOMxKKnsTC3gc56hnIsvVZ"
+                        // connectId: "",
+                        // connectKey: ""
+                        username: "",
+                        password: ""
                       }}
                       onSubmit={(values) => {
                         dispatch(loginUser(values))
@@ -62,13 +64,13 @@ const Login = (props) => {
                         <Form>
                           <Field
                             component={InputField}
-                            name="connectId"
+                            name="username"
                             label="Tài khoản"
                           />
 
                           <Field
                             component={InputField}
-                            name="connectKey"
+                            name="password"
                             label="Mật khẩu"
                             type="password"
                           />

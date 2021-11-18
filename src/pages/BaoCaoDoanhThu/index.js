@@ -3,13 +3,16 @@ import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
 
-import { callAPIPaging, checkCallAPI, checkKeyNull, seo } from "../../helpers/functions";
+import { callAPIPaging, checkCallAPI, checkKeyNull, convertParamsToQuery, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DanhSachGD";
 import Table from "./components/Table";
 import { isEmpty } from "lodash";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
+import SelectChanel from "../../components/SelectChanel";
+import { printFile } from "../../services/apiFunction/printFile";
+import { apiExportFile } from "../../constrains/apiURL";
 
 const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 0, size: 10 });
@@ -58,76 +61,95 @@ const DanhSachGD = () => {
             <CardBody style={{ backgroundColor: "#FFF" }}>
               <Formik
                 initialValues={{
-                  benhVien: "",
-                  startDate: "2021-10-10",
+                  hospitalType: null,
+                  startDate: "",
                   enDate: "",
-                  trangThaiGD: "",
-                  trangThaiVNPay: "",
-                  keySearch: "",
-
+                  channelType: null,
+                  serviceCode: null,
                 }}
                 onSubmit={(values) => {
                   setParams(values);
-                  setPageSize({ ...pageSize, page: 0, size: 10 })
+                  setPageSize({ ...pageSize, page: 1, size: 10 })
                 }}
               >
                 {() => (
                   <Form>
-                    <div class="row">
-                      <div class="col-sm-6 col-md-2 col-xs-6">
+                    <Row className="d-flex justify-content-between align-items-end space-x-2">
+                      <div className="col-md-6">
                         <Field
-                          name="benhVien"
+                          name="hospitalType"
                           component={SelectBenhVien}
                           title="Bệnh viện/phòng khám"
                         /></div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
+                      <div className="col-md-3">
                         <Field
                           name="startDate"
                           component={DatePicker}
                           title="Từ ngày"
                         />
                       </div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
+                      <div className="col-md-3">
                         <Field
                           name="endDate"
                           component={DatePicker}
                           title="Đến ngày"
                         />
                       </div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
+                    </Row>
+                    <Row className="d-flex justify-content-start align-items-end space-x-2">
+                      <div className="col-md-3">
                         <Field
-                          name="dichVu"
+                          name="serviceCode"
                           component={SelectDV}
                           title="Dịch vụ"
                         />
                       </div>
-                      <div class="col-sm-6 col-md-2 col-xs-6">
+                      <div className="col-md-3">
                         <Field
-                          name="benhVien"
-                          component={InputField}
-                          label="Tìm kiếm theo mã, hóa đơn"
+                          name="channelType"
+                          component={SelectChanel}
+                          title="Kênh thực hiện"
                         />
                       </div>
-                      <div class="col-sm-6 col-md-3 col-xs-6 justify-content-start  d-flex align-items-center" >
+                      <div className="col-md-6 d-flex justify-content-end">
                         <Button
-                          color="secondery"
+                          color="primary"
                           className="btn btn-primary waves-effect waves-light mt-2"
                           type="submit"
                           id="btn-tra-cuuDC"
                           style={{ marginRight: 10 }}
                         >
-                          <i className="fas fa-search "></i> Tìm kiếm
+                          <i className="fas fa-search "></i>&nbsp;Tìm kiếm
                         </Button>
                         <Button
-                          color="secondery"
+                          color="info"
+                          className="btn btn-primary waves-effect waves-light mt-2"
+                          type="submit"
+                          id="btn-tra-cuuDC"
+                          style={{ marginRight: 10 }}
+                          onClick={() => {
+                            const paramExport = { ...params, ...pageSize }
+                            printFile({
+                              url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
+                              type: "xlsx",
+                              method: "GET",
+                              name: "DSDoiSoatGiaoDich"
+                            })
+                          }}
+
+                        >
+                          <i className="fas fa-print"></i>&nbsp;In trang
+                        </Button>
+                        <Button
+                          color="info"
                           className="btn btn-primary waves-effect waves-light mt-2"
                           type="submit"
                           id="btn-tra-cuuDC"
                         >
-                          <i class="fas fa-print"></i>Xuất excel
+                          <i className="fas fa-print"></i>&nbsp;In tất cả
                         </Button>
                       </div>
-                    </div>
+                    </Row>
                   </Form>
                 )}
               </Formik>

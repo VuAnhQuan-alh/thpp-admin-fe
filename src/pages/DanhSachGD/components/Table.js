@@ -26,7 +26,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
   return (
     <Card>
       <CardBody>
-        <CardTitle className="h4">thông tin đối soát </CardTitle>
+        <CardTitle className="h4">Thông tin đối soát </CardTitle>
         <div className="table-rep-plugin">
           <div
             className="table-responsive mb-0"

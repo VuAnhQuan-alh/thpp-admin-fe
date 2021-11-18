@@ -138,6 +138,7 @@ const DoiSoatGD = () => {
                         className="btn btn-primary waves-effect waves-light mt-2"
                         type="submit"
                         id="btn-tra-cuuDC"
+                        style={{ marginRight: "20px" }}
                         onClick={() => {
                           const paramExport = { ...params, ...pageSize }
                           printFile({
@@ -148,7 +149,24 @@ const DoiSoatGD = () => {
                           })
                         }}
                       >
-                        <i className="fas fa-print"></i>&nbsp;Xuất excel
+                        <i className="fas fa-print"></i>&nbsp;In trang
+                      </Button>
+                      <Button
+                        color="info"
+                        className="btn btn-primary waves-effect waves-light mt-2"
+                        type="submit"
+                        id="btn-tra-cuuDC"
+                        onClick={() => {
+                          const paramExport = { ...params, ...pageSize }
+                          printFile({
+                            url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
+                            type: "xlsx",
+                            method: "GET",
+                            name: "DSDoiSoatGiaoDich"
+                          })
+                        }}
+                      >
+                        <i className="fas fa-print"></i>&nbsp;In tất cả
                       </Button>
                     </div>
                   </Form>

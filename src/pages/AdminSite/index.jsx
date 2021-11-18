@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react"
 import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
-import DatePicker from "../../components/DatePicker";
 
-import { callAPIPaging, checkCallAPI, checkKeyNull, seo } from "../../helpers/functions";
+import { callAPIPaging, checkKeyNull, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DanhSachGD";
 import Table from "./components/Table";
 import { isEmpty } from "lodash";
-import { CardBody, Col, Row, Card, Button } from "reactstrap";
+import { CardBody, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
-import SelectDV from "../../components/SelectDV";
+import { apiGetUsers } from "../../services/apiFunction/Authen";
+import CustomSelect from "../../components/CustomSelect";
 
 export default () => {
   const [pageSize, setPageSize] = useState({ page: 0, size: 10 });
@@ -31,6 +31,12 @@ export default () => {
       })
     })
   }
+  const CallListUser = () => {
+    console.log("params: ", checkKeyNull(params))
+    apiGetUsers(checkKeyNull(params)).then(res => {
+      setData(res?.data?.data)
+    })
+  }
 
   React.useEffect(() => {
     seo({
@@ -40,8 +46,9 @@ export default () => {
   }, [])
 
   useEffect(() => {
-    CallDanhSachGD();
-  }, [pageSize])
+    CallListUser()
+  }, [params])
+  // console.log(data)
 
   return (
     <React.Fragment>
@@ -58,17 +65,16 @@ export default () => {
             <CardBody style={{ backgroundColor: "#FFF" }}>
               <Formik
                 initialValues={{
-                  benhVien: "",
-                  startDate: "2021-10-10",
-                  enDate: "",
-                  trangThaiGD: "",
-                  trangThaiVNPay: "",
-                  keySearch: "",
+                  name: "",
+                  phoneNumber: "",
+                  cmndcccd: "",
+                  email: "",
+                  username: "",
+                  firstSync: "",
 
                 }}
                 onSubmit={(values) => {
                   setParams(values);
-                  setPageSize({ ...pageSize, page: 0, size: 10 })
                 }}
               >
                 {() => (
@@ -76,14 +82,14 @@ export default () => {
                     <Row className="d-flex justify-content-between align-items-center space-x-2">
                       <div className="col-sm-3">
                         <Field
-                          name="customerName"
+                          name="name"
                           component={InputField}
                           label="Họ tên"
                         />
                       </div>
                       <div className="col-sm-3">
                         <Field
-                          name="customerPhone"
+                          name="phoneNumber"
                           component={InputField}
                           label="Số điện thoại"
                         />
@@ -114,8 +120,12 @@ export default () => {
                       </div>
                       <div className="col-sm-3" style={{ marginBottom: "5px" }}>
                         <Field
-                          name="sync"
-                          component={SelectBenhVien}
+                          name="firstSync"
+                          component={CustomSelect}
+                          options={[
+                            { value: true, label: "True" },
+                            { value: false, label: "False" }
+                          ]}
                           title="First sync"
                         />
                       </div>
@@ -127,7 +137,15 @@ export default () => {
                           id="btn-tra-cuuDC"
                           style={{ marginRight: 10 }}
                         >
-                          <i className="fas fa-search "></i> Tìm kiếm
+                          <i className="fas fa-search "></i>&nbsp;Tìm kiếm
+                        </Button>
+                        <Button
+                          color="info"
+                          className="btn btn-primary waves-effect waves-light mt-2"
+                          type="submit"
+                          id="btn-tra-cuuDC"
+                        >
+                          <i className="fas fa-sync-alt"></i>&nbsp;First Sync
                         </Button>
                       </div>
                     </Row>
