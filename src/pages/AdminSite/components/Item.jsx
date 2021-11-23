@@ -6,19 +6,19 @@ const Item = ({ data, styleTH }) => {
   const [user, setUser] = React.useState({})
   const iptEl = React.useRef(null)
   const [onChange, setOnChange] = React.useState(false)
-  const [fControl, setFControl] = React.useState(false)
-  const [invoice, setInvoice] = React.useState(false)
-  const [sales, setSales] = React.useState(false)
-  const [admin, setAdmin] = React.useState(false)
-  const [status, setStatus] = React.useState(false)
+  const [fControl, setFControl] = React.useState("")
+  const [invoice, setInvoice] = React.useState("")
+  const [sales, setSales] = React.useState("")
+  const [admin, setAdmin] = React.useState("")
+  const [status, setStatus] = React.useState("")
 
   React.useEffect(() => {
     setUser(data)
     setStatus(data?.enable || false)
-    setAdmin(data?.administration || false)
-    setSales(data?.saleReport || false)
-    setInvoice(data?.transactionlist || false)
-    setFControl(data?.transactioncontrol || false)
+    setAdmin(data?.administration || "0")
+    setSales(data?.saleReport || "0")
+    setInvoice(data?.transactionlist || "0")
+    setFControl(data?.transactioncontrol || "0")
   }, [data])
   // console.log(user)
   const updateUser = () => {
@@ -30,6 +30,7 @@ const Item = ({ data, styleTH }) => {
       transactionlist: invoice,
       transactioncontrol: fControl
     }
+    // console.log(checkKeyNull(body))
     apiUpdateUser(checkKeyNull(body)).then(res => {
       console.log(res)
     })
@@ -62,8 +63,8 @@ const Item = ({ data, styleTH }) => {
         <td>
           <input
             type="checkbox"
-            checked={fControl}
-            onClick={() => setFControl(!fControl)}
+            checked={fControl === "1"}
+            onClick={() => setFControl(fControl === "0" ? "1" : "0")}
             disabled={!onChange}
             className="form-check-input"
           />
@@ -71,8 +72,8 @@ const Item = ({ data, styleTH }) => {
         <td>
           <input
             type="checkbox"
-            checked={invoice}
-            onClick={() => setInvoice(!invoice)}
+            checked={invoice === "1"}
+            onClick={() => setInvoice(invoice === "0" ? "1" : "0")}
             disabled={!onChange}
             className="form-check-input"
           />
@@ -80,8 +81,8 @@ const Item = ({ data, styleTH }) => {
         <td>
           <input
             type="checkbox"
-            checked={sales}
-            onClick={() => setSales(!sales)}
+            checked={sales === "1"}
+            onClick={() => setSales(sales === "0" ? "1" : "0")}
             disabled={!onChange}
             className="form-check-input"
           />
@@ -89,8 +90,8 @@ const Item = ({ data, styleTH }) => {
         <td>
           <input
             type="checkbox"
-            checked={admin}
-            onClick={() => setAdmin(!admin)}
+            checked={admin === "1"}
+            onClick={() => setAdmin(admin === "0" ? "1" : "0")}
             disabled={!onChange}
             className="form-check-input"
           />

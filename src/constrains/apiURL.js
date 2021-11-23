@@ -17,7 +17,11 @@ export const chiTietHoaDon = `${URL}/api/history/get-invoice/`;
 
 // Export file xlsx
 export const apiExportFile = `${URL}/api/history/export`
+export const apiExportTrans = `${URL}/api/report/export-transaction`
 
 // Quan tri user
 export const userSearch = `${URL}/api/user/search`;
 export const userUpdate = `${URL}/api/user/update`;
+
+// Bao cao doanh thu
+export const transSearch = `${URL}/api/report/search`

@@ -11,7 +11,7 @@ import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
 // import SelectCTT from "../../components/SelectCTT";
-import SelectChanel from "../../components/SelectChanel";
+import SelectChannel from "../../components/SelectChannel";
 import SelectStatusSys from "../../components/SelectStatusSys";
 import { printFile } from "../../services/apiFunction/printFile";
 import { apiExportFile } from "../../constrains/apiURL";
@@ -117,7 +117,7 @@ const DanhSachGD = () => {
                       <div className="col-md-3">
                         <Field
                           name="channelType"
-                          component={SelectChanel}
+                          component={SelectChannel}
                           title="Kênh thực hiện"
                         />
                       </div>

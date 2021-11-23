@@ -10,25 +10,26 @@ import { isEmpty } from "lodash";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
-import SelectChanel from "../../components/SelectChanel";
+import SelectChannel from "../../components/SelectChannel";
 import { printFile } from "../../services/apiFunction/printFile";
-import { apiExportFile } from "../../constrains/apiURL";
+import { apiExportFile, apiExportTrans } from "../../constrains/apiURL";
+import { apiBaoCaoDT } from "../../services/apiFunction/BaoCaoDT";
+import moment from "moment";
 
 const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 0, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([]);
   const CallDanhSachGD = () => {
-    if (isEmpty(params)) return
-    const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
-    apiSearch(checkKeyNull(paramSearch)).then((res) => {
+    if (isEmpty(params)) return;
+    apiBaoCaoDT({ page: pageSize.page, size: pageSize.size }, params).then((res) => {
       callAPIPaging({
         size: pageSize.size,
         onError: (e) => {
           setData({ data: [], meta: { totalPage: 1 } });
         },
         onSuccess: (response) => {
-          setData({ data: response.data.data, meta: response.meta });
+          setData({ data: response.data.data, meta: response.data.data[0].totalElement });
         },
         response: res,
       })
@@ -48,7 +49,7 @@ const DanhSachGD = () => {
 
   return (
     <React.Fragment>
-      <div className="page-content">
+      <div className="page-content" style={{ maxWidth: "1440px", margin: "10px auto" }}>
         <Row>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
@@ -62,8 +63,8 @@ const DanhSachGD = () => {
               <Formik
                 initialValues={{
                   hospitalType: null,
-                  startDate: "",
-                  enDate: "",
+                  fromDate: moment().subtract(1, "month").format("YYYY-MM-DD"),
+                  toDate: moment().format("YYYY-MM-DD"),
                   channelType: null,
                   serviceCode: null,
                 }}
@@ -83,14 +84,14 @@ const DanhSachGD = () => {
                         /></div>
                       <div className="col-md-3">
                         <Field
-                          name="startDate"
+                          name="fromDate"
                           component={DatePicker}
                           title="Từ ngày"
                         />
                       </div>
                       <div className="col-md-3">
                         <Field
-                          name="endDate"
+                          name="toDate"
                           component={DatePicker}
                           title="Đến ngày"
                         />
@@ -107,7 +108,7 @@ const DanhSachGD = () => {
                       <div className="col-md-3">
                         <Field
                           name="channelType"
-                          component={SelectChanel}
+                          component={SelectChannel}
                           title="Kênh thực hiện"
                         />
                       </div>
@@ -128,12 +129,13 @@ const DanhSachGD = () => {
                           id="btn-tra-cuuDC"
                           style={{ marginRight: 10 }}
                           onClick={() => {
-                            const paramExport = { ...params, ...pageSize }
+                            const paramExport = { ...params, export: "PAGE" }
                             printFile({
-                              url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
+                              url: `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`,
                               type: "xlsx",
-                              method: "GET",
-                              name: "DSDoiSoatGiaoDich"
+                              method: "POST",
+                              body: paramExport,
+                              name: "BaoCaoDoanhThu"
                             })
                           }}
 
@@ -145,6 +147,16 @@ const DanhSachGD = () => {
                           className="btn btn-primary waves-effect waves-light mt-2"
                           type="submit"
                           id="btn-tra-cuuDC"
+                          onClick={() => {
+                            const paramExport = { ...params, export: "N0_PAGE" }
+                            printFile({
+                              url: `${apiExportTrans}`,
+                              type: "xlsx",
+                              method: "POST",
+                              body: paramExport,
+                              name: "BaoCaoDoanhThu"
+                            })
+                          }}
                         >
                           <i className="fas fa-print"></i>&nbsp;In tất cả
                         </Button>
@@ -157,7 +169,7 @@ const DanhSachGD = () => {
           </Card>
         </Row>
         <Row>
-          <Table data={data} />
+          <Table data={data} pageSize={pageSize} setPageSize={setPageSize} />
         </Row>
       </div>
     </React.Fragment>

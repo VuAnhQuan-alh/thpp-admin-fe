@@ -16,5 +16,5 @@ export const apiGetUsers = async (body = {}) => {
 };
 
 export const apiUpdateUser = async (body = {}) => {
-  return await httpServices.post(`${userUpdate}`, body);
+  return await httpServices.put(`${userUpdate}`, body, {});
 }

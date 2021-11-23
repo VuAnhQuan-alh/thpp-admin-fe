@@ -10,10 +10,17 @@ const styleTH = {
 }
 
 export const TableData = ({ data, setPageSize, pageSize }) => {
-  const [itemSelected, setItemSelected] = useState({});
-  React.useEffect(() => {
 
+  const [totalPage, setTotalPage] = useState(0)
+  React.useEffect(() => {
+    console.log(data)
   }, [data])
+  React.useEffect(() => {
+    setTotalPage(0)
+    if (data?.meta > 0) {
+      setTotalPage(Math.ceil(data.meta / pageSize.size))
+    }
+  }, [data, pageSize])
 
   return (
     <Card>
@@ -33,18 +40,16 @@ export const TableData = ({ data, setPageSize, pageSize }) => {
                   <Th style={styleTH}>Bệnh viện/Phòng khám</Th>
                   <Th style={styleTH}>Sản phẩm/Dịch vụ</Th>
                   <Th style={styleTH}>Kênh thực hiện</Th>
-                  <Th style={styleTH}>Tổng tiền</Th>
+                  <Th style={styleTH}>Tổng tiền (vnđ)</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {data?.data && data.data.map((item, index) => (
                   <tr>
-                    <th>Bệnh viện/Phòng khám</th>
-                    <th>Kênh thực hiện</th>
-                    <th>Dịch vụ</th>
-                    <th>Tổng tiền</th>
-                    <th>Bác sĩ</th>
-                    <th>Ngày giao dịch</th>
+                    <th>{item?.hospitalName || "Empty data"}</th>
+                    <th>{item?.serviceName}</th>
+                    <th>{item?.channelType ? item.channelType === 0 ? "Mobile" : "Website" : "Empty data"}</th>
+                    <th>{item?.amount}</th>
                   </tr>
                 ))}
               </Tbody>
@@ -53,8 +58,15 @@ export const TableData = ({ data, setPageSize, pageSize }) => {
         </div>
       </CardBody>
       <PaginationRes
-        totalItems={data?.meta?.totalItems | 0}
-        totalPages={data?.meta?.totalPage | 1}
+        totalItems={data?.meta || 0}
+        totalPages={totalPage}
+        onChangePage={(e) => {
+          setPageSize({ ...pageSize, page: e })
+        }}
+        onChangeSize={(e) => {
+          setPageSize({ ...pageSize, size: e })
+        }}
+        currentPage={pageSize?.page}
       />
     </Card>
   )
