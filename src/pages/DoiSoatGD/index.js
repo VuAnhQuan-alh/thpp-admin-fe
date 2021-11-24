@@ -9,8 +9,9 @@ import Table from "./components/Table";
 import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectStatusSys from "../../components/SelectStatusSys";
 import SelectCTT from "../../components/SelectCTT";
-import { apiExportFile } from "../../constrains/apiURL";
+import { apiExportFile, apiExportTrans } from "../../constrains/apiURL";
 import { printFile } from "../../services/apiFunction/printFile";
+import exportFile from "../../services/apiFunction/exportFile";
 
 const DoiSoatGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -140,16 +141,18 @@ const DoiSoatGD = () => {
                         id="btn-tra-cuuDC"
                         style={{ marginRight: "20px" }}
                         onClick={() => {
-                          const paramExport = { ...params, ...pageSize }
-                          printFile({
-                            url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
+                          const paramExport = checkKeyNull({ ...params, export: "PAGE" })
+                          const url = `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
+                          exportFile({
+                            url: url,
                             type: "xlsx",
-                            method: "GET",
-                            name: "DSDoiSoatGiaoDich"
+                            method: "POST",
+                            body: paramExport,
+                            name: "BaoCaoDoanhThu"
                           })
                         }}
                       >
-                        <i className="fas fa-print"></i>&nbsp;In trang
+                        <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu hiện tại
                       </Button>
                       <Button
                         color="info"
@@ -157,16 +160,17 @@ const DoiSoatGD = () => {
                         type="submit"
                         id="btn-tra-cuuDC"
                         onClick={() => {
-                          const paramExport = { ...params, ...pageSize }
-                          printFile({
-                            url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
+                          const paramExport = { ...params, export: "N0_PAGE" }
+                          exportFile({
+                            url: `${apiExportTrans}`,
                             type: "xlsx",
-                            method: "GET",
-                            name: "DSDoiSoatGiaoDich"
+                            method: "POST",
+                            body: paramExport,
+                            name: "BaoCaoDoanhThu"
                           })
                         }}
                       >
-                        <i className="fas fa-print"></i>&nbsp;In tất cả
+                        <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu
                       </Button>
                     </div>
                   </Form>

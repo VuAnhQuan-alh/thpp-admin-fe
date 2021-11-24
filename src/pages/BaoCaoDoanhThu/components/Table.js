@@ -13,9 +13,6 @@ export const TableData = ({ data, setPageSize, pageSize }) => {
 
   const [totalPage, setTotalPage] = useState(0)
   React.useEffect(() => {
-    console.log(data)
-  }, [data])
-  React.useEffect(() => {
     setTotalPage(0)
     if (data?.meta > 0) {
       setTotalPage(Math.ceil(data.meta / pageSize.size))

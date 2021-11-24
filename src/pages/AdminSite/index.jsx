@@ -32,7 +32,7 @@ export default () => {
     })
   }
   const CallListUser = () => {
-    console.log("params: ", checkKeyNull(params))
+    // console.log("params: ", checkKeyNull(params))
     apiGetUsers(checkKeyNull(params)).then(res => {
       setData(res?.data?.data)
     })

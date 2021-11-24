@@ -15,9 +15,10 @@ import { printFile } from "../../services/apiFunction/printFile";
 import { apiExportFile, apiExportTrans } from "../../constrains/apiURL";
 import { apiBaoCaoDT } from "../../services/apiFunction/BaoCaoDT";
 import moment from "moment";
+import exportFile from "../../services/apiFunction/exportFile";
 
 const DanhSachGD = () => {
-  const [pageSize, setPageSize] = useState({ page: 0, size: 10 });
+  const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([]);
   const CallDanhSachGD = () => {
@@ -129,9 +130,10 @@ const DanhSachGD = () => {
                           id="btn-tra-cuuDC"
                           style={{ marginRight: 10 }}
                           onClick={() => {
-                            const paramExport = { ...params, export: "PAGE" }
-                            printFile({
-                              url: `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`,
+                            const paramExport = checkKeyNull({ ...params, export: "PAGE" })
+                            const url = `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
+                            exportFile({
+                              url: url,
                               type: "xlsx",
                               method: "POST",
                               body: paramExport,
@@ -140,7 +142,7 @@ const DanhSachGD = () => {
                           }}
 
                         >
-                          <i className="fas fa-print"></i>&nbsp;In trang
+                          <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu hiện tại
                         </Button>
                         <Button
                           color="info"
@@ -149,7 +151,7 @@ const DanhSachGD = () => {
                           id="btn-tra-cuuDC"
                           onClick={() => {
                             const paramExport = { ...params, export: "N0_PAGE" }
-                            printFile({
+                            exportFile({
                               url: `${apiExportTrans}`,
                               type: "xlsx",
                               method: "POST",
@@ -158,7 +160,7 @@ const DanhSachGD = () => {
                             })
                           }}
                         >
-                          <i className="fas fa-print"></i>&nbsp;In tất cả
+                          <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu
                         </Button>
                       </div>
                     </Row>

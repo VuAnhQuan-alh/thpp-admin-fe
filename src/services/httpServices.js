@@ -72,10 +72,10 @@ class Services {
     // return this.axios.get(...arg);
   }
 
-  async post(url, data, config) {
+  async post(url, data, config, check = true) {
     try {
       const response = await this.axios.post(url, data, config);
-      return this.handleResponse(response, {}, true, url);
+      return this.handleResponse(check ? response : response?.data, {}, true, url);
     } catch (error) {
       return this.handleResponse({}, error, false, url);
     }

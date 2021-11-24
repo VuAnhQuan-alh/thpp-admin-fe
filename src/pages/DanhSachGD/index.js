@@ -14,7 +14,8 @@ import SelectDV from "../../components/SelectDV";
 import SelectChannel from "../../components/SelectChannel";
 import SelectStatusSys from "../../components/SelectStatusSys";
 import { printFile } from "../../services/apiFunction/printFile";
-import { apiExportFile } from "../../constrains/apiURL";
+import { apiExportFile, apiExportTrans } from "../../constrains/apiURL";
+import exportFile from "../../services/apiFunction/exportFile";
 
 const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -26,15 +27,7 @@ const DanhSachGD = () => {
       setData(res?.data);
     })
   }
-  const exportFile = () => {
-    const paramExport = { ...params, ...pageSize }
-    printFile({
-      url: `${apiExportFile}${convertParamsToQuery(checkKeyNull(paramExport))}`,
-      type: "xlsx",
-      method: "GET",
-      name: "DSGiaoDich"
-    })
-  }
+
 
   React.useEffect(() => {
     seo({
@@ -144,19 +137,38 @@ const DanhSachGD = () => {
                         className="btn btn-primary waves-effect waves-light mt-2"
                         type="submit"
                         id="btn-tra-cuuDC"
-                        onClick={() => exportFile()}
+                        onClick={() => {
+                          const paramExport = checkKeyNull({ ...params, export: "PAGE" })
+                          const url = `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
+                          exportFile({
+                            url: url,
+                            type: "xlsx",
+                            method: "POST",
+                            body: paramExport,
+                            name: "BaoCaoDoanhThu"
+                          })
+                        }}
                         style={{ marginRight: "20px" }}
                       >
-                        <i className="fas fa-print"></i>&nbsp;In trang
+                        <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu hiện tại
                       </Button>
                       <Button
                         color="info"
                         className="btn btn-primary waves-effect waves-light mt-2"
                         type="submit"
                         id="btn-tra-cuuDC"
-                        onClick={() => exportFile()}
+                        onClick={() => {
+                          const paramExport = { ...params, export: "N0_PAGE" }
+                          exportFile({
+                            url: `${apiExportTrans}`,
+                            type: "xlsx",
+                            method: "POST",
+                            body: paramExport,
+                            name: "BaoCaoDoanhThu"
+                          })
+                        }}
                       >
-                        <i className="fas fa-print"></i>&nbsp;In tất cả
+                        <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu
                       </Button>
                     </div>
                   </Form>
