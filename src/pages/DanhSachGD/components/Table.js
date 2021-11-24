@@ -66,7 +66,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                           history.push("/Doi-soat-giao-dich")
                         }}
                       >
-                        {item?.transactionNo}
+                        {item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : "Null"}
                       </a>
                     </Th>
                     <Th style={styleTH}>{item?.hospitalName ? item.hospitalName : <span className='text-danger'>Empty data</span>}</Th>
