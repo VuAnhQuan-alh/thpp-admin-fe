@@ -11,8 +11,7 @@ import { CardBody, Col, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
 import SelectChannel from "../../components/SelectChannel";
-import { printFile } from "../../services/apiFunction/printFile";
-import { apiExportFile, apiExportTrans } from "../../constrains/apiURL";
+import { apiExportReport } from "../../constrains/apiURL";
 import { apiBaoCaoDT } from "../../services/apiFunction/BaoCaoDT";
 import moment from "moment";
 import exportFile from "../../services/apiFunction/exportFile";
@@ -131,7 +130,7 @@ const DanhSachGD = () => {
                           style={{ marginRight: 10 }}
                           onClick={() => {
                             const paramExport = checkKeyNull({ ...params, export: "PAGE" })
-                            const url = `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
+                            const url = `${apiExportReport}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
                             exportFile({
                               url: url,
                               type: "xlsx",
@@ -152,7 +151,7 @@ const DanhSachGD = () => {
                           onClick={() => {
                             const paramExport = { ...params, export: "N0_PAGE" }
                             exportFile({
-                              url: `${apiExportTrans}`,
+                              url: `${apiExportReport}`,
                               type: "xlsx",
                               method: "POST",
                               body: paramExport,

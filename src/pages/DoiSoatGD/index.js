@@ -17,13 +17,13 @@ const DoiSoatGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([])
-  const trans = window.localStorage.getItem("transNo")
+  const trans = window.localStorage.getItem("txnRef")
 
   React.useEffect(() => {
     if (trans !== null) {
-      apiSearch(checkKeyNull({ page: 1, size: 1, transactionNo: trans }))
+      apiSearch(checkKeyNull({ txnRef: trans, page: 1, size: 10 }))
         .then(res => {
-          window.localStorage.removeItem("transNo")
+          window.localStorage.removeItem("txnRef")
           setData(res?.data)
         })
     } else {
@@ -61,7 +61,7 @@ const DoiSoatGD = () => {
                   customerName: "",
                   startDate: "",
                   enDate: "",
-                  transactionNo: `${trans || ""}`,
+                  txnRef: trans,
                   gatewayCode: null,
                   statusSys: null,
                 }}
@@ -97,7 +97,7 @@ const DoiSoatGD = () => {
                     <Row className="d-flex justify-content-between align-items-end mt-3">
                       <div className="col-md-3" style={{ marginBottom: "-5px" }}>
                         <Field
-                          name="transactionNo"
+                          name="txnRef"
                           component={InputField}
                           label="Tìm kiếm theo mã giao dịch"
                         />

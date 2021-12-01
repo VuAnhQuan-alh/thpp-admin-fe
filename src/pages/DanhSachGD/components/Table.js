@@ -62,16 +62,16 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                         href="#"
                         onClick={(e) => {
                           e.preventDefault()
-                          window.localStorage.setItem("transNo", item?.transactionNo)
+                          window.localStorage.setItem("txnRef", item?.txnRef)
                           history.push("/Doi-soat-giao-dich")
                         }}
                       >
-                        {item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : "Null"}
+                        {item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : ""}
                       </a>
                     </Th>
                     <Th style={styleTH}>{item?.hospitalName ? item.hospitalName : <span className='text-danger'>Empty data</span>}</Th>
-                    <Th className="text-center" style={styleTH}>{item?.channelType === 0 ? "Mobile" : item?.channelType === 1 ? "Website" : "Tiền Mặt"}</Th>
-                    <Th className="text-center" style={styleTH}>{item?.gatewayName ? item.gatewayName : "Tiền mặt"}</Th>
+                    <Th className="text-center" style={styleTH}>{item?.channelType === 0 ? "Mobile" : item?.channelType === 1 ? "Website" : ""}</Th>
+                    <Th className="text-center" style={styleTH}>{item?.gatewayName}</Th>
                     <Th className="text-center" style={styleTH}>
                       <a
                         style={{ textDecorationLine: "underline" }}
@@ -88,8 +88,8 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                     <Th style={styleTH}>{item?.phone}</Th>
                     <Th style={styleTH}>{item?.serviceName}</Th>
                     <Th className="text-center" style={styleTH}>{new Intl.NumberFormat().format(item?.amount)}</Th>
-                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : <span className='text-danger'>Empty data</span>}</Th>
-                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : <span className='text-danger'>Empty data</span>}</Th>
+                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : ""}</Th>
+                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : ""}</Th>
                   </Tr>
                 ))}
               </Tbody>

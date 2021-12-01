@@ -16,6 +16,7 @@ import SelectStatusSys from "../../components/SelectStatusSys";
 import { printFile } from "../../services/apiFunction/printFile";
 import { apiExportFile, apiExportTrans } from "../../constrains/apiURL";
 import exportFile from "../../services/apiFunction/exportFile";
+import moment from "moment";
 
 const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -59,8 +60,8 @@ const DanhSachGD = () => {
                   channelType: null,
                   serviceCode: null,
                   orderInfo: "",
-                  startDate: "",
-                  endDate: "",
+                  startDate: moment().subtract(1, "month").format("YYYY-MM-DD"),
+                  endDate: moment().format("YYYY-MM-DD"),
                   statusSys: ""
                 }}
                 onSubmit={(values) => {
@@ -68,7 +69,7 @@ const DanhSachGD = () => {
                   setPageSize({ ...pageSize, page: 1, size: 10 })
                 }}
               >
-                {() => (
+                {(propsFormik) => (
                   <Form>
                     <Row className="d-flex justify-content-between align-items-end space-x-2">
                       <div className="col-md-6">
@@ -138,14 +139,14 @@ const DanhSachGD = () => {
                         type="submit"
                         id="btn-tra-cuuDC"
                         onClick={() => {
-                          const paramExport = checkKeyNull({ ...params, export: "PAGE" })
+                          const paramExport = checkKeyNull({ ...params, export: "PAGE", startDate: propsFormik.values.startDate, endDate: propsFormik.values.endDate })
                           const url = `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
                           exportFile({
                             url: url,
                             type: "xlsx",
                             method: "POST",
                             body: paramExport,
-                            name: "BaoCaoDoanhThu"
+                            name: "DanhSachGiaoDich"
                           })
                         }}
                         style={{ marginRight: "20px" }}
@@ -158,13 +159,13 @@ const DanhSachGD = () => {
                         type="submit"
                         id="btn-tra-cuuDC"
                         onClick={() => {
-                          const paramExport = { ...params, export: "N0_PAGE" }
+                          const paramExport = checkKeyNull({ ...params, export: "N0_PAGE", startDate: propsFormik.values.startDate, endDate: propsFormik.values.endDate })
                           exportFile({
                             url: `${apiExportTrans}`,
                             type: "xlsx",
                             method: "POST",
                             body: paramExport,
-                            name: "BaoCaoDoanhThu"
+                            name: "DanhSachGiaoDichAll"
                           })
                         }}
                       >

@@ -34,6 +34,7 @@ export const TableData = ({ data, setPageSize, pageSize }) => {
             >
               <Thead>
                 <Tr>
+                  <Th className="text-center">STT</Th>
                   <Th style={styleTH}>Bệnh viện/Phòng khám</Th>
                   <Th style={styleTH}>Sản phẩm/Dịch vụ</Th>
                   <Th style={styleTH}>Kênh thực hiện</Th>
@@ -42,7 +43,8 @@ export const TableData = ({ data, setPageSize, pageSize }) => {
               </Thead>
               <Tbody>
                 {data?.data && data.data.map((item, index) => (
-                  <tr>
+                  <tr key={index}>
+                    <th className="text-center">{++index}</th>
                     <th>{item?.hospitalName || "Empty data"}</th>
                     <th>{item?.serviceName}</th>
                     <th>{item?.channelType ? item.channelType === 0 ? "Mobile" : "Website" : "Empty data"}</th>

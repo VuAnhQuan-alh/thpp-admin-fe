@@ -16,8 +16,8 @@ export const timKiemDanhSachGD = `${URL}/api/history/search`;
 export const chiTietHoaDon = `${URL}/api/history/get-invoice/`;
 
 // Export file xlsx
-export const apiExportFile = `${URL}/api/history/export`
-export const apiExportTrans = `${URL}/api/report/export-transaction`
+export const apiExportReport = `${URL}/api/report/export-transaction`
+export const apiExportTrans = `${URL}/api/history/export-lst-transactions`
 
 // Quan tri user
 export const userSearch = `${URL}/api/user/search`;

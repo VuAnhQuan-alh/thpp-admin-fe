@@ -11,6 +11,7 @@ const styleTH = {
 
 export default ({ data, setPageSize, pageSize }) => {
   const [totalPage, setTotalPage] = React.useState(0)
+  const [itemCopy, setItemCopy] = React.useState("")
 
   React.useEffect(() => {
     setTotalPage(0)
@@ -54,15 +55,27 @@ export default ({ data, setPageSize, pageSize }) => {
               <Tbody>
                 {data?.data && data.data.map((item, index) => (
                   <Tr key={index}>
-                    {/* <Th style={styleTH}>{item?.id}</Th> */}
-                    <Th style={styleTH}>{item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : "Null"}</Th>
+                    <Th
+                      style={{ ...styleTH, cursor: "pointer" }}
+                      onClick={() => {
+                        navigator.clipboard.writeText(item?.txnRef)
+                        setItemCopy(item?.txnRef)
+                        setTimeout(() => {
+                          setItemCopy("")
+                        }, 2500)
+                      }}
+                    >
+                      <span style={{ color: item?.txnRef === itemCopy ? "#0A91BB" : "#626c76" }}>
+                        {item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : ""}
+                      </span>
+                    </Th>
                     <Th style={styleTH} className="text-center">{item?.transactionNo}</Th>
-                    <Th style={styleTH} className="text-center">{item?.gatewayName ? item.gatewayName : "Cash"}</Th>
-                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : <span className="text-danger">Empty data</span>}</Th>
+                    <Th style={styleTH} className="text-center">{item?.gatewayName}</Th>
+                    <Th style={styleTH}>{item?.transactionDate ? `${item?.transactionDate.substring(6, 8)}/${item?.transactionDate.substring(4, 6)}/${item?.transactionDate.substring(0, 4)}` : ""}</Th>
                     <Th style={styleTH}>{item?.customerName}</Th>
                     <Th style={styleTH}>{item?.channelType === 1 ? "Mobile" : "Website"}</Th>
-                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : <span className="text-danger">Empty data</span>}</Th>
-                    <Th style={styleTH}>{item?.hospitalName ? item.hospitalName : <span className="text-danger">Empty data</span>}</Th>
+                    <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : ""}</Th>
+                    <Th style={styleTH}>{item?.hospitalName}</Th>
                     <Th style={styleTH}>{item?.customerName}</Th>
                     <Th style={styleTH}>{item?.phone}</Th>
                     <Th style={styleTH}>{item?.serviceName}</Th>
