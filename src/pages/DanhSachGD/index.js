@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
@@ -22,6 +22,7 @@ const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([]);
+
   const CallDanhSachGD = () => {
     const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
     apiSearch(checkKeyNull(paramSearch)).then((res) => {
@@ -37,7 +38,7 @@ const DanhSachGD = () => {
     })
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     CallDanhSachGD();
   }, [pageSize, params])
 
@@ -66,7 +67,7 @@ const DanhSachGD = () => {
                 }}
                 onSubmit={(values) => {
                   setParams(values);
-                  setPageSize({ ...pageSize, page: 1, size: 10 })
+                  setPageSize({ ...pageSize, page: 1 })
                 }}
               >
                 {(propsFormik) => (

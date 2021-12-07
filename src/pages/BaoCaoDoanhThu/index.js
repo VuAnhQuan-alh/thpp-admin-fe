@@ -70,7 +70,7 @@ const DanhSachGD = () => {
                 }}
                 onSubmit={(values) => {
                   setParams(values);
-                  setPageSize({ ...pageSize, page: 1, size: 10 })
+                  setPageSize({ ...pageSize, page: 1 })
                 }}
               >
                 {() => (
