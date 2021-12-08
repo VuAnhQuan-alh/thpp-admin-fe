@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { Field, Form, Formik } from "formik";
@@ -20,6 +20,7 @@ const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([]);
+
   const CallDanhSachGD = () => {
     const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
     apiSearch(checkKeyNull(paramSearch)).then((res) => {
@@ -35,7 +36,7 @@ const DanhSachGD = () => {
     })
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     CallDanhSachGD();
   }, [pageSize, params])
 

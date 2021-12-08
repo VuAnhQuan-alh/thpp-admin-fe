@@ -63,7 +63,7 @@ export const TableData = ({ data, setPageSize, pageSize }) => {
           setPageSize({ ...pageSize, page: e })
         }}
         onChangeSize={(e) => {
-          setPageSize({ ...pageSize, size: e })
+          setPageSize({ ...pageSize, size: e, page: 1 })
         }}
         currentPage={pageSize?.page}
       />

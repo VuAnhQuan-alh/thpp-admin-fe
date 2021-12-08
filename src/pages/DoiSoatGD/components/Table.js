@@ -97,7 +97,7 @@ export default ({ data, setPageSize, pageSize }) => {
         totalItems={data?.total || 0}
         totalPages={totalPage}
         onChangePage={(e) => setPageSize({ ...pageSize, page: e })}
-        onChangeSize={(e) => setPageSize({ ...pageSize, size: e })}
+        onChangeSize={(e) => setPageSize({ ...pageSize, size: e, page: 1 })}
         currentPage={pageSize?.page}
       />
     </Card>
