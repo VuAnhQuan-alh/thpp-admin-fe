@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
@@ -6,18 +8,30 @@ import SelectBenhVien from "../../components/SelectBenhVien";
 import { checkKeyNull, convertParamsToQuery, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DoisoatGDVNPay";
 import Table from "./components/Table";
-import { CardBody, Col, Row, Card, Button } from "reactstrap";
+import { CardBody, Row, Card, Button } from "reactstrap";
 import SelectStatusSys from "../../components/SelectStatusSys";
 import SelectCTT from "../../components/SelectCTT";
-import { apiExportFile, apiExportTrans } from "../../constrains/apiURL";
-import { printFile } from "../../services/apiFunction/printFile";
+import { apiExportTrans } from "../../constrains/apiURL";
 import exportFile from "../../services/apiFunction/exportFile";
+import moment from "moment";
 
 const DoiSoatGD = () => {
+  React.useEffect(() => {
+    setParams(initialValues)
+  }, [])
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([])
   const trans = window.localStorage.getItem("txnRef")
+  const initialValues = {
+    hospitalType: null,
+    customerName: "",
+    startDate: moment().subtract(1, "month").format("YYYY-MM-DD"),
+    endDate: moment().format("YYYY-MM-DD"),
+    txnRef: trans,
+    gatewayCode: null,
+    statusSys: null,
+  }
 
   React.useEffect(() => {
     if (trans !== null) {
@@ -44,6 +58,7 @@ const DoiSoatGD = () => {
   return (
     <React.Fragment>
       <div className="page-content" style={{ maxWidth: "1440px", margin: "10px auto" }}>
+        <ToastContainer />
         <Row>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
@@ -56,21 +71,25 @@ const DoiSoatGD = () => {
           <Card>
             <CardBody style={{ backgroundColor: "#FFF" }}>
               <Formik
-                initialValues={{
-                  hospitalType: null,
-                  customerName: "",
-                  startDate: "",
-                  enDate: "",
-                  txnRef: trans,
-                  gatewayCode: null,
-                  statusSys: null,
-                }}
+                initialValues={initialValues}
                 onSubmit={(values) => {
-                  setParams(values);
-                  setPageSize({ ...pageSize, page: 1 })
+                  if (!values?.startDate || !values?.endDate) {
+                    toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  } else {
+                    setParams(checkKeyNull(values));
+                    setPageSize({ ...pageSize, page: 1 })
+                  }
                 }}
               >
-                {() => (
+                {(propsFormik) => (
                   <Form>
                     <Row className="d-flex justify-content-between align-items-end space-x-2">
                       <div className="col-md-6">
@@ -84,6 +103,7 @@ const DoiSoatGD = () => {
                           name="startDate"
                           component={DatePicker}
                           title="Từ ngày"
+                          maxDate={moment(propsFormik?.values?.endDate, "YYYY-MM-DD").toDate()}
                         />
                       </div>
                       <div className="col-md-3">
@@ -91,6 +111,8 @@ const DoiSoatGD = () => {
                           name="endDate"
                           component={DatePicker}
                           title="Đến ngày"
+                          minDate={moment(propsFormik?.values?.startDate, "YYYY-MM-DD").toDate()}
+                          maxDate={moment(new Date(), "YYYY-MM-DD").toDate()}
                         />
                       </div>
                     </Row>
@@ -143,13 +165,25 @@ const DoiSoatGD = () => {
                         onClick={() => {
                           const paramExport = checkKeyNull({ ...params, export: "PAGE" })
                           const url = `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
-                          exportFile({
-                            url: url,
-                            type: "xlsx",
-                            method: "POST",
-                            body: paramExport,
-                            name: "BaoCaoDoanhThu"
-                          })
+                          if (paramExport?.endDate === undefined || paramExport?.startDate === undefined) {
+                            toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                            });
+                          } else {
+                            exportFile({
+                              url: url,
+                              type: "xlsx",
+                              method: "POST",
+                              body: paramExport,
+                              name: "BaoCaoDoanhThu"
+                            })
+                          }
                         }}
                       >
                         <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu hiện tại
@@ -160,14 +194,26 @@ const DoiSoatGD = () => {
                         type="submit"
                         id="btn-tra-cuuDC"
                         onClick={() => {
-                          const paramExport = { ...params, export: "N0_PAGE" }
-                          exportFile({
-                            url: `${apiExportTrans}`,
-                            type: "xlsx",
-                            method: "POST",
-                            body: paramExport,
-                            name: "BaoCaoDoanhThu"
-                          })
+                          const paramExport = checkKeyNull({ ...params, export: "N0_PAGE" })
+                          if (paramExport?.endDate === undefined || paramExport?.startDate === undefined) {
+                            toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                            });
+                          } else {
+                            exportFile({
+                              url: `${apiExportTrans}`,
+                              type: "xlsx",
+                              method: "POST",
+                              body: paramExport,
+                              name: "BaoCaoDoanhThu"
+                            })
+                          }
                         }}
                       >
                         <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu

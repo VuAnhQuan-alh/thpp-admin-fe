@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { Field, Form, Formik } from "formik";
 import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
-
-import { callAPIPaging, checkCallAPI, checkKeyNull, convertParamsToQuery, seo } from "../../helpers/functions";
+import { checkKeyNull, convertParamsToQuery, seo } from "../../helpers/functions";
 import { apiSearch } from "../../services/apiFunction/DanhSachGD";
 import Table from "./components/Table";
-// import { isEmpty } from "lodash";
-import { CardBody, Col, Row, Card, Button } from "reactstrap";
+import { CardBody, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
-// import SelectCTT from "../../components/SelectCTT";
 import SelectChannel from "../../components/SelectChannel";
 import SelectStatusSys from "../../components/SelectStatusSys";
-import { printFile } from "../../services/apiFunction/printFile";
-import { apiExportFile, apiExportTrans } from "../../constrains/apiURL";
+import { apiExportTrans } from "../../constrains/apiURL";
 import exportFile from "../../services/apiFunction/exportFile";
 import moment from "moment";
 
@@ -44,6 +42,7 @@ const DanhSachGD = () => {
   return (
     <React.Fragment>
       <div className="page-content" style={{ maxWidth: "1440px", margin: "10px auto" }}>
+        <ToastContainer />
         <Row>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
@@ -65,8 +64,20 @@ const DanhSachGD = () => {
                   statusSys: ""
                 }}
                 onSubmit={(values) => {
-                  setParams(values);
-                  setPageSize({ ...pageSize, page: 1, size: 10 })
+                  if (!values?.startDate || !values?.endDate) {
+                    toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  } else {
+                    setParams(checkKeyNull(values));
+                    setPageSize({ ...pageSize, page: 1, size: 10 })
+                  }
                 }}
               >
                 {(propsFormik) => (
@@ -83,6 +94,7 @@ const DanhSachGD = () => {
                           name="startDate"
                           component={DatePicker}
                           title="Từ ngày"
+                          maxDate={moment(propsFormik?.values?.endDate, "YYYY-MM-DD").toDate()}
                         />
                       </div>
                       <div className="col-md-3">
@@ -90,6 +102,8 @@ const DanhSachGD = () => {
                           name="endDate"
                           component={DatePicker}
                           title="Đến ngày"
+                          minDate={moment(propsFormik?.values?.startDate, "YYYY-MM-DD").toDate()}
+                          maxDate={moment(new Date(), "YYYY-MM-DD").toDate()}
                         />
                       </div>
                     </Row>
@@ -140,14 +154,26 @@ const DanhSachGD = () => {
                         id="btn-tra-cuuDC"
                         onClick={() => {
                           const paramExport = checkKeyNull({ ...params, export: "PAGE", startDate: propsFormik.values.startDate, endDate: propsFormik.values.endDate })
-                          const url = `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
-                          exportFile({
-                            url: url,
-                            type: "xlsx",
-                            method: "POST",
-                            body: paramExport,
-                            name: "DanhSachGiaoDich"
-                          })
+                          if (paramExport?.endDate === undefined || paramExport?.startDate === undefined) {
+                            toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                            });
+                          } else {
+                            const url = `${apiExportTrans}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
+                            exportFile({
+                              url: url,
+                              type: "xlsx",
+                              method: "POST",
+                              body: paramExport,
+                              name: "DanhSachGiaoDich"
+                            })
+                          }
                         }}
                         style={{ marginRight: "20px" }}
                       >
@@ -160,13 +186,25 @@ const DanhSachGD = () => {
                         id="btn-tra-cuuDC"
                         onClick={() => {
                           const paramExport = checkKeyNull({ ...params, export: "N0_PAGE", startDate: propsFormik.values.startDate, endDate: propsFormik.values.endDate })
-                          exportFile({
-                            url: `${apiExportTrans}`,
-                            type: "xlsx",
-                            method: "POST",
-                            body: paramExport,
-                            name: "DanhSachGiaoDichAll"
-                          })
+                          if (paramExport?.endDate === undefined || paramExport?.startDate === undefined) {
+                            toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                              position: "top-right",
+                              autoClose: 5000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                            });
+                          } else {
+                            exportFile({
+                              url: `${apiExportTrans}`,
+                              type: "xlsx",
+                              method: "POST",
+                              body: paramExport,
+                              name: "DanhSachGiaoDichAll"
+                            })
+                          }
                         }}
                       >
                         <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu

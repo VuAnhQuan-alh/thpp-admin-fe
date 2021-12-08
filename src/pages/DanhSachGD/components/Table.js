@@ -92,6 +92,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                     <Th style={styleTH}>{item?.statusSys ? checkStatusSys(item?.statusSys) : ""}</Th>
                   </Tr>
                 ))}
+                {data?.data && data?.data.length === 0 && <Tr><Th colSpan="13" className="text-center">Không tìm thấy kết quả thỏa mãn điều kiện</Th></Tr>}
               </Tbody>
             </Table>
           </div>

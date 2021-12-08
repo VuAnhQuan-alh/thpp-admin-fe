@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Field, Form, Formik } from "formik";
-import InputField from "../../components/InputField";
 import DatePicker from "../../components/DatePicker";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 import { callAPIPaging, checkCallAPI, checkKeyNull, convertParamsToQuery, seo } from "../../helpers/functions";
-import { apiSearch } from "../../services/apiFunction/DanhSachGD";
 import Table from "./components/Table";
 import { isEmpty } from "lodash";
-import { CardBody, Col, Row, Card, Button } from "reactstrap";
+import { CardBody, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
 import SelectDV from "../../components/SelectDV";
 import SelectChannel from "../../components/SelectChannel";
@@ -15,6 +15,7 @@ import { apiExportReport } from "../../constrains/apiURL";
 import { apiBaoCaoDT } from "../../services/apiFunction/BaoCaoDT";
 import moment from "moment";
 import exportFile from "../../services/apiFunction/exportFile";
+import Detail from "./components/Detail";
 
 const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
@@ -50,6 +51,7 @@ const DanhSachGD = () => {
   return (
     <React.Fragment>
       <div className="page-content" style={{ maxWidth: "1440px", margin: "10px auto" }}>
+        <ToastContainer />
         <Row>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
@@ -69,11 +71,23 @@ const DanhSachGD = () => {
                   serviceCode: null,
                 }}
                 onSubmit={(values) => {
-                  setParams(values);
-                  setPageSize({ ...pageSize, page: 1, size: 10 })
+                  if (!values?.fromDate || !values?.toDate) {
+                    toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  } else {
+                    setParams(checkKeyNull(values));
+                    setPageSize({ ...pageSize, page: 1, size: 10 })
+                  }
                 }}
               >
-                {() => (
+                {(propsFormik) => (
                   <Form>
                     <Row className="d-flex justify-content-between align-items-end space-x-2">
                       <div className="col-md-6">
@@ -87,6 +101,7 @@ const DanhSachGD = () => {
                           name="fromDate"
                           component={DatePicker}
                           title="Từ ngày"
+                          maxDate={moment(propsFormik?.values?.toDate, "YYYY-MM-DD").toDate()}
                         />
                       </div>
                       <div className="col-md-3">
@@ -94,6 +109,8 @@ const DanhSachGD = () => {
                           name="toDate"
                           component={DatePicker}
                           title="Đến ngày"
+                          minDate={moment(propsFormik?.values?.fromDate, "YYYY-MM-DD").toDate()}
+                          maxDate={moment(new Date(), "YYYY-MM-DD").toDate()}
                         />
                       </div>
                     </Row>
@@ -131,13 +148,25 @@ const DanhSachGD = () => {
                           onClick={() => {
                             const paramExport = checkKeyNull({ ...params, export: "PAGE" })
                             const url = `${apiExportReport}${convertParamsToQuery({ page: pageSize.page, size: pageSize.size })}`
-                            exportFile({
-                              url: url,
-                              type: "xlsx",
-                              method: "POST",
-                              body: paramExport,
-                              name: "BaoCaoDoanhThu"
-                            })
+                            if (paramExport?.fromDate === undefined || paramExport?.toDate === undefined) {
+                              toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                              });
+                            } else {
+                              exportFile({
+                                url: url,
+                                type: "xlsx",
+                                method: "POST",
+                                body: paramExport,
+                                name: "BaoCaoDoanhThu"
+                              })
+                            }
                           }}
 
                         >
@@ -150,13 +179,25 @@ const DanhSachGD = () => {
                           id="btn-tra-cuuDC"
                           onClick={() => {
                             const paramExport = { ...params, export: "N0_PAGE" }
-                            exportFile({
-                              url: `${apiExportReport}`,
-                              type: "xlsx",
-                              method: "POST",
-                              body: paramExport,
-                              name: "BaoCaoDoanhThu"
-                            })
+                            if (paramExport?.fromDate === undefined || paramExport?.toDate === undefined) {
+                              toast.error('Từ ngày và Đến ngày không được bỏ trống', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                              });
+                            } else {
+                              exportFile({
+                                url: `${apiExportReport}`,
+                                type: "xlsx",
+                                method: "POST",
+                                body: paramExport,
+                                name: "BaoCaoDoanhThu"
+                              })
+                            }
                           }}
                         >
                           <i className="fas fa-print"></i>&nbsp;Xuất dữ liệu
@@ -168,6 +209,9 @@ const DanhSachGD = () => {
               </Formik>
             </CardBody>
           </Card>
+        </Row>
+        <Row>
+          <Detail />
         </Row>
         <Row>
           <Table data={data} pageSize={pageSize} setPageSize={setPageSize} />

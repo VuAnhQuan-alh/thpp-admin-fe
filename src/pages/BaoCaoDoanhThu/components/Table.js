@@ -37,18 +37,18 @@ export const TableData = ({ data, setPageSize, pageSize }) => {
                   <Th className="text-center">STT</Th>
                   <Th style={styleTH}>Bệnh viện/Phòng khám</Th>
                   <Th style={styleTH}>Sản phẩm/Dịch vụ</Th>
-                  <Th style={styleTH}>Kênh thực hiện</Th>
-                  <Th style={styleTH}>Tổng tiền (vnđ)</Th>
+                  <Th className="text-center" style={styleTH}>Kênh thực hiện</Th>
+                  <Th style={styleTH} className="text-end">Tổng tiền (vnđ)</Th>
                 </Tr>
               </Thead>
               <Tbody>
                 {data?.data && data.data.map((item, index) => (
                   <tr key={index}>
                     <th className="text-center">{++index}</th>
-                    <th>{item?.hospitalName || "Empty data"}</th>
+                    <th>{item?.hospitalName}</th>
                     <th>{item?.serviceName}</th>
-                    <th>{item?.channelType ? item.channelType === 0 ? "Mobile" : "Website" : "Empty data"}</th>
-                    <th>{item?.amount}</th>
+                    <th className="text-center">{item?.channelType ? item.channelType === 0 ? "Mobile" : "Website" : ""}</th>
+                    <th className="text-end">{new Intl.NumberFormat().format(item?.amount)} ₫</th>
                   </tr>
                 ))}
               </Tbody>

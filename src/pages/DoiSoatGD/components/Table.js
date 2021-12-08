@@ -12,6 +12,7 @@ const styleTH = {
 export default ({ data, setPageSize, pageSize }) => {
   const [totalPage, setTotalPage] = React.useState(0)
   const [itemCopy, setItemCopy] = React.useState("")
+  const [itemDis, setItemDis] = React.useState("none")
 
   React.useEffect(() => {
     setTotalPage(0)
@@ -54,17 +55,20 @@ export default ({ data, setPageSize, pageSize }) => {
               </Thead>
               <Tbody>
                 {data?.data && data.data.map((item, index) => (
-                  <Tr key={index}>
+                  <Tr key={index} style={{ position: "relative" }}>
                     <Th
                       style={{ ...styleTH, cursor: "pointer" }}
                       onClick={() => {
                         navigator.clipboard.writeText(item?.txnRef)
                         setItemCopy(item?.txnRef)
+                        setItemDis("block")
                         setTimeout(() => {
                           setItemCopy("")
+                          setItemDis("none")
                         }, 2500)
                       }}
                     >
+                      <div style={{ display: item?.txnRef === itemCopy ? itemDis : "none", position: "absolute", top: "-10px", left: "100px", padding: "0px 6px", borderRadius: "4px", background: "#000000a1", color: "white" }}>Copied</div>
                       <span style={{ color: item?.txnRef === itemCopy ? "#0A91BB" : "#626c76" }}>
                         {item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : ""}
                       </span>
@@ -83,6 +87,7 @@ export default ({ data, setPageSize, pageSize }) => {
                     <Th style={styleTH}></Th>
                   </Tr>
                 ))}
+                {data?.data && data?.data.length === 0 && <Tr><Th colspan="13" className="text-center">Không tìm thấy kết quả thỏa mãn điều kiện</Th></Tr>}
               </Tbody>
             </Table>
           </div>
