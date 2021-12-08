@@ -21,6 +21,13 @@ const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([]);
+  const initialValues = {
+    hospitalType: null,
+    fromDate: moment().subtract(1, "month").format("YYYY-MM-DD"),
+    toDate: moment().format("YYYY-MM-DD"),
+    channelType: null,
+    serviceCode: null,
+  }
   const CallDanhSachGD = () => {
     if (isEmpty(params)) return;
     apiBaoCaoDT({ page: pageSize.page, size: pageSize.size }, params).then((res) => {
@@ -38,6 +45,7 @@ const DanhSachGD = () => {
   }
 
   React.useEffect(() => {
+    setParams(checkKeyNull(initialValues))
     seo({
       title: "Báo Cáo Doanh Thu",
       metaDescription: "True Hope Admin"
@@ -63,13 +71,7 @@ const DanhSachGD = () => {
           <Card>
             <CardBody style={{ backgroundColor: "#FFF" }}>
               <Formik
-                initialValues={{
-                  hospitalType: null,
-                  fromDate: moment().subtract(1, "month").format("YYYY-MM-DD"),
-                  toDate: moment().format("YYYY-MM-DD"),
-                  channelType: null,
-                  serviceCode: null,
-                }}
+                initialValues={initialValues}
                 onSubmit={(values) => {
                   if (!values?.fromDate || !values?.toDate) {
                     toast.error('Từ ngày và Đến ngày không được bỏ trống', {
@@ -195,7 +197,7 @@ const DanhSachGD = () => {
                                 type: "xlsx",
                                 method: "POST",
                                 body: paramExport,
-                                name: "BaoCaoDoanhThu"
+                                name: "BaoCaoDoanhThuAll"
                               })
                             }
                           }}

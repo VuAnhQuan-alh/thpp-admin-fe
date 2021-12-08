@@ -20,6 +20,15 @@ const DanhSachGD = () => {
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([]);
+  const initialValues = {
+    hospitalType: null,
+    channelType: null,
+    serviceCode: null,
+    orderInfo: "",
+    startDate: moment().subtract(1, "month").format("YYYY-MM-DD"),
+    endDate: moment().format("YYYY-MM-DD"),
+    statusSys: ""
+  }
 
   const CallDanhSachGD = () => {
     const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
@@ -34,6 +43,7 @@ const DanhSachGD = () => {
       title: "Danh Sách Giao Dịch",
       metaDescription: "True Hope Admin"
     })
+    setParams(checkKeyNull(initialValues))
   }, [])
 
   React.useEffect(() => {

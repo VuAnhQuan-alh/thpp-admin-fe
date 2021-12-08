@@ -49,6 +49,7 @@ const DoiSoatGD = () => {
   }, [pageSize, params])
 
   React.useEffect(() => {
+    setParams(checkKeyNull(initialValues))
     seo({
       title: "Danh Sách Đối Soát Giao Dịch",
       metaDescription: "True Hope Admin"
@@ -181,7 +182,7 @@ const DoiSoatGD = () => {
                               type: "xlsx",
                               method: "POST",
                               body: paramExport,
-                              name: "BaoCaoDoanhThu"
+                              name: "DoiSoatGiaoDich"
                             })
                           }
                         }}
@@ -211,7 +212,7 @@ const DoiSoatGD = () => {
                               type: "xlsx",
                               method: "POST",
                               body: paramExport,
-                              name: "BaoCaoDoanhThu"
+                              name: "DoiSoatGiaoDichAll"
                             })
                           }
                         }}
