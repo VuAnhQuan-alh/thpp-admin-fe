@@ -195,7 +195,7 @@ const DoiSoatGD = () => {
                         type="submit"
                         id="btn-tra-cuuDC"
                         onClick={() => {
-                          const paramExport = checkKeyNull({ ...params, export: "N0_PAGE" })
+                          const paramExport = checkKeyNull({ ...params, export: "NO_PAGE" })
                           if (paramExport?.endDate === undefined || paramExport?.startDate === undefined) {
                             toast.error('Từ ngày và Đến ngày không được bỏ trống', {
                               position: "top-right",
