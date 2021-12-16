@@ -24,12 +24,10 @@ const Item = ({ data, styleTH }) => {
   }
   const checkRoles = role => roles.includes(role)
   const updateUser = () => {
-    const user = localStorage.getItem("username")
-    const body = {
-      username: user,
+    const body = [{
+      username: data?.username,
       roles: roles
-    }
-    console.log("change@", body)
+    }]
     apiUpdateUser(body).then(res => {
       console.log(res)
     })
