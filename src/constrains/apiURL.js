@@ -21,7 +21,8 @@ export const apiExportTrans = `${URL}/api/history/export-lst-transactions`
 
 // Quan tri user
 export const userSearch = `${URL}/api/user/search`;
-export const userUpdate = `${URL}/api/user/update`;
+export const userUpdate = `${URL}/api/user/update/multiple`;
+export const userSync = `${URL}/api/user/sync/true-hope`
 
 // Bao cao doanh thu
 export const transSearch = `${URL}/api/report/search`

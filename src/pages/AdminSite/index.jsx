@@ -8,31 +8,15 @@ import Table from "./components/Table";
 import { isEmpty } from "lodash";
 import { CardBody, Row, Card, Button } from "reactstrap";
 import SelectBenhVien from "../../components/SelectBenhVien";
-import { apiGetUsers } from "../../services/apiFunction/Authen";
+import { apiGetUsers, apiSyncUser } from "../../services/apiFunction/Authen";
 import CustomSelect from "../../components/CustomSelect";
 
 export default () => {
   const [pageSize, setPageSize] = useState({ page: 0, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([]);
-  const CallDanhSachGD = () => {
-    if (isEmpty(params)) return
-    const paramSearch = { ...params, page: pageSize.page, size: pageSize.size };
-    apiSearch(checkKeyNull(paramSearch)).then((res) => {
-      callAPIPaging({
-        size: pageSize.size,
-        onError: (e) => {
-          setData({ data: [], meta: { totalPage: 1 } });
-        },
-        onSuccess: (response) => {
-          setData({ data: response.data.data, meta: response.meta });
-        },
-        response: res,
-      })
-    })
-  }
+
   const CallListUser = () => {
-    // console.log("params: ", checkKeyNull(params))
     apiGetUsers(checkKeyNull(params)).then(res => {
       setData(res?.data?.data)
     })
@@ -48,7 +32,11 @@ export default () => {
   useEffect(() => {
     CallListUser()
   }, [params])
-  // console.log(data)
+  const CallSyncUser = () => {
+    apiSyncUser().then(() => {
+      console.log("sync completed!")
+    })
+  }
 
   return (
     <React.Fragment>
@@ -144,6 +132,7 @@ export default () => {
                           className="btn btn-primary waves-effect waves-light mt-2"
                           type="submit"
                           id="btn-tra-cuuDC"
+                          onClick={() => CallSyncUser()}
                         >
                           <i className="fas fa-sync-alt"></i>&nbsp;First Sync
                         </Button>

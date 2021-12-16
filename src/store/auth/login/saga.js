@@ -15,6 +15,7 @@ function* loginUser({ payload }) {
     if (response.status === 200) {
       httpServices.attachTokenToHeader(response.data.token)
       localStorage.setItem("authUser", response.data.token)
+      localStorage.setItem("username", payload?.username)
       yield put(loginSuccess(response.data.data))
     } else {
       yield put(apiError(response.data))

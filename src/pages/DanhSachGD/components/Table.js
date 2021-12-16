@@ -69,7 +69,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
                         {item?.txnRef ? `${item.txnRef.substring(0, 12)}...${item.txnRef.substring(item.txnRef.length - 4, item.txnRef.length)}` : ""}
                       </a>
                     </Th>
-                    <Th style={styleTH}>{item?.hospitalName ? item.hospitalName : <span className='text-danger'>Empty data</span>}</Th>
+                    <Th style={styleTH}>{item?.hospitalName}</Th>
                     <Th className="text-center" style={styleTH}>{item?.channelType === 0 ? "Mobile" : item?.channelType === 1 ? "Website" : ""}</Th>
                     <Th className="text-center" style={styleTH}>{item?.gatewayName}</Th>
                     <Th className="text-center" style={styleTH}>

@@ -6,32 +6,31 @@ const Item = ({ data, styleTH }) => {
   const [user, setUser] = React.useState({})
   const iptEl = React.useRef(null)
   const [onChange, setOnChange] = React.useState(false)
-  const [fControl, setFControl] = React.useState("")
-  const [invoice, setInvoice] = React.useState("")
-  const [sales, setSales] = React.useState("")
-  const [admin, setAdmin] = React.useState("")
   const [status, setStatus] = React.useState("")
+  const [roles, setRoles] = React.useState([])
 
   React.useEffect(() => {
+    setRoles(data?.roles)
     setUser(data)
-    setStatus(data?.enable || false)
-    setAdmin(data?.administration || "0")
-    setSales(data?.saleReport || "0")
-    setInvoice(data?.transactionlist || "0")
-    setFControl(data?.transactioncontrol || "0")
   }, [data])
-  // console.log(user)
-  const updateUser = () => {
-    const body = {
-      ...user,
-      enable: status,
-      administration: admin,
-      saleReport: sales,
-      transactionlist: invoice,
-      transactioncontrol: fControl
+  const changeRoles = (role) => {
+    let result = []
+    if (roles.includes(role)) {
+      result = roles.filter(i => i !== role)
+    } else {
+      result = [...roles, role]
     }
-    // console.log(checkKeyNull(body))
-    apiUpdateUser(checkKeyNull(body)).then(res => {
+    setRoles(result)
+  }
+  const checkRoles = role => roles.includes(role)
+  const updateUser = () => {
+    const user = localStorage.getItem("username")
+    const body = {
+      username: user,
+      roles: roles
+    }
+    console.log("change@", body)
+    apiUpdateUser(body).then(res => {
       console.log(res)
     })
   }
@@ -62,36 +61,40 @@ const Item = ({ data, styleTH }) => {
         <td style={styleTH}>{user?.firstSync ? "True" : "False"}</td>
         <td>
           <input
+            style={{ cursor: "pointer" }}
             type="checkbox"
-            checked={fControl === "1"}
-            onClick={() => setFControl(fControl === "0" ? "1" : "0")}
+            checked={checkRoles("TRANSACTION_CONTROL")}
+            onClick={() => changeRoles("TRANSACTION_CONTROL")}
             disabled={!onChange}
             className="form-check-input"
           />
         </td>
         <td>
           <input
+            style={{ cursor: "pointer" }}
             type="checkbox"
-            checked={invoice === "1"}
-            onClick={() => setInvoice(invoice === "0" ? "1" : "0")}
+            checked={checkRoles("TRANSACTION_LIST")}
+            onClick={() => changeRoles("TRANSACTION_LIST")}
             disabled={!onChange}
             className="form-check-input"
           />
         </td>
         <td>
           <input
+            style={{ cursor: "pointer" }}
             type="checkbox"
-            checked={sales === "1"}
-            onClick={() => setSales(sales === "0" ? "1" : "0")}
+            checked={checkRoles("SALES_REPORT")}
+            onClick={() => changeRoles("SALES_REPORT")}
             disabled={!onChange}
             className="form-check-input"
           />
         </td>
         <td>
           <input
+            style={{ cursor: "pointer" }}
             type="checkbox"
-            checked={admin === "1"}
-            onClick={() => setAdmin(admin === "0" ? "1" : "0")}
+            checked={checkRoles("ADMINISTRATION")}
+            onClick={() => changeRoles("ADMINISTRATION")}
             disabled={!onChange}
             className="form-check-input"
           />
