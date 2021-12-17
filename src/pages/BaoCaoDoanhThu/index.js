@@ -37,7 +37,7 @@ const DanhSachGD = () => {
           setData({ data: [], meta: { totalPage: 1 } });
         },
         onSuccess: (response) => {
-          setData({ data: response.data.data, meta: response.data.data[0].totalElement });
+          setData({ data: response?.data?.data, meta: response?.data?.data[0]?.totalElement });
         },
         response: res,
       })
