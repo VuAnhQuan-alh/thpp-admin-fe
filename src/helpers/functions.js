@@ -9,7 +9,7 @@ export const checkStatusSys = (sys) => {
       return false;
     }
   });
-  return result["MESS"];
+  return result?.MESS;
 }
 
 export const removeAccents = (str) => {
