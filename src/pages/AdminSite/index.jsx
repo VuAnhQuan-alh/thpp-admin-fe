@@ -15,6 +15,14 @@ export default () => {
   const [pageSize, setPageSize] = useState({ page: 0, size: 10 });
   const [params, setParams] = useState({});
   const [data, setData] = useState([]);
+  const initialValues = {
+    name: "",
+    phoneNumber: "",
+    cmndcccd: "",
+    email: "",
+    username: "",
+    firstSync: "",
+  }
 
   const CallListUser = () => {
     apiGetUsers(checkKeyNull(params)).then(res => {
@@ -52,15 +60,7 @@ export default () => {
           <Card>
             <CardBody style={{ backgroundColor: "#FFF" }}>
               <Formik
-                initialValues={{
-                  name: "",
-                  phoneNumber: "",
-                  cmndcccd: "",
-                  email: "",
-                  username: "",
-                  firstSync: "",
-
-                }}
+                initialValues={initialValues}
                 onSubmit={(values) => {
                   setParams(values);
                 }}

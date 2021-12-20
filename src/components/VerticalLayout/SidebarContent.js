@@ -8,11 +8,8 @@ import SimpleBar from "simplebar-react"
 import MetisMenu from "metismenujs"
 import { withRouter } from "react-router-dom"
 import { Link } from "react-router-dom"
-
 //i18n
 import { withTranslation } from "react-i18next"
-import { apiGetUsers } from "../../services/apiFunction/Authen"
-import { checkKeyNull } from "../../helpers/functions"
 
 const SidebarContent = props => {
   const [dataUser, setDataUser] = useState([])
@@ -82,38 +79,6 @@ const SidebarContent = props => {
     }
   }
 
-  const listMenuAdmin = [
-    {
-      role: "ADMINISTRATION",
-      item: <Link to="/Quan-tri">{props.t("Quản trị")}</Link>
-    },
-    {
-      role: "SALES_REPORT",
-      item: <Link to="/Bao-cao-doanh-thu">{props.t("Báo cáo doanh thu")}</Link>
-    },
-    {
-      role: "TRANSACTION_CONTROL",
-      item: <Link to="/Danh-sach-giao-dich">{props.t("Danh sách giao dịch")}</Link>
-    },
-    {
-      role: "TRANSACTION_LIST",
-      item: <Link to="/Doi-soat-giao-dich">{props.t("Đối soát giao dịch")}</Link>
-    }
-  ]
-  const CallListUser = () => {
-    apiGetUsers(checkKeyNull()).then(res => {
-      return res?.data?.data
-    })
-      .then(data => {
-        const user = localStorage.getItem("username")
-        const roles = data?.find(item => item?.username === user)?.roles
-        const menuUser = listMenuAdmin.filter(item => roles.some(role => role === item.role))
-        setDataUser(menuUser)
-      })
-  }
-  useEffect(() => {
-    CallListUser()
-  }, [])
   return (
     <React.Fragment>
       <SimpleBar ref={ref} className="vertical-simplebar">
@@ -124,8 +89,6 @@ const SidebarContent = props => {
             <li><Link to="/Danh-sach-giao-dich">{props.t("Danh sách giao dịch")}</Link></li>
             <li><Link to="/Bao-cao-doanh-thu">{props.t("Báo cáo doanh thu")}</Link></li>
             <li><Link to="/Quan-tri">{props.t("Quản trị")}</Link></li>
-            <li className="menu-title">{props.t("Menu")} </li>
-            {dataUser.map((i, idx) => <li key={idx}>{i.item}</li>)}
           </ul>
         </div>
       </SimpleBar>

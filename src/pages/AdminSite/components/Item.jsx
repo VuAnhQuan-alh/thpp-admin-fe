@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { checkKeyNull } from '../../../helpers/functions'
 import { apiUpdateUser } from '../../../services/apiFunction/Authen'
 
 const Item = ({ data, styleTH }) => {
-  const [user, setUser] = React.useState({})
-  const iptEl = React.useRef(null)
-  const [onChange, setOnChange] = React.useState(false)
-  const [status, setStatus] = React.useState("")
-  const [roles, setRoles] = React.useState([])
+  const [user, setUser] = useState({})
+  const iptEl = useRef(null)
+  const [onChange, setOnChange] = useState(false)
+  const [status, setStatus] = useState("")
+  const [roles, setRoles] = useState([])
+  const [upd, setUpd] = useState(+localStorage.getItem("updated") || 2)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setRoles(data?.roles)
     setUser(data)
   }, [data])
@@ -23,25 +26,42 @@ const Item = ({ data, styleTH }) => {
     setRoles(result)
   }
   const checkRoles = role => roles.includes(role)
-  const updateUser = () => {
+  const updateUser = (isChange) => {
     const body = [{
       username: data?.username,
       roles: roles
     }]
-    apiUpdateUser(body).then(res => {
-      console.log(res)
-    })
+    apiUpdateUser(body)
+      .then(() => {
+        localStorage.setItem('updated', isChange)
+      })
+      .then(() => {
+        console.log("oke")
+        toast.success('Cập nhật quyền truy cập thành công', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
   }
 
   return (
     <>
       <tr>
         <th>
+          <ToastContainer />
           <div style={{ width: "70px", textAlign: "center" }}>
             <button
               className={onChange ? "btn btn-sm btn-primary" : "btn btn-sm btn-secondary"}
               onClick={() => {
-                if (onChange) updateUser()
+                if (onChange) {
+                  setUpd(upd + 1)
+                  updateUser(upd + 1)
+                }
                 setOnChange(!onChange)
               }}>
               {onChange ? "Update" : "Edit"}

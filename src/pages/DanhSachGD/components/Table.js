@@ -112,7 +112,7 @@ export const TableData = ({ data, history, setPageSize, pageSize }) => {
       />
 
       <div style={{ position: "relative" }}>
-        <ModalChiTietHoaDon modalDetail={modalDetail} setModalDetail={setModalDetail} item={itemSelected} />
+        <ModalChiTietHoaDon modal={modalDetail} setModal={setModalDetail} setItem={setItemSelected} item={itemSelected} />
       </div>
     </Card>
   )

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { useEffect } from "react"
 
+import { isEmpty } from 'lodash'
+
 import { Switch, BrowserRouter as Router } from "react-router-dom"
 import { connect, useDispatch, useSelector } from "react-redux"
 
@@ -8,7 +10,7 @@ import { connect, useDispatch, useSelector } from "react-redux"
 import { userRoutes, authRoutes } from "./routes/allRoutes"
 
 // Import all middleware
-import Authmiddleware from "./routes/middleware/Authmiddleware"
+import AuthMiddleware from "./routes/middleware/Authmiddleware"
 
 // layouts Format
 import VerticalLayout from "./components/VerticalLayout/"
@@ -19,10 +21,12 @@ import NonAuthLayout from "./components/NonAuthLayout"
 import "./assets/scss/theme.scss"
 import { profileRequest } from './store/actions'
 import httpServices from './services/httpServices'
+import { apiGetUsers } from './services/apiFunction/Authen'
 
 
 const App = () => {
   const user = useSelector((state) => state.Login)
+  const [auth, setAuth] = React.useState([])
   const layout = useSelector((state) => state.Layout)
   function getLayout() {
     let layoutCls = VerticalLayout
@@ -39,7 +43,24 @@ const App = () => {
   }
 
   const Layout = getLayout()
+  useEffect(() => { localStorage.removeItem("updated") }, [])
 
+  const CallListUser = (u) => {
+    apiGetUsers().then(res => {
+      return res?.data?.data
+    })
+      .then(data => {
+        const roleUser = data?.find(item => item?.username === u)?.roles
+        setAuth(roleUser)
+      })
+  }
+  const username = localStorage.getItem("username")
+
+  React.useEffect(() => {
+    if (!isEmpty(username)) {
+      CallListUser(username)
+    }
+  }, [username, localStorage.getItem("updated")])
 
   // useEffect(() => {
   //   if (user?.data?.token || localStorage.getItem("authUser") != null) {
@@ -55,7 +76,7 @@ const App = () => {
 
         <Switch>
           {authRoutes.map((route, idx) => (
-            <Authmiddleware
+            <AuthMiddleware
               path={route.path}
               layout={NonAuthLayout}
               component={route.component}
@@ -65,10 +86,10 @@ const App = () => {
           ))}
 
           {userRoutes.map((route, idx) => (
-            <Authmiddleware
+            <AuthMiddleware
               path={route.path}
               layout={Layout}
-              component={route.component}
+              component={auth?.includes(route.role) ? route.component : route?.not}
               key={idx}
               isAuthProtected={true}
               exact

@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom"
 import { useSelector } from "react-redux"
 import httpServices from "../../services/httpServices"
 
-const Authmiddleware = ({
+const AuthMiddleware = ({
   component: Component,
   layout: Layout,
   isAuthProtected,
@@ -41,11 +41,11 @@ const Authmiddleware = ({
   )
 }
 
-Authmiddleware.propTypes = {
+AuthMiddleware.propTypes = {
   isAuthProtected: PropTypes.bool,
   component: PropTypes.any,
   location: PropTypes.object,
   layout: PropTypes.any,
 }
 
-export default Authmiddleware
+export default AuthMiddleware

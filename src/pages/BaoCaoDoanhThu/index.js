@@ -45,16 +45,16 @@ const DanhSachGD = () => {
   }
 
   React.useEffect(() => {
-    setParams(checkKeyNull(initialValues))
     seo({
       title: "Báo Cáo Doanh Thu",
       metaDescription: "True Hope Admin"
     })
+    setParams(initialValues)
   }, [])
 
   useEffect(() => {
     CallDanhSachGD();
-  }, [pageSize])
+  }, [pageSize, params])
 
   return (
     <React.Fragment>

@@ -1,4 +1,5 @@
 export const ArrayMessageInvoice = [
+  { METHOD_NOT_SELECTED: "-2", MESS: "Chưa chọn phương thức thanh toán" },
   { WAIT_PAYMENT: "-1", MESS: "Chờ thanh toán" }, // CHờ thanh toán
   { SUCCESS: "0", MESS: "Thành công" }, // Thành công
   { ERROR_CUSTOMER_CANCEL: "1", MESS: "Khách hàng hủy giao dịch" }, // khách hành hủy giao dịch

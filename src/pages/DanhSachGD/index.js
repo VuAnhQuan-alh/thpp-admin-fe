@@ -65,15 +65,7 @@ const DanhSachGD = () => {
           <Card>
             <CardBody style={{ backgroundColor: "#FFF" }}>
               <Formik
-                initialValues={{
-                  hospitalType: null,
-                  channelType: null,
-                  serviceCode: null,
-                  orderInfo: "",
-                  startDate: moment().subtract(1, "month").format("YYYY-MM-DD"),
-                  endDate: moment().format("YYYY-MM-DD"),
-                  statusSys: ""
-                }}
+                initialValues={initialValues}
                 onSubmit={(values) => {
                   if (!values?.startDate || !values?.endDate) {
                     toast.error('Từ ngày và Đến ngày không được bỏ trống', {
