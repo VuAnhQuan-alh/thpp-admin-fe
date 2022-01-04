@@ -188,7 +188,7 @@ const DanhSachGD = () => {
                         type="submit"
                         id="btn-tra-cuuDC"
                         onClick={() => {
-                          const paramExport = checkKeyNull({ ...params, export: "N0_PAGE", startDate: propsFormik.values.startDate, endDate: propsFormik.values.endDate })
+                          const paramExport = checkKeyNull({ ...params, export: "NO_PAGE", startDate: propsFormik.values.startDate, endDate: propsFormik.values.endDate })
                           if (paramExport?.endDate === undefined || paramExport?.startDate === undefined) {
                             toast.error('Từ ngày và Đến ngày không được bỏ trống', {
                               position: "top-right",

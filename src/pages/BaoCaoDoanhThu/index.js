@@ -180,7 +180,7 @@ const DanhSachGD = () => {
                           type="submit"
                           id="btn-tra-cuuDC"
                           onClick={() => {
-                            const paramExport = { ...params, export: "N0_PAGE" }
+                            const paramExport = { ...params, export: "NO_PAGE" }
                             if (paramExport?.fromDate === undefined || paramExport?.toDate === undefined) {
                               toast.error('Từ ngày và Đến ngày không được bỏ trống', {
                                 position: "top-right",
