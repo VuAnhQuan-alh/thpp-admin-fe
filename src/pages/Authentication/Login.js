@@ -1,7 +1,7 @@
 // availity-reactstrap-validation
 import { AvField, AvForm } from "availity-reactstrap-validation"
 import PropTypes from 'prop-types'
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 // Redux
 import { connect, useDispatch, useSelector } from "react-redux"
 import { Link, withRouter } from "react-router-dom"
@@ -17,7 +17,9 @@ import { Redirect } from "react-router-dom";
 const Login = (props) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.Login)
+  const [loginChange, setLoginChange] = useState(false)
   useEffect(() => {
+    localStorage.removeItem("username")
     document.body.className = "authentication-bg";
     // remove classname when component will unmount
     return function cleanup() {
@@ -25,10 +27,16 @@ const Login = (props) => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   const checkLogin = localStorage.getItem("login")
+  //   console.log(checkLogin)
+  // }, [loginChange])
+
   if (user?.data?.token) {
     console.log("user", user)
     return <Redirect to="/" />;
   }
+
 
   return (
     <React.Fragment>
@@ -51,8 +59,6 @@ const Login = (props) => {
                   <div className="p-2">
                     <Formik
                       initialValues={{
-                        // connectId: "",
-                        // connectKey: ""
                         username: "",
                         password: ""
                       }}

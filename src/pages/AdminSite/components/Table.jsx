@@ -43,6 +43,7 @@ export const TableData = (props) => {
               </thead>
               <tbody className="text-center">
                 {data && data?.map((item, index) => <Item key={index} data={item} styleTH={styleTH} />)}
+                {data && data.length === 0 && <tr><th colSpan="12" className="text-center">Không tìm thấy kết quả thỏa mãn điều kiện</th></tr>}
               </tbody>
             </Table>
           </div>

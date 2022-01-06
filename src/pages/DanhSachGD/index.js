@@ -65,15 +65,7 @@ const DanhSachGD = () => {
           <Card>
             <CardBody style={{ backgroundColor: "#FFF" }}>
               <Formik
-                initialValues={{
-                  hospitalType: null,
-                  channelType: null,
-                  serviceCode: null,
-                  orderInfo: "",
-                  startDate: moment().subtract(1, "month").format("YYYY-MM-DD"),
-                  endDate: moment().format("YYYY-MM-DD"),
-                  statusSys: ""
-                }}
+                initialValues={initialValues}
                 onSubmit={(values) => {
                   if (!values?.startDate || !values?.endDate) {
                     toast.error('Từ ngày và Đến ngày không được bỏ trống', {
@@ -196,7 +188,7 @@ const DanhSachGD = () => {
                         type="submit"
                         id="btn-tra-cuuDC"
                         onClick={() => {
-                          const paramExport = checkKeyNull({ ...params, export: "N0_PAGE", startDate: propsFormik.values.startDate, endDate: propsFormik.values.endDate })
+                          const paramExport = checkKeyNull({ ...params, export: "NO_PAGE", startDate: propsFormik.values.startDate, endDate: propsFormik.values.endDate })
                           if (paramExport?.endDate === undefined || paramExport?.startDate === undefined) {
                             toast.error('Từ ngày và Đến ngày không được bỏ trống', {
                               position: "top-right",

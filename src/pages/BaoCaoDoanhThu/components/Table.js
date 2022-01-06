@@ -51,6 +51,7 @@ export const TableData = ({ data, setPageSize, pageSize }) => {
                     <th className="text-end">{new Intl.NumberFormat().format(item?.amount)} ₫</th>
                   </tr>
                 ))}
+                {data?.data && data?.data.length === 0 && <Tr><Th colSpan="13" className="text-center">Không tìm thấy kết quả thỏa mãn điều kiện</Th></Tr>}
               </Tbody>
             </Table>
           </div>

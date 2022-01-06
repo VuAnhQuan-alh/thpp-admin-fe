@@ -11,20 +11,21 @@ import BaoCaoDoanhThu from "../pages/BaoCaoDoanhThu"
 import Pages404 from "../pages/Utility/pages-404"
 import Pages500 from "../pages/Utility/pages-500"
 import AdminSite from "../pages/AdminSite"
+import NotAuth from "../pages/NotAuth"
 
 
 const userRoutes = [
-  { path: "/Doi-soat-giao-dich/:id", component: DoiSoatGD },
-  { path: "/Doi-soat-giao-dich", component: DoiSoatGD },
-  { path: "/Danh-sach-giao-dich", component: DanhSachGD },
-  { path: "/Bao-cao-doanh-thu", component: BaoCaoDoanhThu },
-  { path: "/Quan-tri", component: AdminSite },
+  { path: "/Doi-soat-giao-dich/:id", component: DoiSoatGD, role: "TRANSACTION_CONTROL", not: NotAuth },
+  { path: "/Doi-soat-giao-dich", component: DoiSoatGD, role: "TRANSACTION_CONTROL", not: NotAuth },
+  { path: "/Danh-sach-giao-dich", component: DanhSachGD, role: "TRANSACTION_LIST", not: NotAuth },
+  { path: "/Bao-cao-doanh-thu", component: BaoCaoDoanhThu, role: "SALES_REPORT", not: NotAuth },
+  { path: "/Quan-tri", component: AdminSite, role: "ADMINISTRATION", not: NotAuth },
 
   // //profile
   // { path: "/profile", component: UserProfile },
 
   // this route should be at the end of all other routes
-  { path: "/", exact: true, component: () => <Redirect to="/Doi-soat-giao-dich" /> },
+  { path: "/", exact: true, component: () => <Redirect to="/Doi-soat-giao-dich" />, not: () => <Redirect to="/Doi-soat-giao-dich" /> },
 ]
 
 const authRoutes = [

@@ -44,7 +44,6 @@ const DanhSachGD = () => {
           } else {
             setData({ data: [], meta: 1 });
           }
-
         },
         response: res,
       })
@@ -52,16 +51,16 @@ const DanhSachGD = () => {
   }
 
   React.useEffect(() => {
-    setParams(checkKeyNull(initialValues))
     seo({
       title: "Báo Cáo Doanh Thu",
       metaDescription: "True Hope Admin"
     })
+    setParams(initialValues)
   }, [])
 
   useEffect(() => {
     CallDanhSachGD();
-  }, [pageSize])
+  }, [pageSize, params])
 
   return (
     <React.Fragment>
@@ -187,7 +186,7 @@ const DanhSachGD = () => {
                           type="submit"
                           id="btn-tra-cuuDC"
                           onClick={() => {
-                            const paramExport = { ...params, export: "N0_PAGE" }
+                            const paramExport = { ...params, export: "NO_PAGE" }
                             if (paramExport?.fromDate === undefined || paramExport?.toDate === undefined) {
                               toast.error('Từ ngày và Đến ngày không được bỏ trống', {
                                 position: "top-right",

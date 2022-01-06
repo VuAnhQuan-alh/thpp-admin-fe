@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import React, { useEffect, useRef, useCallback } from "react"
+import React, { useEffect, useRef, useCallback, useState } from "react"
 
 // //Import Scrollbar
 import SimpleBar from "simplebar-react"
@@ -8,11 +8,11 @@ import SimpleBar from "simplebar-react"
 import MetisMenu from "metismenujs"
 import { withRouter } from "react-router-dom"
 import { Link } from "react-router-dom"
-
 //i18n
 import { withTranslation } from "react-i18next"
 
 const SidebarContent = props => {
+  const [dataUser, setDataUser] = useState([])
   const ref = useRef()
   const activateParentDropdown = useCallback((item) => {
     item.classList.add("active")
@@ -78,6 +78,7 @@ const SidebarContent = props => {
       }
     }
   }
+
   return (
     <React.Fragment>
       <SimpleBar ref={ref} className="vertical-simplebar">

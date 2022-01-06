@@ -1,4 +1,4 @@
-import { profile, signin, signup, userSearch, userUpdate } from "../../constrains/apiURL";
+import { profile, signin, signup, userSearch, userSync, userUpdate } from "../../constrains/apiURL";
 import httpServices from "../httpServices";
 
 export const apiSignin = async (body) => {
@@ -17,4 +17,8 @@ export const apiGetUsers = async (body = {}) => {
 
 export const apiUpdateUser = async (body = {}) => {
   return await httpServices.put(`${userUpdate}`, body, {});
+}
+
+export const apiSyncUser = async () => {
+  return await httpServices.get(`${userSync}`, {}, {})
 }

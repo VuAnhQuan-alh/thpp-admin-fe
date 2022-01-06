@@ -1,50 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { checkKeyNull } from '../../../helpers/functions'
 import { apiUpdateUser } from '../../../services/apiFunction/Authen'
 
 const Item = ({ data, styleTH }) => {
-  const [user, setUser] = React.useState({})
-  const iptEl = React.useRef(null)
-  const [onChange, setOnChange] = React.useState(false)
-  const [fControl, setFControl] = React.useState("")
-  const [invoice, setInvoice] = React.useState("")
-  const [sales, setSales] = React.useState("")
-  const [admin, setAdmin] = React.useState("")
-  const [status, setStatus] = React.useState("")
+  const [user, setUser] = useState({})
+  const iptEl = useRef(null)
+  const [onChange, setOnChange] = useState(false)
+  const [status, setStatus] = useState("")
+  const [roles, setRoles] = useState([])
+  const [upd, setUpd] = useState(+localStorage.getItem("updated") || 2)
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setRoles(data?.roles)
     setUser(data)
-    setStatus(data?.enable || false)
-    setAdmin(data?.administration || "0")
-    setSales(data?.saleReport || "0")
-    setInvoice(data?.transactionlist || "0")
-    setFControl(data?.transactioncontrol || "0")
   }, [data])
-  // console.log(user)
-  const updateUser = () => {
-    const body = {
-      ...user,
-      enable: status,
-      administration: admin,
-      saleReport: sales,
-      transactionlist: invoice,
-      transactioncontrol: fControl
+  const changeRoles = (role) => {
+    let result = []
+    if (roles.includes(role)) {
+      result = roles.filter(i => i !== role)
+    } else {
+      result = [...roles, role]
     }
-    // console.log(checkKeyNull(body))
-    apiUpdateUser(checkKeyNull(body)).then(res => {
-      console.log(res)
-    })
+    setRoles(result)
+  }
+  const checkRoles = role => roles.includes(role)
+  const updateUser = (isChange) => {
+    const body = [{
+      username: data?.username,
+      roles: roles
+    }]
+    apiUpdateUser(body)
+      .then(() => {
+        localStorage.setItem('updated', isChange)
+      })
+      .then(() => {
+        console.log("oke")
+        toast.success('Cập nhật quyền truy cập thành công', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      })
   }
 
   return (
     <>
       <tr>
         <th>
+          <ToastContainer />
           <div style={{ width: "70px", textAlign: "center" }}>
             <button
               className={onChange ? "btn btn-sm btn-primary" : "btn btn-sm btn-secondary"}
               onClick={() => {
-                if (onChange) updateUser()
+                if (onChange) {
+                  setUpd(upd + 1)
+                  updateUser(upd + 1)
+                }
                 setOnChange(!onChange)
               }}>
               {onChange ? "Update" : "Edit"}
@@ -62,36 +79,40 @@ const Item = ({ data, styleTH }) => {
         <td style={styleTH}>{user?.firstSync ? "True" : "False"}</td>
         <td>
           <input
+            style={{ cursor: "pointer" }}
             type="checkbox"
-            checked={fControl === "1"}
-            onClick={() => setFControl(fControl === "0" ? "1" : "0")}
+            checked={checkRoles("TRANSACTION_CONTROL")}
+            onClick={() => changeRoles("TRANSACTION_CONTROL")}
             disabled={!onChange}
             className="form-check-input"
           />
         </td>
         <td>
           <input
+            style={{ cursor: "pointer" }}
             type="checkbox"
-            checked={invoice === "1"}
-            onClick={() => setInvoice(invoice === "0" ? "1" : "0")}
+            checked={checkRoles("TRANSACTION_LIST")}
+            onClick={() => changeRoles("TRANSACTION_LIST")}
             disabled={!onChange}
             className="form-check-input"
           />
         </td>
         <td>
           <input
+            style={{ cursor: "pointer" }}
             type="checkbox"
-            checked={sales === "1"}
-            onClick={() => setSales(sales === "0" ? "1" : "0")}
+            checked={checkRoles("SALES_REPORT")}
+            onClick={() => changeRoles("SALES_REPORT")}
             disabled={!onChange}
             className="form-check-input"
           />
         </td>
         <td>
           <input
+            style={{ cursor: "pointer" }}
             type="checkbox"
-            checked={admin === "1"}
-            onClick={() => setAdmin(admin === "0" ? "1" : "0")}
+            checked={checkRoles("ADMINISTRATION")}
+            onClick={() => changeRoles("ADMINISTRATION")}
             disabled={!onChange}
             className="form-check-input"
           />
