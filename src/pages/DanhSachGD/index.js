@@ -79,7 +79,7 @@ const DanhSachGD = () => {
                     });
                   } else {
                     setParams(checkKeyNull(values));
-                    setPageSize({ ...pageSize, page: 1, size: 10 })
+                    setPageSize({ ...pageSize, page: 1 })
                   }
                 }}
               >

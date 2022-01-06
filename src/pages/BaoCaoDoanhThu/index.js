@@ -37,7 +37,13 @@ const DanhSachGD = () => {
           setData({ data: [], meta: { totalPage: 1 } });
         },
         onSuccess: (response) => {
-          setData({ data: response?.data?.data, meta: response?.data?.data[0]?.totalElement });
+          const data = response.data.data
+
+          if (data?.length) {
+            setData({ data: response.data.data, meta: response.data.data[0].totalElement });
+          } else {
+            setData({ data: [], meta: 1 });
+          }
         },
         response: res,
       })
@@ -85,7 +91,7 @@ const DanhSachGD = () => {
                     });
                   } else {
                     setParams(checkKeyNull(values));
-                    setPageSize({ ...pageSize, page: 1, size: 10 })
+                    setPageSize({ ...pageSize, page: 1 })
                   }
                 }}
               >
