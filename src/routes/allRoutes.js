@@ -48,7 +48,7 @@ const userRoutes = [
     path: "/",
     exact: true,
     component: () => <Redirect to="/Doi-soat-giao-dich" />,
-    not: NotAuth,
+    not: () => <Redirect to="/Doi-soat-giao-dich" />,
   },
 ];
 
