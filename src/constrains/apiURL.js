@@ -1,4 +1,4 @@
-export const URL = 'http://54.251.216.104:8080';
+export const URL = 'https://b354-54-251-216-104.ap.ngrok.io';
 export const STATUS = {
   success: [200, 201, 204],
   auth: [401],

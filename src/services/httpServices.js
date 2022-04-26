@@ -10,7 +10,7 @@ class Services {
     this.axios.defaults.timeout = 300000;
     // this.axios.defaults.headers.common["Content-Type"] = `application/json`;
     this.axios.defaults.headers = {
-      "Content-Security-Policy": "upgrade-insecure-requests",
+      // "Content-Security-Policy": "upgrade-insecure-requests",
       "Access-Control-Allow-Headers": "*",
       "Access-Control-Allow-Methods": "*",
       // "Access-Control-Allow-Credentials": true,
