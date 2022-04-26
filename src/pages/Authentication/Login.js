@@ -1,18 +1,16 @@
 // availity-reactstrap-validation
-import { AvField, AvForm } from "availity-reactstrap-validation"
+import { Field, Form, Formik } from "formik"
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from "react"
 // Redux
 import { connect, useDispatch, useSelector } from "react-redux"
-import { Link, withRouter } from "react-router-dom"
-import { Alert, Col, Container, Row } from "reactstrap"
+import { Link, Redirect, withRouter } from "react-router-dom"
+import { Col, Container, Row } from "reactstrap"
 // import images
 import logo from "../../assets/images/logo-sm-dark.png"
+import InputField from "../../components/InputField"
 // actions
 import { apiError, loginUser } from "../../store/actions"
-import { Field, Form, Formik } from "formik";
-import InputField from "../../components/InputField";
-import { Redirect } from "react-router-dom";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -32,10 +30,10 @@ const Login = (props) => {
   //   console.log(checkLogin)
   // }, [loginChange])
 
-  if (user?.data?.token) {
-    console.log("user", user)
-    return <Redirect to="/" />;
-  }
+  // if (user?.data?.token) {
+  //   console.log("user", user)
+  //   return <Redirect to="/" />;
+  // }
 
 
   return (
@@ -66,7 +64,7 @@ const Login = (props) => {
                         dispatch(loginUser(values))
                       }}
                     >
-                      {({ }) => (
+                      {() => (
                         <Form>
                           <Field
                             component={InputField}

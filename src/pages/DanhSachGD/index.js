@@ -121,7 +121,8 @@ const DanhSachGD = () => {
                       <div className="col-md-3">
                         <Field
                           name="serviceCode"
-                          component={SelectDV}
+                          // component={SelectDV}
+                          component={InputField}
                           title="Dịch vụ"
                         />
                       </div>

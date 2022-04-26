@@ -20,14 +20,9 @@ import exportFile from '../../services/apiFunction/exportFile';
 import moment from 'moment';
 
 const DoiSoatGD = () => {
-  React.useEffect(() => {
-    setParams(initialValues);
-  }, []);
   const [pageSize, setPageSize] = useState({ page: 1, size: 10 });
-  const [params, setParams] = useState({});
-  const [data, setData] = useState([]);
   const trans = window.localStorage.getItem('txnRef');
-  const initialValues = {
+  const [params, setParams] = useState({
     hospitalType: null,
     customerName: '',
     startDate: moment().subtract(1, 'month').format('YYYY-MM-DD'),
@@ -35,7 +30,9 @@ const DoiSoatGD = () => {
     txnRef: trans,
     gatewayCode: null,
     statusSys: null,
-  };
+  });
+  const [data, setData] = useState([]);
+
 
   React.useEffect(() => {
     if (trans !== null) {
@@ -58,7 +55,7 @@ const DoiSoatGD = () => {
   }, [pageSize, params]);
 
   React.useEffect(() => {
-    setParams(checkKeyNull(initialValues));
+    setParams(checkKeyNull(params));
     seo({
       title: 'Danh Sách Đối Soát Giao Dịch',
       metaDescription: 'True Hope Admin',
@@ -86,7 +83,7 @@ const DoiSoatGD = () => {
           <Card>
             <CardBody style={{ backgroundColor: '#FFF' }}>
               <Formik
-                initialValues={initialValues}
+                initialValues={params}
                 onSubmit={(values) => {
                   if (!values?.startDate || !values?.endDate) {
                     toast.error('Từ ngày và Đến ngày không được bỏ trống', {

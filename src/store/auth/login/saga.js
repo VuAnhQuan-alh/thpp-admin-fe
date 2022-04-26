@@ -13,10 +13,11 @@ function* loginUser({ payload }) {
   try {
     const response = yield call(apiSignin, payload);
     if (response.status === 200) {
-      httpServices.attachTokenToHeader(response.data.token)
-      localStorage.setItem("authUser", response.data.token)
+      console.log(response)
+      httpServices.attachTokenToHeader(response.data.data.token)
+      localStorage.setItem("authUser", response.data.data.token)
       localStorage.setItem("username", payload?.username)
-      yield put(loginSuccess(response.data.data))
+      yield put(loginSuccess(response.data))
     } else {
       yield put(apiError(response.data))
     }
