@@ -1,4 +1,4 @@
-export const URL = 'salty-mountain-98839.herokuapp.com';
+export const URL = 'http://salty-mountain-98839.herokuapp.com';
 export const STATUS = {
   success: [200, 201, 204],
   auth: [401],
