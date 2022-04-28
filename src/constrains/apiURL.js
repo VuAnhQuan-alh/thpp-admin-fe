@@ -1,4 +1,4 @@
-export const URL = 'http://salty-mountain-98839.herokuapp.com';
+export const URL = 'http://210.245.85.229:8008';
 export const STATUS = {
   success: [200, 201, 204],
   auth: [401],
